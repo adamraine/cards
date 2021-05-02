@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react';
-import {SignIn, SignOut} from './Login';
+import {SignIn, SignOut} from '../components/Login';
 
 jest.mock('firebase/app');
 

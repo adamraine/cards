@@ -1,9 +1,9 @@
 import {render, screen} from '@testing-library/react';
-import App from './App';
+import App from '../components/App';
 
 jest.mock('react-firebase-hooks/auth');
-jest.mock('./Login.js');
-jest.mock('./Deck.js');
+jest.mock('../components/Login');
+jest.mock('../components/Deck');
 
 /** @type {firebase.default.User} */
 let user;
@@ -12,14 +12,14 @@ beforeEach(() => {
   require('react-firebase-hooks/auth').useAuthState = () => {
     return [user];
   }
-  const login = require('./Login');
+  const login = require('../components/Login');
   login.SignIn = () => {
     return <div>SIGNIN</div>;
   }
   login.SignOut = () => {
     return <div>SIGNOUT</div>;
   }
-  require('./Deck.js').Deck = () => {
+  require('../components/Deck').Deck = () => {
     return <div>DECK</div>;
   }
 })

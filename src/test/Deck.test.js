@@ -5,6 +5,7 @@ import {Deck} from '../components/Deck';
 jest.mock('firebase/app');
 jest.mock('react-firebase-hooks/firestore');
 jest.mock('../components/Card');
+jest.mock('../components/CardCreator');
 
 /** @type {Data<firebase.default.firestore.DocumentData, '', ''>[]} */
 let mockCards;
@@ -20,6 +21,8 @@ beforeEach(() => {
   
   require('../components/Card').Card
     = jest.fn().mockImplementation(args => <div>{args.data.text}</div>);
+  require('../components/CardCreator').CardCreator
+    = jest.fn().mockReturnValue(<div>CREATOR</div>);
 });
 
 it('creates list if cards', () => {
@@ -30,10 +33,16 @@ it('creates list if cards', () => {
   render(<Deck/>);
   const cards = screen.queryAllByText(/CARD/);
   expect(cards).toHaveLength(2);
+  
+  const cardCreator = screen.queryByText(/CREATOR/);
+  expect(cardCreator).toBeInTheDocument();
 });
 
 it('does not creat cards if query returns none', () => {
   render(<Deck/>);
   const cards = screen.queryAllByText(/CARD/);
   expect(cards).toHaveLength(0);
+
+  const cardCreator = screen.queryByText(/CREATOR/);
+  expect(cardCreator).toBeInTheDocument();
 })

@@ -22,7 +22,7 @@ beforeEach(() => {
   require('../components/Deck').Deck = () => {
     return <div>DECK</div>;
   }
-})
+});
 
 it('renders sign in button when not signed in', () => {
   render(<App/>);

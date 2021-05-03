@@ -1,22 +1,18 @@
 import {render, screen} from '@testing-library/react';
+import {mockAuth} from './mock-firebase';
 import {SignIn, SignOut} from '../components/Login';
 
 jest.mock('firebase/app');
 
-/** @type {firebase.default.auth.Auth} */
-const auth = {
-  signInWithPopup: jest.fn(),
-  signOut: jest.fn(),
-  currentUser: {
-    displayName: 'DISPLAYNAME',
-    email: 'EMAIL',
-  }
-}
-
 beforeEach(() => {
-  const firebase = require('firebase/app');
-  firebase.auth = () => auth;
-  firebase.auth.GoogleAuthProvider = class {name = 'GAP'};
+  Object.assign(mockAuth, {
+    signInWithPopup: jest.fn(), 
+    signOut: jest.fn(),
+    currentUser: {
+      displayName: 'DISPLAYNAME',
+      email: 'EMAIL',
+    },
+  });
 });
 
 describe('SignIn', () => {
@@ -27,7 +23,7 @@ describe('SignIn', () => {
     expect(signInButton).toBeInTheDocument();
 
     signInButton.click();
-    expect(auth.signInWithPopup).toBeCalledWith({name: 'GAP'});
+    expect(mockAuth.signInWithPopup).toBeCalledWith({providerId: 'google.com'});
   });
 });
 
@@ -43,6 +39,6 @@ describe('SignOut', () => {
     expect(signOutButton).toBeInTheDocument();
 
     signOutButton.click();
-    expect(auth.signOut).toBeCalled();
+    expect(mockAuth.signOut).toBeCalled();
   });
 });

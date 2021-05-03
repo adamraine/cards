@@ -42,3 +42,16 @@
   right: 0;
   top: 0;
 }
+
+.CardCreator {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #2F2F2F;
+}
+
+.CardCreator form {
+  padding: 10px;
+}

@@ -37,6 +37,11 @@
   padding: 10px;
 }
 
+.Card img {
+  height: 500px;
+  width: 500px;
+}
+
 .Card > button {
   position: absolute;
   right: 0;

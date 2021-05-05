@@ -16,7 +16,7 @@ export function Deck() {
 
   return (
     <div className="Deck">
-      {userCards && userCards.map(card => <Card key={card.id} data={card}/>)}
+      {userCards && userCards.filter(card => card.uid).map(card => <Card key={card.id} data={card}/>)}
       <CardCreator/>
     </div>
   )

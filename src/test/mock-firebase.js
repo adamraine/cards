@@ -2,6 +2,7 @@ import * as firebaseMock from 'firebase-mock';
 
 const mockAuth = new firebaseMock.MockAuthentication();
 const mockFirestore = new firebaseMock.MockFirestore();
+const mockStorage = new firebaseMock.MockStorage();
 const mockSDK = new firebaseMock.MockFirebaseSdk(
   // RTDB
   () => {
@@ -17,7 +18,7 @@ const mockSDK = new firebaseMock.MockFirebaseSdk(
   },
   // STORAGE
   () => {
-    return null;
+    return mockStorage;
   },
   // MESSAGING
   () => {
@@ -30,5 +31,6 @@ Object.assign(require('firebase/app'), mockSDK);
 export {
   mockAuth,
   mockFirestore,
+  mockStorage,
   mockSDK,
 };

@@ -27,8 +27,8 @@ beforeEach(() => {
 
 it('creates list if cards', () => {
   mockCards = [
-    {id: '1', text: 'CARD1'},
-    {id: '2', text: 'CARD2'},
+    {id: '1', text: 'CARD1', uid: 'A'},
+    {id: '2', text: 'CARD2', uid: 'B'},
   ];
   render(<Deck/>);
   const cards = screen.queryAllByText(/CARD/);
@@ -36,6 +36,16 @@ it('creates list if cards', () => {
   
   const cardCreator = screen.queryByText(/CREATOR/);
   expect(cardCreator).toBeInTheDocument();
+});
+
+it('ignores card with no uid', () => {
+  mockCards = [
+    {id: '1', text: 'CARD1'},
+    {id: '2', text: 'CARD2', uid: 'B'},
+  ];
+  render(<Deck/>);
+  const cards = screen.queryAllByText(/CARD/);
+  expect(cards).toHaveLength(1);
 });
 
 it('does not creat cards if query returns none', () => {

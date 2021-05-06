@@ -20,15 +20,15 @@ let mockChild;
 beforeEach(() => {
   mockAuth.currentUser = {
     uid: 'USERID',
-  }
+  };
   
   mockDock = {
     id: 'DOCID',
     set: jest.fn(),
-  }
+  };
   mockCollection = {
     doc: jest.fn().mockReturnValue(mockDock),
-  }
+  };
   mockFirestore.collection = jest.fn().mockReturnValue(mockCollection);
   
   mockChild = {
@@ -46,7 +46,7 @@ it('updates text state on change', () => {
   
   act(() => {
     input.simulate('change', {target: {value: 'NEWVALUE'}});
-  })
+  });
 
   expect(cardCreator.state().text).toEqual('NEWVALUE');
 });
@@ -57,7 +57,7 @@ it('updates image state on change', () => {
   
   act(() => {
     input.simulate('change', {target: {files: ['NEWVALUE']}});
-  })
+  });
 
   expect(cardCreator.state().image).toEqual('NEWVALUE');
 });
@@ -78,7 +78,7 @@ it('adds new card when button clicked', async () => {
     createCardButton.simulate('submit', {preventDefault: jest.fn()});
   });
 
-  await new Promise(setImmediate);
+  await Promise.resolve();
 
   expect(mockCollection.doc).toHaveBeenCalled();
   expect(mockDock.set).toHaveBeenCalledWith({

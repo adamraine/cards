@@ -20,5 +20,5 @@ export function Deck() {
       {userCards && userCards.filter(card => card.uid).map(card => <Card key={card.id} data={card}/>)}
       <CardCreator/>
     </div>
-  )
+  );
 }

@@ -20,19 +20,19 @@ export class CardCreator extends Component {
     this.state = {
       text: '',
       image: null,
-    }
+    };
     /**
      * @param {string} text 
      */
     this.updateText = (text) => {
       this.setState(s => ({...s, text}));
-    }
+    };
     /**
      * @param {File} image 
      */
     this.updateImage = (image) => {
       this.setState(s => ({...s, image}));
-    }
+    };
 
     /**
      * @type {React.FormEventHandler<HTMLFormElement>}

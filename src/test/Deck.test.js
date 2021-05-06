@@ -4,6 +4,7 @@ import {mockAuth} from './mock-firebase';
 import {Deck} from '../components/Deck';
 import {Card} from '../components/Card';
 import {CardCreator} from '../components/CardCreator';
+import * as reactHooksFirestore from 'react-firebase-hooks/firestore';
 
 jest.mock('firebase/app');
 jest.mock('react-firebase-hooks/firestore');
@@ -17,7 +18,7 @@ beforeEach(() => {
   };
   
   mockCards = null;
-  require('react-firebase-hooks/firestore').useCollectionData
+  reactHooksFirestore.useCollectionData
     = jest.fn().mockImplementation(() => [mockCards]);
 });
 
@@ -52,4 +53,4 @@ it('does not creat cards if query returns none', () => {
 
   expect(cards).toHaveLength(0);
   expect(cardCreator).toHaveLength(1);
-})
+});

@@ -16,11 +16,11 @@ let mockChild;
 beforeEach(() => {
   mockDoc = {
     delete: jest.fn(),
-  }
+  };
   mockChild = {
     getDownloadURL: jest.fn().mockReturnValue(Promise.resolve('URL')),
     delete: jest.fn(),
-  }
+  };
   mockStorageRef = {
     child: jest.fn().mockReturnValue(mockChild),
   };
@@ -34,7 +34,7 @@ it('renders properly', async () => {
   const card = shallow(<Card data={{text: 'TEXT', id: 'ID', uid: 'UID'}}/>);
   
   expect(mockStorageRef.child).toHaveBeenCalledWith('images/UID/ID');
-  await new Promise(setImmediate);
+  await Promise.resolve();
   expect(card.state().url).toEqual('URL');
 });
 
@@ -44,9 +44,9 @@ it('handles delete button push', async () => {
 
   act(() => {
     deleteButton.simulate('click');
-  })
+  });
   
-  await new Promise(setImmediate);
+  await Promise.resolve();
 
   expect(mockDoc.delete).toHaveBeenCalled();
   expect(mockChild.delete).toHaveBeenCalled();

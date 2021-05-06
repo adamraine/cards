@@ -37,7 +37,7 @@ describe('SignOut', () => {
 
     act(() => {
       button.simulate('click');
-    })
+    });
 
     expect(mockAuth.signOut).toBeCalled();
   });

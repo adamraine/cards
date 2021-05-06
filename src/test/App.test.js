@@ -3,6 +3,7 @@ import {shallow} from 'enzyme';
 import App from '../components/App';
 import {SignIn, SignOut} from '../components/Login';
 import {Deck} from '../components/Deck';
+import * as reactHooksAuth from 'react-firebase-hooks/auth';
 
 jest.mock('react-firebase-hooks/auth');
 
@@ -10,9 +11,9 @@ jest.mock('react-firebase-hooks/auth');
 let user;
 
 beforeEach(() => {
-  require('react-firebase-hooks/auth').useAuthState = () => {
+  reactHooksAuth.useAuthState = () => {
     return [user];
-  }
+  };
 });
 
 it('renders sign in button when not signed in', () => {

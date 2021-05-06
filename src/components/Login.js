@@ -7,10 +7,10 @@ export function SignIn() {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
-  }
+  };
   return (
     <button onClick={signInWithGoogle}>Sign in with Google</button>
-  )
+  );
 }
 
 export function SignOut() {
@@ -21,5 +21,5 @@ export function SignOut() {
       <span>{auth.currentUser.displayName}</span>
       <span>({auth.currentUser.email})</span>
     </>
-  )
+  );
 }

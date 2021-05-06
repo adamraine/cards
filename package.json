@@ -6,7 +6,8 @@
     "dev": "webpack serve --mode=development",
     "prod": "webpack serve --mode=production",
     "build": "webpack build",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src"
   },
   "babel": {
     "plugins": [
@@ -38,6 +39,9 @@
     "css-loader": "^5.2.4",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
+    "eslint": "^7.25.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-react": "^7.23.2",
     "firebase": "^8.4.3",
     "firebase-mock": "^2.3.2",
     "html-webpack-plugin": "^5.3.1",

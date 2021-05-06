@@ -1,4 +1,5 @@
 import * as firebaseMock from 'firebase-mock';
+import firebase from 'firebase/app';
 
 const mockAuth = new firebaseMock.MockAuthentication();
 const mockFirestore = new firebaseMock.MockFirestore();
@@ -26,7 +27,7 @@ const mockSDK = new firebaseMock.MockFirebaseSdk(
   }
 );
 
-Object.assign(require('firebase/app'), mockSDK);
+Object.assign(firebase, mockSDK);
 
 export {
   mockAuth,

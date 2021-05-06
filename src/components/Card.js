@@ -13,7 +13,7 @@ export class Card extends Component {
     this.id = props.data.id;    
     this.state = {
       url: '',
-    }
+    };
 
     /** @type {string} */
     const uid = props.data.uid;    
@@ -41,7 +41,7 @@ export class Card extends Component {
     this.deleteCard = async () => {
       await imageRef.delete();
       await cards.doc(id).delete();
-    }
+    };
   }
 
   render() {

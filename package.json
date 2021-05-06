@@ -15,7 +15,6 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-firebase-hooks": "^3.0.4",
-    "react-scripts": "4.0.3",
     "style-loader": "^2.0.0",
     "web-vitals": "^1.0.1",
     "webpack": "^5.36.2"
@@ -38,26 +37,7 @@
     "dev": "webpack serve --mode=development",
     "prod": "webpack serve --mode=production",
     "build": "webpack build",
-    "test": "jest",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "test": "jest"
   },
   "jest": {
     "moduleNameMapper": {

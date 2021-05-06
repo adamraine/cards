@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-import {Component} from 'react';
+import React, {Component} from 'react';
 
 export class Card extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export class Card extends Component {
     const imageRef = storage.child(`images/${uid}/${id}`);
     imageRef.getDownloadURL().then(url => {
       if (mounted) {
-        this.setState({url})
+        this.setState({url});
       } else {
         this.state.url = url;
       }

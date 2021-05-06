@@ -1,3 +1,4 @@
+import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {mockAuth} from './mock-firebase';
 import {SignIn, SignOut} from '../components/Login';

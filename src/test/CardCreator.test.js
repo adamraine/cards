@@ -1,49 +1,92 @@
-import {render, screen, fireEvent} from '@testing-library/react';
-import {mockAuth, mockFirestore} from './mock-firebase';
+import React from 'react';
+import {act} from '@testing-library/react';
+import {mockAuth, mockFirestore, mockStorage} from './mock-firebase';
+import {shallow, mount} from 'enzyme';
 import {CardCreator} from '../components/CardCreator';
 
+jest.useFakeTimers();
 jest.mock('firebase/app');
-jest.mock('react');
 jest.mock('react-firebase-hooks/firestore');
 
-/** @type {React.Dispatch<React.SetStateAction<string>>} */
-let setFormValue;
 /** @type {firebase.default.firestore.CollectionReference<firebase.default.firestore.DocumentData>} */
 let mockCollection;
+/** @type {firebase.default.firestore.DocumentReference<firebase.default.firestore.DocumentData>} */
+let mockDock;
+/** @type {firebase.default.storage.Reference} */
+let mockStorageRef;
+/** @type {firebase.default.storage.Reference} */
+let mockChild;
 
 beforeEach(() => {
   mockAuth.currentUser = {
     uid: 'USERID',
   }
   
+  mockDock = {
+    id: 'DOCID',
+    set: jest.fn(),
+  }
   mockCollection = {
-    add: jest.fn(),
+    doc: jest.fn().mockReturnValue(mockDock),
   }
   mockFirestore.collection = jest.fn().mockReturnValue(mockCollection);
-
-  setFormValue = jest.fn();
-  require('react').useState
-    = jest.fn().mockReturnValue(['FORMVALUE', setFormValue]);
+  
+  mockChild = {
+    put: jest.fn(),
+  };
+  mockStorageRef = {
+    child: jest.fn().mockReturnValue(mockChild),
+  };
+  mockStorage.ref = jest.fn().mockReturnValue(mockStorageRef);
 });
 
-it('updates state on change', () => {
-  render(<CardCreator/>);
-  const input = screen.queryByDisplayValue(/FORMVALUE/);
-  expect(input).toBeInTheDocument();
+it('updates text state on change', () => {
+  const cardCreator = shallow(<CardCreator/>);
+  const input = cardCreator.find('input[type="text"]');
   
-  fireEvent.change(input, {target: {value: 'NEWVALUE'}});
-  expect(setFormValue).toHaveBeenCalledWith('NEWVALUE');
+  act(() => {
+    input.simulate('change', {target: {value: 'NEWVALUE'}});
+  })
+
+  expect(cardCreator.state().text).toEqual('NEWVALUE');
 });
 
-it('adds new card when button clicked', () => {
-  render(<CardCreator/>);
-  const createCardButton = screen.queryByText(/Create card/);
-  expect(createCardButton).toBeInTheDocument();
+it('updates image state on change', () => {
+  const cardCreator = shallow(<CardCreator/>);
+  const input = cardCreator.find('input[type="file"]');
   
-  createCardButton.click();
-  expect(mockCollection.add).toHaveBeenCalledWith({
+  act(() => {
+    input.simulate('change', {target: {files: ['NEWVALUE']}});
+  })
+
+  expect(cardCreator.state().image).toEqual('NEWVALUE');
+});
+
+it('adds new card when button clicked', async () => {
+  const cardCreator = mount(<CardCreator/>);
+
+  const createCardButton = cardCreator.find('button[type="submit"]');
+  const textInput = cardCreator.find('input[type="text"]');
+  const imageInput = cardCreator.find('input[type="file"]');
+  
+  act(() => {
+    textInput.simulate('change', {target: {value: 'FORMVALUE'}});
+    imageInput.simulate('change', {target: {files: ['IMAGEVALUE']}});
+  });
+  
+  act(() => {
+    createCardButton.simulate('submit', {preventDefault: jest.fn()});
+  });
+
+  await new Promise(setImmediate);
+
+  expect(mockCollection.doc).toHaveBeenCalled();
+  expect(mockDock.set).toHaveBeenCalledWith({
     text: 'FORMVALUE',
     createdAt: {type: 'serverTimestamp'},
     uid: 'USERID',
   });
+  
+  expect(mockStorageRef.child).toHaveBeenCalledWith('images/USERID/DOCID');
+  expect(mockChild.put).toHaveBeenCalledWith('IMAGEVALUE');
 });

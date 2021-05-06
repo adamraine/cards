@@ -1,8 +1,8 @@
 import React from 'react';
+import {act} from '@testing-library/react';
 import {shallow} from 'enzyme';
 import {mockFirestore, mockStorage} from './mock-firebase';
 import {Card} from '../components/Card';
-import { act } from '@testing-library/react';
 
 jest.mock('firebase/app');
 

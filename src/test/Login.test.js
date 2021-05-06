@@ -1,5 +1,6 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {act} from '@testing-library/react';
+import {shallow} from 'enzyme';
 import {mockAuth} from './mock-firebase';
 import {SignIn, SignOut} from '../components/Login';
 
@@ -18,28 +19,26 @@ beforeEach(() => {
 
 describe('SignIn', () => {
   it('opens popup to sign in', () => {
-    render(<SignIn/>);
+    const signIn = shallow(<SignIn/>);
+    const button = signIn.find('button');
 
-    const signInButton = screen.queryByText(/Sign in with Google/);
-    expect(signInButton).toBeInTheDocument();
+    act(() => {
+      button.simulate('click');
+    });
 
-    signInButton.click();
     expect(mockAuth.signInWithPopup).toBeCalledWith({providerId: 'google.com'});
   });
 });
 
 describe('SignOut', () => {
   it('signs out when button clicked', () => {
-    render(<SignOut/>);
+    const signOut = shallow(<SignOut/>);
+    const button = signOut.find('button');
 
-    const displayName = screen.queryByText(/DISPLAYNAME/);
-    const email = screen.queryByText(/EMAIL/);
-    const signOutButton = screen.queryByText(/Sign Out/);
-    expect(displayName).toBeInTheDocument();
-    expect(email).toBeInTheDocument();
-    expect(signOutButton).toBeInTheDocument();
+    act(() => {
+      button.simulate('click');
+    })
 
-    signOutButton.click();
     expect(mockAuth.signOut).toBeCalled();
   });
 });

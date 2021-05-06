@@ -1,10 +1,10 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {shallow} from 'enzyme';
 import App from '../components/App';
+import {SignIn, SignOut} from '../components/Login';
+import {Deck} from '../components/Deck';
 
 jest.mock('react-firebase-hooks/auth');
-jest.mock('../components/Login');
-jest.mock('../components/Deck');
 
 /** @type {firebase.default.User} */
 let user;
@@ -13,33 +13,31 @@ beforeEach(() => {
   require('react-firebase-hooks/auth').useAuthState = () => {
     return [user];
   }
-  const login = require('../components/Login');
-  login.SignIn = () => {
-    return <div>SIGNIN</div>;
-  }
-  login.SignOut = () => {
-    return <div>SIGNOUT</div>;
-  }
-  require('../components/Deck').Deck = () => {
-    return <div>DECK</div>;
-  }
 });
 
 it('renders sign in button when not signed in', () => {
-  render(<App/>);
-  const signInButton = screen.queryByText('SIGNIN');
-  const deck = screen.queryByText('DECK');
-  expect(deck).not.toBeInTheDocument();
-  expect(signInButton).toBeInTheDocument();
+  const app = shallow(<App/>);
+
+  const signIn = app.find(SignIn);
+  const signOut = app.find(SignOut);
+  const deck = app.find(Deck);
+
+  expect(signIn).toHaveLength(1);
+  expect(signOut).toHaveLength(0);
+  expect(deck).toHaveLength(0);
 });
 
 it('renders sign out button when signed in', () => {
   user = {
     uid: 'USER',
   };
-  render(<App/>);
-  const signInButton = screen.queryByText('SIGNOUT');
-  const deck = screen.queryByText('DECK');
-  expect(deck).toBeInTheDocument();
-  expect(signInButton).toBeInTheDocument();
+  const app = shallow(<App/>);
+
+  const signIn = app.find(SignIn);
+  const signOut = app.find(SignOut);
+  const deck = app.find(Deck);
+
+  expect(signIn).toHaveLength(0);
+  expect(signOut).toHaveLength(1);
+  expect(deck).toHaveLength(1);
 });

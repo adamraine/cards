@@ -20,7 +20,10 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules"
-    }
+    },
+    "setupFilesAfterEnv": [
+      "./src/test/setup-tests.js"
+    ]
   },
   "dependencies": {
     "@babel/core": "^7.14.0",

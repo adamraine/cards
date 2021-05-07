@@ -8,7 +8,7 @@ jest.mock('firebase/app');
 
 beforeEach(() => {
   Object.assign(mockAuth, {
-    signInWithPopup: jest.fn(), 
+    signInWithPopup: jest.fn(),
     signOut: jest.fn(),
     currentUser: {
       displayName: 'DISPLAYNAME',

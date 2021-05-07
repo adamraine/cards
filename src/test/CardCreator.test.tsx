@@ -22,7 +22,7 @@ beforeEach(() => {
   mockAuth.currentUser = {
     uid: 'USERID',
   };
-  
+
   mockDock = {
     id: 'DOCID',
     set: jest.fn(),
@@ -31,7 +31,7 @@ beforeEach(() => {
     doc: jest.fn().mockReturnValue(mockDock),
   };
   mockFirestore.collection = jest.fn().mockReturnValue(mockCollection);
-  
+
   mockChild = {
     put: jest.fn(),
   };
@@ -44,7 +44,7 @@ beforeEach(() => {
 it('updates text state on change', () => {
   const cardCreator = shallow(<CardCreator/>);
   const input = cardCreator.find('input[type="text"]');
-  
+
   act(() => {
     input.simulate('change', {target: {value: 'NEWVALUE'}});
   });
@@ -55,7 +55,7 @@ it('updates text state on change', () => {
 it('updates image state on change', () => {
   const cardCreator = shallow(<CardCreator/>);
   const input = cardCreator.find('input[type="file"]');
-  
+
   act(() => {
     input.simulate('change', {target: {files: ['NEWVALUE']}});
   });
@@ -69,12 +69,12 @@ it('adds new card when button clicked', async () => {
   const createCardButton = cardCreator.find('button[type="submit"]');
   const textInput = cardCreator.find('input[type="text"]');
   const imageInput = cardCreator.find('input[type="file"]');
-  
+
   act(() => {
     textInput.simulate('change', {target: {value: 'FORMVALUE'}});
     imageInput.simulate('change', {target: {files: ['IMAGEVALUE']}});
   });
-  
+
   act(() => {
     createCardButton.simulate('submit', {preventDefault: jest.fn()});
   });
@@ -87,7 +87,7 @@ it('adds new card when button clicked', async () => {
     createdAt: {type: 'serverTimestamp'},
     uid: 'USERID',
   });
-  
+
   expect(mockStorageRef.child).toHaveBeenCalledWith('images/USERID/DOCID');
   expect(mockChild.put).toHaveBeenCalledWith('IMAGEVALUE');
 });

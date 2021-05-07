@@ -7,7 +7,7 @@
     "prod": "webpack serve --mode=production",
     "build": "webpack build",
     "test": "jest",
-    "lint": "eslint src"
+    "lint": "tslint --project tsconfig.json"
   },
   "babel": {
     "plugins": [

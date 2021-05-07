@@ -17,7 +17,7 @@ beforeEach(() => {
   mockAuth.currentUser = {
     uid: 'USERID',
   };
-  
+
   mockCards = null;
   // @ts-ignore
   reactHooksFirestore.useCollectionData

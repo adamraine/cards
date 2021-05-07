@@ -32,7 +32,7 @@ beforeEach(() => {
 
 it('renders properly', async () => {
   const card = shallow(<Card data={{text: 'TEXT', id: 'ID', uid: 'UID'}}/>);
-  
+
   expect(mockStorageRef.child).toHaveBeenCalledWith('images/UID/ID');
   await Promise.resolve();
   expect(card.state('url')).toEqual('URL');
@@ -45,7 +45,7 @@ it('handles delete button push', async () => {
   act(() => {
     deleteButton.simulate('click');
   });
-  
+
   await Promise.resolve();
 
   expect(mockDoc.delete).toHaveBeenCalled();

@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -28,9 +29,30 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: __dirname + '/src/index.html',
+      template: __dirname + '/public/index.html',
       filename: 'index.html',
-      inject: 'body'
-    })
+      inject: 'head',
+    }),
+    new FaviconsWebpackPlugin({
+      logo: __dirname + '/public/logo.svg',
+      mode: 'webapp',
+      prefix: '',
+      inject: true,
+      manifest: __dirname + '/public/manifest.json',
+      favicons: {
+        icons: {
+          android: false,
+          appleIcon: false,
+          appleStartup: false,
+          coast: false,
+          favicons: [
+            'favicon.ico',
+          ],
+          firefox: false,
+          windows: false,
+          yandex: false,
+        }
+      }
+    }),
   ],
 }

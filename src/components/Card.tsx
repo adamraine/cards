@@ -14,6 +14,7 @@ interface State {
 }
 
 export class Card extends React.Component<Props, State> {
+  title: string;
   text: string;
   id: string;
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
@@ -23,6 +24,7 @@ export class Card extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this.title = props.data.title;
     this.text = props.data.text;
     this.id = props.data.id;
     this.state = {
@@ -57,6 +59,7 @@ export class Card extends React.Component<Props, State> {
   render():JSX.Element {
     return (
       <div className="Card">
+        <h3>{this.title}</h3>
         <img src={this.state.url} alt=""></img>
         <div>{this.text}</div>
         <button onClick={this.deleteCard}>Delete</button>

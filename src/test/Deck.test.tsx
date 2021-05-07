@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {shallow} from 'enzyme';
 import {mockAuth} from './mock-firebase';
 import {Deck} from '../components/Deck';
@@ -9,8 +9,7 @@ import * as reactHooksFirestore from 'react-firebase-hooks/firestore';
 jest.mock('firebase/app');
 jest.mock('react-firebase-hooks/firestore');
 
-/** @type {Data<firebase.default.firestore.DocumentData, '', ''>[]} */
-let mockCards;
+let mockCards: any[];
 
 beforeEach(() => {
   // @ts-ignore

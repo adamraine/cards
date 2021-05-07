@@ -8,7 +8,7 @@ import 'firebase/firestore';
 
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
-export function Deck() {
+export function Deck():JSX.Element {
   const db = firebase.firestore();
   const cards = db.collection('cards');
   const auth = firebase.auth();

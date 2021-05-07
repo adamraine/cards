@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {shallow} from 'enzyme';
 import App from '../components/App';
 import {SignIn, SignOut} from '../components/Login';
@@ -7,8 +7,7 @@ import * as reactHooksAuth from 'react-firebase-hooks/auth';
 
 jest.mock('react-firebase-hooks/auth');
 
-/** @type {firebase.default.User} */
-let user;
+let user: firebase.default.User;
 
 beforeEach(() => {
   // @ts-ignore

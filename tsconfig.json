@@ -12,7 +12,7 @@
     "strict": true,
   },
   "include": [
-    "src/components",
+    "src",
     "types"
   ],
   "exclude": [

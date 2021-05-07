@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {act} from '@testing-library/react';
 import {shallow} from 'enzyme';
 import {mockAuth} from './mock-firebase';

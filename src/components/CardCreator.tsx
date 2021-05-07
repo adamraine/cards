@@ -5,19 +5,21 @@ import 'firebase/storage';
 
 import * as React from 'react';
 
+type Props = Record<string, never>;
+
 interface State {
   text: string;
   image: File|null;
-};
+}
 
-export class CardCreator extends React.Component<{}, State> {
+export class CardCreator extends React.Component<Props, State> {
   fileInput: HTMLInputElement|null;
   updateText: React.ChangeEventHandler<HTMLInputElement>;
   updateImage: React.ChangeEventHandler<HTMLInputElement>;
   createCard: React.FormEventHandler<HTMLFormElement>;
   state: State;
 
-  constructor(props: {}) {
+  constructor(props: Props) {
     super(props);
     const db = firebase.firestore();
     const cards = db.collection('cards');

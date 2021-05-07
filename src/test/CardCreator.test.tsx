@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {act} from '@testing-library/react';
 import {mockAuth, mockFirestore, mockStorage} from './mock-firebase';
 import {shallow, mount} from 'enzyme';
@@ -8,17 +8,12 @@ jest.useFakeTimers();
 jest.mock('firebase/app');
 jest.mock('react-firebase-hooks/firestore');
 
-/** @type {firebase.default.firestore.CollectionReference<firebase.default.firestore.DocumentData>} */
-let mockCollection;
-/** @type {firebase.default.firestore.DocumentReference<firebase.default.firestore.DocumentData>} */
-let mockDock;
-/** @type {firebase.default.storage.Reference} */
-let mockStorageRef;
-/** @type {firebase.default.storage.Reference} */
-let mockChild;
+let mockCollection: firebase.default.firestore.CollectionReference<firebase.default.firestore.DocumentData>;
+let mockDock: firebase.default.firestore.DocumentReference<firebase.default.firestore.DocumentData>;
+let mockStorageRef: firebase.default.storage.Reference;
+let mockChild: firebase.default.storage.Reference;
 
 beforeEach(() => {
-  // @ts-ignore
   mockAuth.currentUser = {
     uid: 'USERID',
   };

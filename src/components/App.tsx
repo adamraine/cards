@@ -23,7 +23,7 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 
-function App() {
+const App = () => {
   const [user] = useAuthState(auth);
   return (
     <div className="App">

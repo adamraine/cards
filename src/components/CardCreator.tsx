@@ -6,37 +6,32 @@ import 'firebase/storage';
 import React, {Component} from 'react';
 
 export class CardCreator extends Component {
-  constructor() {
-    super();
+  fileInput: HTMLInputElement|null;
+  updateText: (text: string) => void;
+  updateImage: (image: File) => void;
+  createCard: React.FormEventHandler<HTMLFormElement>;
+  state: {text: string, image: File|null};
+
+  constructor(props: any) {
+    super(props);
     const db = firebase.firestore();
     const cards = db.collection('cards');
     const storage = firebase.storage().ref();
     const auth = firebase.auth();
     
-    /** @type {HTMLInputElement|null} */
     this.fileInput = null;
 
-    /** @type {{text: string, image: File|null}} */
     this.state = {
       text: '',
       image: null,
     };
-    /**
-     * @param {string} text 
-     */
     this.updateText = (text) => {
       this.setState(s => ({...s, text}));
     };
-    /**
-     * @param {File} image 
-     */
     this.updateImage = (image) => {
       this.setState(s => ({...s, image}));
     };
 
-    /**
-     * @type {React.FormEventHandler<HTMLFormElement>}
-     */
     this.createCard = async e => {
       e.preventDefault();
       if (!this.state.image) {

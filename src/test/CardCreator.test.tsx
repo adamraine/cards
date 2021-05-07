@@ -18,6 +18,7 @@ let mockStorageRef;
 let mockChild;
 
 beforeEach(() => {
+  // @ts-ignore
   mockAuth.currentUser = {
     uid: 'USERID',
   };
@@ -48,7 +49,7 @@ it('updates text state on change', () => {
     input.simulate('change', {target: {value: 'NEWVALUE'}});
   });
 
-  expect(cardCreator.state().text).toEqual('NEWVALUE');
+  expect(cardCreator.state('text')).toEqual('NEWVALUE');
 });
 
 it('updates image state on change', () => {
@@ -59,7 +60,7 @@ it('updates image state on change', () => {
     input.simulate('change', {target: {files: ['NEWVALUE']}});
   });
 
-  expect(cardCreator.state().image).toEqual('NEWVALUE');
+  expect(cardCreator.state('image')).toEqual('NEWVALUE');
 });
 
 it('adds new card when button clicked', async () => {

@@ -5,17 +5,20 @@ import 'firebase/storage';
 import React, {Component} from 'react';
 
 export class Card extends Component {
-  constructor(props) {
+
+  text: string;
+  id: string;
+  deleteCard: React.MouseEventHandler<HTMLButtonElement>;
+  state: {url: string};
+
+  constructor(props: {data: {text: string, id: string, uid: string}}) {
     super(props);
-    /** @type {string} */
     this.text = props.data.text;
-    /** @type {string} */
     this.id = props.data.id;    
     this.state = {
       url: '',
     };
 
-    /** @type {string} */
     const uid = props.data.uid;    
 
     let mounted = false;
@@ -36,7 +39,7 @@ export class Card extends Component {
     });
 
     /**
-     * @type {React.FormEventHandler<HTMLFormElement>}
+     * @type {React.MouseEventHandler<HTMLButtonElement>}
      */
     this.deleteCard = async () => {
       await imageRef.delete();

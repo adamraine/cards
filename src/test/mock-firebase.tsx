@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 const mockAuth = new firebaseMock.MockAuthentication();
 const mockFirestore = new firebaseMock.MockFirestore();
 const mockStorage = new firebaseMock.MockStorage();
-const mockSDK = new firebaseMock.MockFirebaseSdk(
+const mockSDK = firebaseMock.MockFirebaseSdk(
   // RTDB
   () => {
     return null;

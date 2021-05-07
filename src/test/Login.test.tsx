@@ -26,6 +26,7 @@ describe('SignIn', () => {
       button.simulate('click');
     });
 
+    // @ts-ignore
     expect(mockAuth.signInWithPopup).toBeCalledWith({providerId: 'google.com'});
   });
 });
@@ -39,6 +40,7 @@ describe('SignOut', () => {
       button.simulate('click');
     });
 
+    // @ts-ignore
     expect(mockAuth.signOut).toBeCalled();
   });
 });

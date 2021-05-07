@@ -13,11 +13,13 @@ jest.mock('react-firebase-hooks/firestore');
 let mockCards;
 
 beforeEach(() => {
+  // @ts-ignore
   mockAuth.currentUser = {
     uid: 'USERID',
   };
   
   mockCards = null;
+  // @ts-ignore
   reactHooksFirestore.useCollectionData
     = jest.fn().mockImplementation(() => [mockCards]);
 });

@@ -11,6 +11,7 @@ jest.mock('react-firebase-hooks/auth');
 let user;
 
 beforeEach(() => {
+  // @ts-ignore
   reactHooksAuth.useAuthState = () => {
     return [user];
   };

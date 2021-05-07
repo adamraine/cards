@@ -3,16 +3,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 /** @type {import('webpack').Configuration} */
 module.exports = {
   devtool: 'source-map',
-  entry: __dirname + '/src/index.js',
+  entry: __dirname + '/src/index.tsx',
   output: {
     path: __dirname + '/dist',
     filename: 'bundle.js',
     publicPath: ''
   },
+  resolve: {
+    extensions: ['.js', '.tsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx$/,
         loader: 'babel-loader',
         exclude: /node_modules/
       },
@@ -25,9 +28,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-        template: __dirname + '/src/index.html',
-        filename: 'index.html',
-        inject: 'body'
+      template: __dirname + '/src/index.html',
+      filename: 'index.html',
+      inject: 'body'
     })
   ],
 }

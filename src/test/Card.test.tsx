@@ -1,6 +1,6 @@
 import React from 'react';
 import {act} from '@testing-library/react';
-import {shallow} from 'enzyme';
+import {shallow, ShallowWrapper} from 'enzyme';
 import {mockFirestore, mockStorage} from './mock-firebase';
 import {Card} from '../components/Card';
 
@@ -35,7 +35,7 @@ it('renders properly', async () => {
   
   expect(mockStorageRef.child).toHaveBeenCalledWith('images/UID/ID');
   await Promise.resolve();
-  expect(card.state().url).toEqual('URL');
+  expect(card.state('url')).toEqual('URL');
 });
 
 it('handles delete button push', async () => {

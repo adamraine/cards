@@ -2,19 +2,20 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "./dist",
-    "noImplicitAny": true,
     "module": "es6",
     "target": "es5",
+    "moduleResolution": "node",
     "jsx": "react",
     "allowJs": true,
     "checkJs": true,
-    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "strict": true,
   },
   "include": [
     "src/components",
     "types"
   ],
   "exclude": [
-    "node_modules"
+    "./node_modules/**/*.ts"
   ]
 }

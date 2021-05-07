@@ -12,8 +12,8 @@ interface State {
 
 export class CardCreator extends React.Component<{}, State> {
   fileInput: HTMLInputElement|null;
-  updateText: (text: string) => void;
-  updateImage: (image: File) => void;
+  updateText: React.ChangeEventHandler<HTMLInputElement>;
+  updateImage: React.ChangeEventHandler<HTMLInputElement>;
   createCard: React.FormEventHandler<HTMLFormElement>;
   state: State;
 
@@ -30,10 +30,15 @@ export class CardCreator extends React.Component<{}, State> {
       text: '',
       image: null,
     };
-    this.updateText = (text) => {
+
+    this.updateText = (event) => {
+      const text = event.target.value;
       this.setState(s => ({...s, text}));
     };
-    this.updateImage = (image) => {
+
+    this.updateImage = (event) => {
+      const files = event.target.files;
+      const image = files && files[0];
       this.setState(s => ({...s, image}));
     };
 
@@ -42,6 +47,9 @@ export class CardCreator extends React.Component<{}, State> {
       if (!this.state.image) {
         alert('Please specify an image value.');
         return;
+      }
+      if (!auth.currentUser) {
+        throw new Error('ERROR: User must be logged in.');
       }
       const {uid} = auth.currentUser;
       const doc = cards.doc();
@@ -55,7 +63,7 @@ export class CardCreator extends React.Component<{}, State> {
         text: '',
         image: null,
       });
-      this.fileInput.value = null;
+      if (this.fileInput) this.fileInput.value = '';
     };
   }
 
@@ -63,8 +71,8 @@ export class CardCreator extends React.Component<{}, State> {
     return (
       <div className="CardCreator">
         <form onSubmit={this.createCard}>
-          <input value={this.state.text} type="text" onChange={e => this.updateText(e.target.value)}></input>
-          <input ref={ref => this.fileInput = ref} accept="image/*" type="file" onChange={e => this.updateImage(e.target.files[0])}></input>
+          <input value={this.state.text} type="text" onChange={this.updateText}></input>
+          <input ref={ref => this.fileInput = ref} accept="image/*" type="file" onChange={this.updateImage}></input>
           <button type="submit">Create card</button>
         </form>
       </div>

@@ -3,23 +3,33 @@ import 'firebase/firestore';
 import 'firebase/storage';
 
 import React, {Component} from 'react';
+import PropTypes, {InferProps} from 'prop-types';
+
+interface Props {
+  data: {
+    text: string;
+    id: string;
+    uid: string;
+  }
+}
 
 export class Card extends Component {
-
   text: string;
   id: string;
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
   state: {url: string};
 
-  constructor(props: {data: {text: string, id: string, uid: string}}) {
+  static propTypes: InferProps<Props>;
+
+  constructor(props: Props) {
     super(props);
     this.text = props.data.text;
-    this.id = props.data.id;    
+    this.id = props.data.id;
     this.state = {
       url: '',
     };
 
-    const uid = props.data.uid;    
+    const uid = props.data.uid;
 
     let mounted = false;
     this.componentDidMount = () => mounted = true;
@@ -38,9 +48,6 @@ export class Card extends Component {
       }
     });
 
-    /**
-     * @type {React.MouseEventHandler<HTMLButtonElement>}
-     */
     this.deleteCard = async () => {
       await imageRef.delete();
       await cards.doc(id).delete();
@@ -56,4 +63,12 @@ export class Card extends Component {
       </div>
     );
   }
+}
+
+Card.propTypes = {
+  data: PropTypes.shape({
+    text: PropTypes.string,
+    id: PropTypes.string,
+    uid: PropTypes.string,
+  }),
 }

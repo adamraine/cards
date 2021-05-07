@@ -18,7 +18,7 @@ export class CardCreator extends Component {
     const cards = db.collection('cards');
     const storage = firebase.storage().ref();
     const auth = firebase.auth();
-    
+
     this.fileInput = null;
 
     this.state = {
@@ -53,7 +53,7 @@ export class CardCreator extends Component {
       this.fileInput.value = null;
     };
   }
-  
+
   render() {
     return (
       <div className="CardCreator">

@@ -3,16 +3,21 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-import React, {Component} from 'react';
+import * as React from 'react';
 
-export class CardCreator extends Component {
+interface State {
+  text: string;
+  image: File|null;
+};
+
+export class CardCreator extends React.Component<{}, State> {
   fileInput: HTMLInputElement|null;
   updateText: (text: string) => void;
   updateImage: (image: File) => void;
   createCard: React.FormEventHandler<HTMLFormElement>;
-  state: {text: string, image: File|null};
+  state: State;
 
-  constructor(props: any) {
+  constructor(props: {}) {
     super(props);
     const db = firebase.firestore();
     const cards = db.collection('cards');

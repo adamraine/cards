@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Card} from './Card';
 import {CardCreator} from './CardCreator';
 
@@ -13,7 +13,7 @@ export function Deck() {
   const cards = db.collection('cards');
   const auth = firebase.auth();
   const query = cards.where('uid', '==', auth.currentUser.uid).orderBy('createdAt').limit(25);
-  const [userCards] = useCollectionData(query, {idField: 'id'});
+  const [userCards] = useCollectionData<App.Card>(query, {idField: 'id'});
 
   return (
     <div className="Deck">

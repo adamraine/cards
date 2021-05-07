@@ -2,24 +2,24 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-import React, {Component} from 'react';
-import PropTypes, {InferProps} from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 interface Props {
-  data: {
-    text: string;
-    id: string;
-    uid: string;
-  }
+  data: App.Card;
 }
 
-export class Card extends Component {
+interface State {
+  url: string;
+}
+
+export class Card extends React.Component<Props, State> {
   text: string;
   id: string;
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
-  state: {url: string};
+  state: State;
 
-  static propTypes: InferProps<Props>;
+  static propTypes: PropTypes.InferProps<Props>;
 
   constructor(props: Props) {
     super(props);

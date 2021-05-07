@@ -2,7 +2,7 @@ import * as React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-export function SignIn() {
+export function SignIn():JSX.Element {
   const auth = firebase.auth();
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -13,7 +13,7 @@ export function SignIn() {
   );
 }
 
-export function SignOut() {
+export function SignOut():JSX.Element|null {
   const auth = firebase.auth();
   return auth.currentUser && (
     <>

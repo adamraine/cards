@@ -24,7 +24,7 @@
       "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules"
     },
     "setupFilesAfterEnv": [
-      "./src/test/setup-tests.ts"
+      "./test/setup-tests.ts"
     ]
   },
   "dependencies": {

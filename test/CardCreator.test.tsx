@@ -2,16 +2,16 @@ import * as React from 'react';
 import {act} from '@testing-library/react';
 import {mockAuth, mockFirestore, mockStorage} from './mock-firebase';
 import {shallow, mount} from 'enzyme';
-import {CardCreator} from '../components/CardCreator';
+import {CardCreator} from '../src/components/CardCreator';
 
 jest.useFakeTimers();
 jest.mock('firebase/app');
 jest.mock('react-firebase-hooks/firestore');
 
-let mockCollection: firebase.default.firestore.CollectionReference<firebase.default.firestore.DocumentData>;
-let mockDock: firebase.default.firestore.DocumentReference<firebase.default.firestore.DocumentData>;
-let mockStorageRef: firebase.default.storage.Reference;
-let mockChild: firebase.default.storage.Reference;
+let mockCollection: Partial<firebase.default.firestore.CollectionReference<firebase.default.firestore.DocumentData>>;
+let mockDock: Partial<firebase.default.firestore.DocumentReference<firebase.default.firestore.DocumentData>>;
+let mockStorageRef: Partial<firebase.default.storage.Reference>;
+let mockChild: Partial<firebase.default.storage.Reference>;
 
 beforeEach(() => {
   mockAuth.currentUser = {

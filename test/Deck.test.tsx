@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {shallow} from 'enzyme';
 import {mockAuth} from './mock-firebase';
-import {Deck} from '../components/Deck';
-import {Card} from '../components/Card';
-import {CardCreator} from '../components/CardCreator';
+import {Deck} from '../src/components/Deck';
+import {Card} from '../src/components/Card';
+import {CardCreator} from '../src/components/CardCreator';
 import * as reactHooksFirestore from 'react-firebase-hooks/firestore';
 
 jest.mock('firebase/app');
@@ -12,7 +12,6 @@ jest.mock('react-firebase-hooks/firestore');
 let mockCards: any[];
 
 beforeEach(() => {
-  // @ts-ignore
   mockAuth.currentUser = {
     uid: 'USERID',
   };

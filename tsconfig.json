@@ -6,14 +6,12 @@
     "target": "es5",
     "moduleResolution": "node",
     "jsx": "react",
-    "allowJs": true,
-    "checkJs": true,
     "noImplicitAny": true,
     "strict": true,
   },
   "include": [
     "src",
-    "types"
+    "types",
   ],
   "exclude": [
     "./node_modules/**/*.ts"

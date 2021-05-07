@@ -2,13 +2,13 @@ import * as React from 'react';
 import {act} from '@testing-library/react';
 import {shallow, ShallowWrapper} from 'enzyme';
 import {mockFirestore, mockStorage} from './mock-firebase';
-import {Card} from '../components/Card';
+import {Card} from '../src/components/Card';
 
 jest.mock('firebase/app');
 
-let mockDoc: firebase.default.firestore.DocumentReference<firebase.default.firestore.DocumentData>;
-let mockStorageRef: firebase.default.storage.Reference;
-let mockChild: firebase.default.storage.Reference;
+let mockDoc: Partial<firebase.default.firestore.DocumentReference<firebase.default.firestore.DocumentData>>;
+let mockStorageRef: Partial<firebase.default.storage.Reference>;
+let mockChild: Partial<firebase.default.storage.Reference>;
 
 beforeEach(() => {
   mockDoc = {

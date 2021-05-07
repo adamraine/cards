@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "strict": false,
+    "jsx": "react",
+  },
+}

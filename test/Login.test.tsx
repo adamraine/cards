@@ -2,7 +2,7 @@ import * as React from 'react';
 import {act} from '@testing-library/react';
 import {shallow} from 'enzyme';
 import {mockAuth} from './mock-firebase';
-import {SignIn, SignOut} from '../components/Login';
+import {SignIn, SignOut} from '../src/components/Login';
 
 jest.mock('firebase/app');
 

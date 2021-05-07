@@ -69,7 +69,7 @@ export class CardCreator extends React.Component<Props, State> {
     };
   }
 
-  render() {
+  render():JSX.Element {
     return (
       <div className="CardCreator">
         <form onSubmit={this.createCard}>

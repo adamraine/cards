@@ -54,7 +54,7 @@ export class Card extends React.Component<Props, State> {
     };
   }
 
-  render() {
+  render():JSX.Element {
     return (
       <div className="Card">
         <img src={this.state.url} alt=""></img>

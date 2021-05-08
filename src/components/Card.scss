@@ -1,4 +1,7 @@
 .Card {
+  $card-width: 500px;
+  width: $card-width;
+  max-width: 90vw;
   aspect-ratio: 2.5 / 3.5;
 
   .content{
@@ -6,7 +9,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    width: 500px;
+    width: $card-width;
     aspect-ratio: 2.5 / 3.5;
     border-width: 10px;
     border-color: black;
@@ -14,6 +17,7 @@
     border-style: solid;
     padding: 10px;
     transform-origin: top left;
+    background-color: wheat;
 
     * {
       width: 90%;

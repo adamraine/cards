@@ -59,13 +59,9 @@ export class Card extends React.Component<Props, State> {
   }
 
   render():JSX.Element {
-    if (this.root && this.content) {
-      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      if (vw < this.content.offsetWidth) {
-        const scale = 0.9 * vw / this.content.offsetWidth;
-        this.content.style.transform = `scale(${scale})`
-        this.root.style.width = `${0.9 * vw}px`
-      }
+    if (this.content && this.root && this.content.offsetWidth > this.root.offsetWidth) {
+      const scale = this.root.offsetWidth / this.content.offsetWidth;
+      this.content.style.transform = `scale(${scale})`;
     }
     return (
       <div ref={ref => this.root = ref} className="Card">

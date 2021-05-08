@@ -1,3 +1,4 @@
+import './CardCreator.scss'
 import {firebase, auth, db, storage} from '../firebase';
 import * as React from 'react';
 

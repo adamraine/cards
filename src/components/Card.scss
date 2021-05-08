@@ -1,0 +1,42 @@
+.Card {
+  aspect-ratio: 2.5 / 3.5;
+
+  .content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 500px;
+    aspect-ratio: 2.5 / 3.5;
+    border-width: 10px;
+    border-color: black;
+    border-radius: 10px;
+    border-style: solid;
+    padding: 10px;
+    transform-origin: top left;
+
+    * {
+      width: 90%;
+    }
+
+    img {
+      aspect-ratio: 1 / 1;
+    }
+
+    div {
+      flex-grow: 1;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: #EEE;
+    }
+
+    button {
+      position: absolute;
+      width: unset;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+

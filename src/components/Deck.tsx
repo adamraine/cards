@@ -1,3 +1,4 @@
+import './Deck.scss';
 import * as React from 'react';
 import {Card} from './Card';
 import {auth, db} from '../firebase';

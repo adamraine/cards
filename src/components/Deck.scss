@@ -1,0 +1,8 @@
+.Deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  row-gap: 10px;
+  overflow: auto;
+}

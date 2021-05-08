@@ -1,108 +1,13 @@
 .App {
   width: 100%;
   margin: auto;
-}
-
-.App > header {
-  display: flex;
-  justify-content: flex-start;
-  column-gap: 5px;
-  background-color: #2F2F2F;
-  padding: 10px;
-  color: white;
-}
-
-.App > header button {
-  background-color: white;
-  border: unset;
-  border-radius: 5px;
-}
-
-.Deck {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-  row-gap: 10px;
-  overflow: auto;
-}
-
-.Card {
-  aspect-ratio: 2.5 / 3.5;
-}
-.Card > .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  width: 500px;
-  aspect-ratio: 2.5 / 3.5;
-  border-width: 10px;
-  border-color: black;
-  border-radius: 10px;
-  border-style: solid;
-  padding: 10px;
-  transform-origin: top left;
-}
-.Card > .content > * {
-  width: 90%;
-}
-.Card > .content > img {
-  aspect-ratio: 1 / 1;
-}
-.Card > .content > div {
-  flex-grow: 1;
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: #EEE;
-}
-.Card > .content > button {
-  position: absolute;
-  width: unset;
-  right: 0;
-  top: 0;
-}
-
-.CardCreator {
-  position: fixed;
-  background-color: #2F2F2F;
-  color: white;
-  overflow: hidden;
-  transition-property: all;
-  transition-duration: 0.3s;
-}
-
-.CardCreator.open {
-  display: flex;
-  justify-content: center;
-  width: 90%;
-  height: 90%;
-  bottom: 5%;
-  right: 5%;
-  border-radius: 10px;
-}
-.CardCreator.open > button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.CardCreator.minified {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  margin: 10px;
-  bottom: 0;
-  right: 0;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 50%;
-}
-
-.CardCreator form {
-  padding: 10px;
+  
+  header {
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 5px;
+    background-color: #2F2F2F;
+    padding: 10px;
+    color: white;
+  }
 }

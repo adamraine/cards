@@ -1,7 +1,4 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/storage';
-
+import {db, storage} from '../firebase';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
@@ -36,12 +33,10 @@ export class Card extends React.Component<Props, State> {
     let mounted = false;
     this.componentDidMount = () => mounted = true;
 
-    const db = firebase.firestore();
     const cards = db.collection('cards');
-    const storage = firebase.storage().ref();
 
     const {id} = this;
-    const imageRef = storage.child(`images/${uid}/${id}`);
+    const imageRef = storage.ref().child(`images/${uid}/${id}`);
     imageRef.getDownloadURL().then(url => {
       if (mounted) {
         this.setState({url});

@@ -1,9 +1,7 @@
 import * as React from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import {firebase, auth} from '../firebase';
 
 export function SignIn():JSX.Element {
-  const auth = firebase.auth();
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
@@ -14,7 +12,6 @@ export function SignIn():JSX.Element {
 }
 
 export function SignOut():JSX.Element|null {
-  const auth = firebase.auth();
   return auth.currentUser && (
     <>
       <button onClick={() => auth.signOut()}>Sign Out</button>

@@ -1,8 +1,4 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
-
+import {firebase, auth, db, storage} from '../firebase';
 import * as React from 'react';
 
 type Props = Record<string, never>;
@@ -23,10 +19,7 @@ export class CardCreator extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const db = firebase.firestore();
     const cards = db.collection('cards');
-    const storage = firebase.storage().ref();
-    const auth = firebase.auth();
 
     this.fileInput = null;
 
@@ -67,7 +60,7 @@ export class CardCreator extends React.Component<Props, State> {
       }
       const {uid} = auth.currentUser;
       const doc = cards.doc();
-      await storage.child(`images/${uid}/${doc.id}`).put(this.state.image);
+      await storage.ref().child(`images/${uid}/${doc.id}`).put(this.state.image);
       await doc.set({
         title: this.state.title,
         text: this.state.text,

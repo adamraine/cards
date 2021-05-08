@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Card} from './Card';
-import {CardCreator} from './CardCreator';
 import {auth, db} from '../firebase';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
@@ -12,8 +11,9 @@ export function Deck():JSX.Element {
 
   return (
     <div className="Deck">
-      {userCards && userCards.filter(card => card.uid).map(card => <Card key={card.id} data={card}/>)}
-      <CardCreator/>
+      <>
+        {userCards && userCards.filter(card => card.uid).map(card => <Card key={card.id} data={card}/>)}
+      </>
     </div>
   );
 }

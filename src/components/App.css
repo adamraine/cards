@@ -24,6 +24,7 @@
   align-items: center;
   margin-top: 10px;
   row-gap: 10px;
+  overflow: auto;
 }
 
 .Card {
@@ -49,12 +50,41 @@
 }
 
 .CardCreator {
+  position: fixed;
+  background-color: #2F2F2F;
+  color: white;
+  overflow: hidden;
+}
+
+.CardCreator.open {
   display: flex;
   justify-content: center;
+  width: 90%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+.CardCreator.open > button {
   position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.CardCreator.minified {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  margin: 10px;
   bottom: 0;
-  width: 100%;
-  background-color: #2F2F2F;
+  right: 0;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 50%;
 }
 
 .CardCreator form {

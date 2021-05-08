@@ -4,6 +4,7 @@ import * as React from 'react';
 type Props = Record<string, never>;
 
 interface State {
+  minified: boolean,
   title: string;
   text: string;
   image: File|null;
@@ -14,6 +15,8 @@ export class CardCreator extends React.Component<Props, State> {
   updateTitle: React.ChangeEventHandler<HTMLInputElement>;
   updateText: React.ChangeEventHandler<HTMLInputElement>;
   updateImage: React.ChangeEventHandler<HTMLInputElement>;
+  minify: React.MouseEventHandler<HTMLElement>
+  maximize: React.MouseEventHandler<HTMLElement>
   createCard: React.FormEventHandler<HTMLFormElement>;
   state: State;
 
@@ -24,6 +27,7 @@ export class CardCreator extends React.Component<Props, State> {
     this.fileInput = null;
 
     this.state = {
+      minified: true,
       title: '',
       text: '',
       image: null,
@@ -44,6 +48,9 @@ export class CardCreator extends React.Component<Props, State> {
       const image = files && files[0];
       this.setState(s => ({...s, image}));
     };
+    
+    this.minify = () => this.setState({minified: true});
+    this.maximize = () => this.setState({minified: false});
 
     this.createCard = async e => {
       e.preventDefault();
@@ -71,20 +78,30 @@ export class CardCreator extends React.Component<Props, State> {
         title: '',
         text: '',
         image: null,
+        minified: true,
       });
       if (this.fileInput) this.fileInput.value = '';
     };
   }
-
+  
   render():JSX.Element {
     return (
-      <div className="CardCreator">
-        <form onSubmit={this.createCard}>
-          <input value={this.state.title} type="text" onChange={this.updateTitle}></input>
-          <input value={this.state.text} type="text" onChange={this.updateText}></input>
-          <input ref={ref => this.fileInput = ref} accept="image/*" type="file" onChange={this.updateImage}></input>
-          <button type="submit">Create card</button>
-        </form>
+      <div 
+        className={'CardCreator ' + (this.state.minified ? 'minified' : 'open')}
+        onClick={this.state.minified ? this.maximize : undefined}
+      >
+        {
+          this.state.minified ? <div>+</div> :
+          <>
+            <form onSubmit={this.createCard}>
+              <input value={this.state.title} type="text" onChange={this.updateTitle}></input>
+              <input value={this.state.text} type="text" onChange={this.updateText}></input>
+              <input ref={ref => this.fileInput = ref} accept="image/*" type="file" onChange={this.updateImage}></input>
+              <button type="submit">Create card</button>
+            </form>
+            <button onClick={this.minify}>Minify</button>
+          </>
+        }
       </div>
     );
   }

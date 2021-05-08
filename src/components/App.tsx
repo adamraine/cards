@@ -4,6 +4,7 @@ import {Deck} from './Deck';
 import {auth} from '../firebase';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import * as React from 'react';
+import { CardCreator } from './CardCreator';
 
 
 const App:React.FunctionComponent = () => {
@@ -14,7 +15,7 @@ const App:React.FunctionComponent = () => {
         {user ? <SignOut/> : <SignIn/>}
       </header>
       <main>
-        {user && <Deck/>}
+        {user && <><Deck/><CardCreator/></>}
       </main>
     </div>
   );

@@ -28,23 +28,38 @@
 }
 
 .Card {
+  aspect-ratio: 2.5 / 3.5;
+}
+.Card > .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   width: 500px;
-  max-width: 90%;
-  border-width: 1px;
+  aspect-ratio: 2.5 / 3.5;
+  border-width: 10px;
   border-color: black;
-  border-radius: 5px;
+  border-radius: 10px;
   border-style: solid;
   padding: 10px;
+  transform-origin: top left;
 }
-
-.Card img {
-  height: 500px;
-  width: 500px;
+.Card > .content > * {
+  width: 90%;
 }
-
-.Card > button {
+.Card > .content > img {
+  aspect-ratio: 1 / 1;
+}
+.Card > .content > div {
+  flex-grow: 1;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #EEE;
+}
+.Card > .content > button {
   position: absolute;
+  width: unset;
   right: 0;
   top: 0;
 }

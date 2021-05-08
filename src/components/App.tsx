@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import {SignIn, SignOut} from './Login';
 import {Deck} from './Deck';
 import {auth} from '../firebase';

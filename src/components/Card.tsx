@@ -11,6 +11,8 @@ interface State {
 }
 
 export class Card extends React.Component<Props, State> {
+  root: HTMLDivElement|null;
+  content: HTMLDivElement|null;
   title: string;
   text: string;
   id: string;
@@ -21,6 +23,10 @@ export class Card extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    
+    this.root = null;
+    this.content = null;
+    
     this.title = props.data.title;
     this.text = props.data.text;
     this.id = props.data.id;
@@ -52,12 +58,22 @@ export class Card extends React.Component<Props, State> {
   }
 
   render():JSX.Element {
+    if (this.root && this.content) {
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      if (vw < this.content.offsetWidth) {
+        const scale = 0.9 * vw / this.content.offsetWidth;
+        this.content.style.transform = `scale(${scale})`
+        this.root.style.width = `${0.9 * vw}px`
+      }
+    }
     return (
-      <div className="Card">
-        <h3>{this.title}</h3>
-        <img src={this.state.url} alt=""></img>
-        <div>{this.text}</div>
-        <button onClick={this.deleteCard}>Delete</button>
+      <div ref={ref => this.root = ref} className="Card">
+        <div ref={ref => this.content = ref} className="content">
+          <h3>{this.title}</h3>
+          <img src={this.state.url} alt=""></img>
+          <div>{this.text}</div>
+          <button onClick={this.deleteCard}>Delete</button>
+        </div>
       </div>
     );
   }

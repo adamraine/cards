@@ -54,6 +54,8 @@
   background-color: #2F2F2F;
   color: white;
   overflow: hidden;
+  transition-property: all;
+  transition-duration: 0.3s;
 }
 
 .CardCreator.open {
@@ -61,9 +63,8 @@
   justify-content: center;
   width: 90%;
   height: 90%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  bottom: 5%;
+  right: 5%;
   border-radius: 10px;
 }
 .CardCreator.open > button {

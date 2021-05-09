@@ -3,6 +3,8 @@
   width: $card-width;
   max-width: 90vw;
   aspect-ratio: 2.5 / 3.5;
+  transition-property: transform;
+  transition-duration: 0.5s;
 
   .content {
     position: relative;
@@ -40,19 +42,19 @@
         margin-bottom: 10px;
         background-color: #EEE;
       }
-
-      button {
-        position: absolute;
-        width: unset;
-        right: 0;
-        top: 0;
-      }
     }
     
     .back {
       div {
         width: 90%;
         height: 90%;
+      }
+
+      button {
+        position: absolute;
+        width: unset;
+        right: 0;
+        top: 0;
       }
     }
   }

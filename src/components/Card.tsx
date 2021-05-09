@@ -21,6 +21,7 @@ export class Card extends React.Component<Props, State> {
   id: string;
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
   toggleFace: React.MouseEventHandler<HTMLElement>;
+  getTransformStyle: () => React.CSSProperties;
   state: State;
 
   static propTypes: PropTypes.InferProps<Props>;
@@ -63,30 +64,45 @@ export class Card extends React.Component<Props, State> {
     };
     
     this.toggleFace = () => {
-      this.setState(s => {
-        return {
-          face: s.face === 'front' ? 'back' : 'front',
-        }
-      })
+      if (this.root) {
+        const root = this.root;
+        root.style.transform = `rotateY(90deg)`;
+        root.ontransitionend = () => {
+          root.style.transform = '';
+          root.ontransitionend = null;
+          this.setState(s => {
+            return {
+              face: s.face === 'front' ? 'back' : 'front',
+            }
+          });
+        };
+      }
     }
+    
+    this.getTransformStyle = () => {
+      const transforms = [];
+      if (this.content && this.root && this.content.offsetWidth > this.root.offsetWidth) {
+        const scale = this.root.offsetWidth / this.content.offsetWidth;
+        transforms.push(`scale(${scale})`);
+      }
+      return {
+        transform: transforms.join(' '),
+      }
+    };
   }
 
   render():JSX.Element {
-    if (this.content && this.root && this.content.offsetWidth > this.root.offsetWidth) {
-      const scale = this.root.offsetWidth / this.content.offsetWidth;
-      this.content.style.transform = `scale(${scale})`;
-    }
     return (
       <div ref={ref => this.root = ref} onClick={this.toggleFace} className="Card">
-        <div ref={ref => this.content = ref} className={'content ' + this.state.face}>
+        <div ref={ref => this.content = ref} className={'content ' + this.state.face} style={this.getTransformStyle()}>
           <div className="front">
             <h3>{this.title}</h3>
             <img src={this.state.url} alt=""></img>
             <div>{this.text}</div>
-            <button onClick={this.deleteCard}>Delete</button>
           </div>
           <div className="back">
             <div>This is the back of a card.</div>
+            <button onClick={this.deleteCard}>Delete</button>
           </div>
         </div>
       </div>

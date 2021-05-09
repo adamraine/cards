@@ -9,6 +9,8 @@ interface Props {
 
 interface State {
   url: string;
+  face: 'front'|'back';
+  transforms: Set<string>;
 }
 
 export class Card extends React.Component<Props, State> {
@@ -18,6 +20,7 @@ export class Card extends React.Component<Props, State> {
   text: string;
   id: string;
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
+  toggleFace: React.MouseEventHandler<HTMLElement>;
   state: State;
 
   static propTypes: PropTypes.InferProps<Props>;
@@ -33,6 +36,8 @@ export class Card extends React.Component<Props, State> {
     this.id = props.data.id;
     this.state = {
       url: '',
+      face: 'front',
+      transforms: new Set(),
     };
 
     const uid = props.data.uid;
@@ -56,6 +61,14 @@ export class Card extends React.Component<Props, State> {
       await imageRef.delete();
       await cards.doc(id).delete();
     };
+    
+    this.toggleFace = () => {
+      this.setState(s => {
+        return {
+          face: s.face === 'front' ? 'back' : 'front',
+        }
+      })
+    }
   }
 
   render():JSX.Element {
@@ -64,12 +77,17 @@ export class Card extends React.Component<Props, State> {
       this.content.style.transform = `scale(${scale})`;
     }
     return (
-      <div ref={ref => this.root = ref} className="Card">
-        <div ref={ref => this.content = ref} className="content">
-          <h3>{this.title}</h3>
-          <img src={this.state.url} alt=""></img>
-          <div>{this.text}</div>
-          <button onClick={this.deleteCard}>Delete</button>
+      <div ref={ref => this.root = ref} onClick={this.toggleFace} className="Card">
+        <div ref={ref => this.content = ref} className={'content ' + this.state.face}>
+          <div className="front">
+            <h3>{this.title}</h3>
+            <img src={this.state.url} alt=""></img>
+            <div>{this.text}</div>
+            <button onClick={this.deleteCard}>Delete</button>
+          </div>
+          <div className="back">
+            <div>This is the back of a card.</div>
+          </div>
         </div>
       </div>
     );

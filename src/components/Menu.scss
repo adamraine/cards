@@ -1,0 +1,38 @@
+.Menu {
+  cursor: pointer;
+  background-color: grey;
+  height: 100%;
+  overflow: hidden;
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .items {
+    display: none;
+    flex-direction: column;
+    row-gap: 10px;
+    color: red;
+    position: fixed;
+    background-color: #2F2F2F;
+    padding: 10px;
+  }
+}
+
+.Menu.open {
+  .items {
+    display: flex;
+  }
+}
+
+.MenuItem {
+  a {
+    color: white;
+    text-decoration: unset;
+    cursor: pointer;
+  }
+}

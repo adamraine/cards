@@ -1,10 +1,25 @@
 import './App.scss';
 import {SignIn, SignOut} from './Login';
+import {Menu, MenuItem} from './Menu';
 import {Deck} from './Deck';
 import {auth} from '../firebase';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import * as React from 'react';
-import { CardCreator } from './CardCreator';
+
+const ContentSelector:React.FunctionComponent = () => {
+  const [user] = useAuthState(auth);
+  if (!user) return (<h1>PLEASE SIGN IN</h1>);
+  switch (window.location.pathname) {
+    case '/':
+      return (<h3>HOME</h3>);
+    case '/deck':
+      return (<Deck/>);
+    case '/trade':
+      return (<h3>TRADE</h3>);
+    default:
+      return (<h3>UNKOWN LOCATION</h3>)
+  }
+}
 
 
 const App:React.FunctionComponent = () => {
@@ -12,10 +27,15 @@ const App:React.FunctionComponent = () => {
   return (
     <div className="App">
       <header>
+        <Menu>
+          <MenuItem label="Home" href="/"></MenuItem>
+          <MenuItem label="Deck" href="/deck"></MenuItem>
+          <MenuItem label="Trade" href="/trade"></MenuItem>
+        </Menu>        
         {user ? <SignOut/> : <SignIn/>}
       </header>
       <main>
-        {user && <><Deck/><CardCreator/></>}
+        <ContentSelector/>
       </main>
     </div>
   );

@@ -16,7 +16,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.ts[x]?$/,
         loader: 'babel-loader',
         exclude: /node_modules/
       },

@@ -10,11 +10,23 @@ service cloud.firestore {
       allow write: if isSignedIn() && request.auth.uid == request.resource.data.uid;
       allow delete: if isSignedIn() && request.auth.uid == getCard(doc).data.uid;
     }
+
+    match /users/{doc} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == doc;
+    }
+
+    match /friends/{doc} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && 
+        (request.auth.uid == request.resource.data.uid1 || request.auth.uid == request.resource.data.uid2) &&
+        request.resource.data.uid1 != request.resource.data.uid2;
+    }
     
     function getCard(doc) {
     	return get(/databases/$(database)/documents/cards/$(doc));
     }
-    
+
     function isSignedIn() {
     	return request.auth.uid != null;
     }

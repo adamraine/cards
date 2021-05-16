@@ -1,11 +1,20 @@
 import './Login.scss';
 import * as React from 'react';
-import {firebase, auth} from '../firebase';
+import {firebase, auth, db} from '../firebase';
 
 export function SignIn():JSX.Element {
-  const signInWithGoogle = () => {
+  const users = db.collection('users');
+  const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    const {user} = await auth.signInWithPopup(provider);
+    if (!user) return;
+
+    const doc = users.doc(user.uid);
+    if (await doc.get().then(d => d.exists)) return;
+    await doc.set({
+      name: user.displayName,
+      picture: user.photoURL,
+    });
   };
   return (
     <div className="SignIn">

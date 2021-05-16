@@ -1,0 +1,45 @@
+.Friends {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  max-width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  row-gap: 20px;
+  
+  input {
+    width: 100%;
+  }
+}
+
+.UserList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+}
+
+.UserCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  overflow: hidden;
+  background-color: gray;
+  border-radius: 10px;
+  
+  img {
+    width: 30px;
+    aspect-ratio: '1 / 1';
+  }
+  
+  span {
+    width: 100%;
+  }
+  
+  button {
+    margin-right: 10px;
+  }
+}

@@ -2,6 +2,7 @@ import './App.scss';
 import {SignIn, SignOut} from './Login';
 import {Menu, MenuItem} from './Menu';
 import {Deck} from './Deck';
+import {Friends} from './Friends';
 import {auth} from '../firebase';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import * as React from 'react';
@@ -12,6 +13,8 @@ const ContentSelector:React.FunctionComponent = () => {
   switch (window.location.pathname) {
     case '/':
       return (<h3>HOME</h3>);
+    case '/friends':
+      return (<Friends/>);
     case '/deck':
       return (<Deck/>);
     case '/trade':
@@ -29,6 +32,7 @@ const App:React.FunctionComponent = () => {
       <header>
         <Menu>
           <MenuItem label="Home" href="/"></MenuItem>
+          <MenuItem label="Friends" href="/friends"></MenuItem>
           <MenuItem label="Deck" href="/deck"></MenuItem>
           <MenuItem label="Trade" href="/trade"></MenuItem>
         </Menu>        

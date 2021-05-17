@@ -2,18 +2,21 @@ import './Friends.scss';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
+import {useAuthState} from 'react-firebase-hooks/auth';
 import {firebase, auth, db} from '../firebase';
 import {useFriendsList as useFriendsIds} from '../hooks';
 
 export function UserCard(props: PropTypes.InferProps<typeof UserCard.propTypes>):JSX.Element {
   const {user} = props;
-  if (!auth.currentUser) throw new Error();
-  const currentUser = auth.currentUser;
+
+  const [currentUser] = useAuthState(auth);
   const friendIds = useFriendsIds(auth, db);
-  const isFriend = friendIds.includes(user.id);
+
   const friends = db.collection('friends');
+  const isFriend = friendIds.includes(user.id);
 
   function addFriend(uid:string) {
+    if (!currentUser) throw new Error();
     let uid1 = uid;
     let uid2 = currentUser.uid;
     if (uid1 > uid2) {

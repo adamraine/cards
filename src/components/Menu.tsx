@@ -1,6 +1,7 @@
 import './Menu.scss';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { Link as DefaultLink } from 'react-router-dom';
 
 interface MenuItemProps {
   label: string,
@@ -15,9 +16,12 @@ export class MenuItem extends React.Component<MenuItemProps> {
   
   render():JSX.Element {
     return (
-      <div className="MenuItem">
-        <a href={this.props.href}>{this.props.label}</a>
-      </div>
+      <DefaultLink
+        className="MenuItem"
+        to={this.props.href}
+      >
+        {this.props.label}
+      </DefaultLink>
     )
   }
 }

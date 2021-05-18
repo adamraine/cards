@@ -14,6 +14,7 @@ interface State {
 }
 
 export class Card extends React.Component<Props, State> {
+  mounted: boolean;
   root: HTMLDivElement|null;
   content: HTMLDivElement|null;
   title: string;
@@ -22,6 +23,7 @@ export class Card extends React.Component<Props, State> {
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
   toggleFace: React.MouseEventHandler<HTMLElement>;
   getTransformStyle: () => React.CSSProperties;
+  resizeCallback: () => void;
   state: State;
 
   static propTypes: PropTypes.InferProps<Props>;
@@ -29,6 +31,7 @@ export class Card extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     
+    this.mounted = false;
     this.root = null;
     this.content = null;
     
@@ -43,15 +46,13 @@ export class Card extends React.Component<Props, State> {
 
     const uid = props.data.uid;
 
-    let mounted = false;
-    this.componentDidMount = () => mounted = true;
 
     const cards = db.collection('cards');
 
     const {id} = this;
     const imageRef = storage.ref().child(`images/${uid}/${id}`);
     imageRef.getDownloadURL().then(url => {
-      if (mounted) {
+      if (this.mounted) {
         this.setState({url});
       } else {
         this.state.url = url;
@@ -89,8 +90,19 @@ export class Card extends React.Component<Props, State> {
         transform: transforms.join(' '),
       }
     };
+    
+    this.resizeCallback = () => this.forceUpdate();
   }
-
+  
+  componentDidMount():void {
+    this.mounted = true;
+    window.addEventListener('resize', this.resizeCallback);
+  }
+  
+  componentWillUnmount():void {
+    window.removeEventListener('resize', this.resizeCallback);
+  }
+  
   render():JSX.Element {
     return (
       <div ref={ref => this.root = ref} onClick={this.toggleFace} className="Card">
@@ -111,9 +123,9 @@ export class Card extends React.Component<Props, State> {
 }
 
 Card.propTypes = {
-  data: PropTypes.shape({
-    text: PropTypes.string,
-    id: PropTypes.string,
-    uid: PropTypes.string,
+  data: PropTypes.shape<PropTypes.ValidationMap<App.Card>>({
+    text: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
   }),
 }

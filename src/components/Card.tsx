@@ -67,10 +67,15 @@ export class Card extends React.Component<Props, State> {
     this.toggleFace = () => {
       if (this.root) {
         const root = this.root;
-        root.style.transform = `rotateY(90deg)`;
+        root.style.transform = `perspective(2000px) rotateY(90deg)`;
         root.ontransitionend = () => {
-          root.style.transform = '';
-          root.ontransitionend = null;
+          root.style.transform = 'perspective(2000px) rotateY(-90deg)';
+          root.style.transition = 'unset';
+          setTimeout(() => {
+            root.style.transform = '';
+            root.style.transition = '';
+            root.ontransitionend = null;
+          }, 0);
           this.setState(s => {
             return {
               face: s.face === 'front' ? 'back' : 'front',

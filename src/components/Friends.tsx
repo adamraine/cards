@@ -1,4 +1,4 @@
-import './Friends.scss';
+import styles from './Friends.module.scss';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
@@ -29,7 +29,7 @@ export function UserCard(props: PropTypes.InferProps<typeof UserCard.propTypes>)
   }
   
   return (
-    <div key={user.id} className="UserCard">
+    <div key={user.id} className={styles.UserCard}>
       <img src={user.picture}></img>
       <span>{user.name}</span>
       <button disabled={isFriend} onClick={() => addFriend(user.id)}>
@@ -49,7 +49,7 @@ UserCard.propTypes = {
 export function UserList(props: PropTypes.InferProps<typeof UserList.propTypes>):JSX.Element {
   const {userList} = props;
   return (
-    <div className="UserList">
+    <div className={styles.UserList}>
       {userList.map(user => <UserCard key={user.id} user={user}></UserCard>)}
     </div>
   );
@@ -81,7 +81,7 @@ export function Friends():JSX.Element {
   const userList = useCollectionData<App.User>(query, {idField: 'id'})[0] || [];
 
   return (
-    <div className="Friends">
+    <div className={styles.Friends}>
       <input type="text" value={search} onChange={updateResults}></input>
       {
         userList.length ?

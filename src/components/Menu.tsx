@@ -1,4 +1,4 @@
-import './Menu.scss';
+import styles from './Menu.module.scss';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link as DefaultLink } from 'react-router-dom';
@@ -17,7 +17,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
   render():JSX.Element {
     return (
       <DefaultLink
-        className="MenuItem"
+        className={styles.MenuItem}
         to={this.props.href}
       >
         {this.props.label}
@@ -41,12 +41,12 @@ export class Menu extends React.Component<MenuProps, State> {
   static propTypes = {children: PropTypes.node.isRequired};
 
   render():JSX.Element {
-    const classes = ['Menu']
-    if (this.state.open) classes.push('open');
+    const classes = [styles.Menu]
+    if (this.state.open) classes.push(styles.open);
     return (
       <div className={classes.join(' ')}>
-        <div className="icon" onClick={() => this.setState(s => ({open: !s.open}))}>=</div>
-        <div className="items">
+        <div className={styles.icon} onClick={() => this.setState(s => ({open: !s.open}))}>=</div>
+        <div className={styles.items}>
           {this.props.children}
         </div>
       </div>

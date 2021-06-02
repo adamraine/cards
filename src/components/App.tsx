@@ -1,4 +1,4 @@
-import './App.scss';
+import styles from './App.module.scss';
 import {SignIn, SignOut} from './Login';
 import {Menu, MenuItem} from './Menu';
 import {Deck} from './Deck';
@@ -38,7 +38,7 @@ const ContentSelector:React.FunctionComponent = () => {
 const App:React.FunctionComponent = () => {
   const [user] = useAuthState(auth);
   return (
-    <div className="App">
+    <div className={styles.App}>
       <header>
         <Menu>
           <MenuItem label="Home" href="/"></MenuItem>

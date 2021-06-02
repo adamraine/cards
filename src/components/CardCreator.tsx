@@ -1,4 +1,4 @@
-import './CardCreator.scss'
+import styles from './CardCreator.module.scss'
 import {firebase, auth, db, storage} from '../firebase';
 import * as React from 'react';
 
@@ -88,7 +88,7 @@ export class CardCreator extends React.Component<Props, State> {
   render():JSX.Element {
     return (
       <div 
-        className={'CardCreator ' + (this.state.minified ? 'minified' : 'open')}
+        className={[styles.CardCreator, this.state.minified ? styles.minified : styles.open].join(' ')}
         onClick={this.state.minified ? this.maximize : undefined}
       >
         {

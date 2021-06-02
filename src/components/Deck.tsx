@@ -1,4 +1,4 @@
-import './Deck.scss';
+import styles from './Deck.module.scss';
 import * as React from 'react';
 import {Card} from './Card';
 import {CardCreator} from './CardCreator';
@@ -12,9 +12,9 @@ export function Deck():JSX.Element {
   const [userCards] = useCollectionData<App.Card>(query, {idField: 'id'});
 
   return (
-    <div className="Deck">
+    <div className={styles.Deck}>
       <>
-        {userCards && userCards.filter(card => card.uid).map(card => <Card key={card.id} data={card}/>)}
+        {userCards && userCards.filter(card => card.uid).map(card => <div className={styles.CardHolder} key={card.id}><Card data={card}/></div>)}
         <CardCreator/>
       </>
     </div>

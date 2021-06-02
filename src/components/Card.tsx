@@ -1,4 +1,4 @@
-import './Card.scss';
+import styles from './Card.module.scss';
 import {db, storage} from '../firebase';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
@@ -110,14 +110,18 @@ export class Card extends React.Component<Props, State> {
   
   render():JSX.Element {
     return (
-      <div ref={ref => this.root = ref} onClick={this.toggleFace} className="Card">
-        <div ref={ref => this.content = ref} className={'content ' + this.state.face} style={this.getTransformStyle()}>
-          <div className="front">
+      <div ref={ref => this.root = ref} onClick={this.toggleFace} className={styles.Card}>
+        <div
+          ref={ref => this.content = ref}
+          className={[styles.content, styles[this.state.face]].join(' ')}
+          style={this.getTransformStyle()}
+        >
+          <div className={styles.front}>
             <h3>{this.title}</h3>
             <img src={this.state.url} alt=""></img>
             <div>{this.text}</div>
           </div>
-          <div className="back">
+          <div className={styles.back}>
             <div>This is the back of a card.</div>
             <button onClick={this.deleteCard}>Delete</button>
           </div>

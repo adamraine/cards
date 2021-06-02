@@ -1,4 +1,4 @@
-import './Login.scss';
+import styles from './Login.module.scss';
 import * as React from 'react';
 import {firebase, auth, db} from '../firebase';
 
@@ -17,7 +17,7 @@ export function SignIn():JSX.Element {
     });
   };
   return (
-    <div className="SignIn">
+    <div className={styles.Login}>
       <button onClick={signInWithGoogle}>Sign in with Google</button>
     </div>
   );
@@ -25,7 +25,7 @@ export function SignIn():JSX.Element {
 
 export function SignOut():JSX.Element|null {
   return auth.currentUser && (
-    <div className="SignOut">
+    <div className={styles.Logout}>
       <button onClick={() => auth.signOut()}>Sign Out</button>
       <span>{auth.currentUser.displayName}</span>
       <span>({auth.currentUser.email})</span>

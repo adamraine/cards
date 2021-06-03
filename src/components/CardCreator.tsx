@@ -12,7 +12,7 @@ interface State {
 }
 
 export class CardCreator extends React.Component<Props, State> {
-  fileInput: HTMLInputElement|null;
+  fileInput: React.RefObject<HTMLInputElement>;
   updateTitle: React.ChangeEventHandler<HTMLInputElement>;
   updateText: React.ChangeEventHandler<HTMLInputElement>;
   updateImage: React.ChangeEventHandler<HTMLInputElement>;
@@ -25,7 +25,7 @@ export class CardCreator extends React.Component<Props, State> {
     super(props);
     const cards = db.collection('cards');
 
-    this.fileInput = null;
+    this.fileInput = React.createRef();
 
     this.state = {
       minified: true,
@@ -81,7 +81,7 @@ export class CardCreator extends React.Component<Props, State> {
         image: null,
         minified: true,
       });
-      if (this.fileInput) this.fileInput.value = '';
+      if (this.fileInput.current) this.fileInput.current.value = '';
     };
   }
   
@@ -97,7 +97,7 @@ export class CardCreator extends React.Component<Props, State> {
             <form onSubmit={this.createCard}>
               <input value={this.state.title} type="text" onChange={this.updateTitle}></input>
               <input value={this.state.text} type="text" onChange={this.updateText}></input>
-              <input ref={ref => this.fileInput = ref} accept="image/*" type="file" onChange={this.updateImage}></input>
+              <input ref={this.fileInput} accept="image/*" type="file" onChange={this.updateImage}></input>
               <button type="submit">Create card</button>
             </form>
             <button onClick={this.minify}>Minify</button>

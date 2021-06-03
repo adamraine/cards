@@ -1,3 +1,4 @@
+/** @type {import('eslint').Linter.BaseConfig} */
 module.exports = {
   settings: {
     react: {

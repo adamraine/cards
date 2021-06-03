@@ -2,7 +2,7 @@ import styles from './Login.module.scss';
 import * as React from 'react';
 import {firebase, auth, db} from '../firebase';
 
-export function SignIn():JSX.Element {
+export const SignIn:React.FunctionComponent = () => {
   const users = db.collection('users');
   const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -23,7 +23,7 @@ export function SignIn():JSX.Element {
   );
 }
 
-export function SignOut():JSX.Element|null {
+export const SignOut:React.FunctionComponent = () => {
   return auth.currentUser && (
     <div className={styles.Logout}>
       <button onClick={() => auth.signOut()}>Sign Out</button>

@@ -6,7 +6,7 @@ import {useAuthState} from 'react-firebase-hooks/auth';
 import {firebase, auth, db} from '../firebase';
 import {useFriendsList as useFriendsIds} from '../hooks';
 
-export function UserCard(props: PropTypes.InferProps<typeof UserCard.propTypes>):JSX.Element {
+export const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
   const {user} = props;
 
   const [currentUser] = useAuthState(auth);
@@ -30,7 +30,7 @@ export function UserCard(props: PropTypes.InferProps<typeof UserCard.propTypes>)
   
   return (
     <div key={user.id} className={styles.UserCard}>
-      <img src={user.picture}></img>
+      <img src={user.picture || ''}></img>
       <span>{user.name}</span>
       <button disabled={isFriend} onClick={() => addFriend(user.id)}>
         {isFriend ? 'Friends' : 'Add Friend'}
@@ -40,13 +40,13 @@ export function UserCard(props: PropTypes.InferProps<typeof UserCard.propTypes>)
 }
 UserCard.propTypes = {
   user: PropTypes.shape<PropTypes.ValidationMap<App.User>>({
-    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     picture: PropTypes.string,
   }).isRequired,
 }
 
-export function UserList(props: PropTypes.InferProps<typeof UserList.propTypes>):JSX.Element {
+export const UserList:React.FunctionComponent<{userList: App.User[]}> = (props) => {
   const {userList} = props;
   return (
     <div className={styles.UserList}>
@@ -64,7 +64,7 @@ UserList.propTypes = {
   ).isRequired,
 };
 
-export function Friends():JSX.Element {
+export const Friends:React.FunctionComponent = () => {
   const friendIds = useFriendsIds(auth, db);
   const users = db.collection('users');
   

@@ -85,7 +85,7 @@ export class CardCreator extends React.Component<Props, State> {
     };
   }
   
-  render():JSX.Element {
+  render():React.ReactNode {
     return (
       <div 
         className={[styles.CardCreator, this.state.minified ? styles.minified : styles.open].join(' ')}

@@ -40,7 +40,7 @@ export class Menu extends React.Component<MenuProps, State> {
   }
   static propTypes = {children: PropTypes.node.isRequired};
 
-  render():JSX.Element {
+  render():React.ReactNode {
     const classes = [styles.Menu]
     if (this.state.open) classes.push(styles.open);
     return (

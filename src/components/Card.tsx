@@ -113,7 +113,7 @@ export class Card extends React.Component<Props, State> {
     window.removeEventListener('resize', this.resizeCallback);
   }
   
-  render():JSX.Element {
+  render():React.ReactNode {
     return (
       <div
         ref={this.root}

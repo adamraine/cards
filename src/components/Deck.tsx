@@ -5,7 +5,7 @@ import {CardCreator} from './CardCreator';
 import {auth, db} from '../firebase';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
-export function Deck():JSX.Element {
+export const Deck:React.FunctionComponent = () => {
   const cards = db.collection('cards');
   if (!auth.currentUser) throw new Error('User must be logged in.');
   const query = cards.where('uid', '==', auth.currentUser.uid).orderBy('createdAt').limit(25);

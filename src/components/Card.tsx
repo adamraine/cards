@@ -64,24 +64,26 @@ export class Card extends React.Component<Props, State> {
       await cards.doc(id).delete();
     };
     
-    this.toggleFace = () => {
+    this.toggleFace = async () => {
       if (this.root) {
         const root = this.root;
-        root.style.transform = `perspective(2000px) rotateY(90deg)`;
-        root.ontransitionend = () => {
-          root.style.transform = 'perspective(2000px) rotateY(-90deg)';
-          root.style.transition = 'unset';
-          setTimeout(() => {
-            root.style.transform = '';
-            root.style.transition = '';
-            root.ontransitionend = null;
-          }, 0);
-          this.setState(s => {
-            return {
-              face: s.face === 'front' ? 'back' : 'front',
-            }
-          });
-        };
+        root.classList.add(styles.rotate_left);
+
+        await new Promise(r => root.ontransitionend = r).then(() => root.ontransitionend = null);
+
+        root.classList.remove(styles.rotate_left);
+        root.classList.add(styles.no_transition);
+        root.classList.add(styles.rotate_right);
+        this.setState(s => {
+          return {
+            face: s.face === 'front' ? 'back' : 'front',
+          }
+        });
+        
+        await new Promise(r => setTimeout(r));
+
+        root.classList.remove(styles.rotate_right);
+        root.classList.remove(styles.no_transition);
       }
     }
     
@@ -110,10 +112,14 @@ export class Card extends React.Component<Props, State> {
   
   render():JSX.Element {
     return (
-      <div ref={ref => this.root = ref} onClick={this.toggleFace} className={styles.Card}>
+      <div
+        ref={ref => this.root = ref}
+        onClick={this.toggleFace}
+        className={[styles.Card, this.state.face === 'front' ? styles.show_front : styles.show_back].join(' ')}
+      >
         <div
           ref={ref => this.content = ref}
-          className={[styles.content, styles[this.state.face]].join(' ')}
+          className={styles.content}
           style={this.getTransformStyle()}
         >
           <div className={styles.front}>

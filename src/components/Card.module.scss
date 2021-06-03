@@ -1,8 +1,11 @@
+$default-perspective: perspective(3000px);
+
 .Card {
   max-width: 90vw;
   aspect-ratio: 2.5 / 3.5;
   transition-property: transform;
   transition-duration: 0.5s;
+  transform: $default-perspective;
 
   .content {
     position: relative;
@@ -56,17 +59,33 @@
       }
     }
   }
-  
-  .content.front {
+}
+
+.Card.show_front {
+  .content {
     .back {
       display: none;
     }
   }
+}
 
-  .content.back {
+.Card.show_back {
+  .content {
     .front {
       display: none;
     }
   }
+}
+
+.Card.rotate_left {
+  transform: $default-perspective rotateY(90deg);
+}
+
+.Card.rotate_right {
+  transform: $default-perspective rotateY(-90deg);
+}
+
+.Card.no_transition {
+  transition: none;
 }
 

@@ -1,7 +1,7 @@
-import styles from './Menu.module.scss';
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Link as DefaultLink } from 'react-router-dom';
+import * as React from 'react';
+import {Link} from 'react-router-dom';
+import styles from './Menu.module.scss';
 
 interface MenuItemProps {
   label: string,
@@ -16,13 +16,13 @@ export class MenuItem extends React.Component<MenuItemProps> {
   
   render():JSX.Element {
     return (
-      <DefaultLink
+      <Link
         className={styles.MenuItem}
         to={this.props.href}
       >
         {this.props.label}
-      </DefaultLink>
-    )
+      </Link>
+    );
   }
 }
 
@@ -41,7 +41,7 @@ export class Menu extends React.Component<MenuProps, State> {
   static propTypes = {children: PropTypes.node.isRequired};
 
   render():React.ReactNode {
-    const classes = [styles.Menu]
+    const classes = [styles.Menu];
     if (this.state.open) classes.push(styles.open);
     return (
       <div className={classes.join(' ')}>

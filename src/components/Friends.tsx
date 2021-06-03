@@ -1,16 +1,16 @@
-import styles from './Friends.module.scss';
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import {useCollectionData} from 'react-firebase-hooks/firestore';
+import * as React from 'react';
+import {auth, db, firebase} from '../firebase';
+import styles from './Friends.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import {firebase, auth, db} from '../firebase';
-import {useFriendsList as useFriendsIds} from '../hooks';
+import {useCollectionData} from 'react-firebase-hooks/firestore';
+import {useFriendsList} from '../hooks';
 
 export const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
   const {user} = props;
 
   const [currentUser] = useAuthState(auth);
-  const friendIds = useFriendsIds(auth, db);
+  const friendIds = useFriendsList(auth, db);
 
   const friends = db.collection('friends');
   const isFriend = friendIds.includes(user.id);
@@ -36,15 +36,15 @@ export const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
         {isFriend ? 'Friends' : 'Add Friend'}
       </button>
     </div>
-  )
-}
+  );
+};
 UserCard.propTypes = {
   user: PropTypes.shape<PropTypes.ValidationMap<App.User>>({
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     picture: PropTypes.string,
   }).isRequired,
-}
+};
 
 export const UserList:React.FunctionComponent<{userList: App.User[]}> = (props) => {
   const {userList} = props;
@@ -53,28 +53,28 @@ export const UserList:React.FunctionComponent<{userList: App.User[]}> = (props) 
       {userList.map(user => <UserCard key={user.id} user={user}></UserCard>)}
     </div>
   );
-}
+};
 UserList.propTypes = {
   userList: PropTypes.arrayOf(
     PropTypes.shape<PropTypes.ValidationMap<App.User>>({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       picture: PropTypes.string,
-    }).isRequired,
+    }).isRequired
   ).isRequired,
 };
 
 export const Friends:React.FunctionComponent = () => {
-  const friendIds = useFriendsIds(auth, db);
+  const friendIds = useFriendsList(auth, db);
   const users = db.collection('users');
   
   const [search, setSearch] = React.useState('');
   
   const updateResults:React.ChangeEventHandler<HTMLInputElement> = event => {
     setSearch(event.target.value);
-  }
+  };
   
-  let query = users.where('name', '==', search)
+  let query = users.where('name', '==', search);
   if (!search && friendIds.length) {
     query = users.where(firebase.firestore.FieldPath.documentId(), 'in', friendIds);
   }
@@ -85,9 +85,9 @@ export const Friends:React.FunctionComponent = () => {
       <input type="text" value={search} onChange={updateResults}></input>
       {
         userList.length ?
-        <UserList userList={userList}></UserList> :
-        <h4>No user found :(</h4>
+          <UserList userList={userList}></UserList> :
+          <h4>No user found :(</h4>
       }
     </div>
-  )
-}
+  );
+};

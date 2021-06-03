@@ -1,24 +1,24 @@
-import styles from './App.module.scss';
-import {SignIn, SignOut} from './Login';
+import * as React from 'react';
 import {Menu, MenuItem} from './Menu';
+import {Redirect, Route, Switch} from 'react-router-dom';
+import {SignIn, SignOut} from './Login';
+import {auth} from '../firebase';
 import {Deck} from './Deck';
 import {Friends} from './Friends';
-import {auth} from '../firebase';
+import styles from './App.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
 
 const Home: React.FunctionComponent = () => {
   return (
     <h3>HOME</h3>
   );
-}
+};
 
 const Trade: React.FunctionComponent = () => {
   return (
     <h3>TRADE</h3>
   );
-}
+};
 
 const ContentSelector:React.FunctionComponent = () => {
   const [user] = useAuthState(auth);
@@ -32,7 +32,7 @@ const ContentSelector:React.FunctionComponent = () => {
       <Redirect to='/' />
     </Switch>
   );
-}
+};
 
 
 const App:React.FunctionComponent = () => {
@@ -53,6 +53,6 @@ const App:React.FunctionComponent = () => {
       </main>
     </div>
   );
-}
+};
 
 export default App;

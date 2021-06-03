@@ -1,6 +1,6 @@
-import styles from './CardCreator.module.scss'
-import {firebase, auth, db, storage} from '../firebase';
 import * as React from 'react';
+import {auth, db, firebase, storage} from '../firebase';
+import styles from './CardCreator.module.scss';
 
 type Props = Record<string, never>;
 
@@ -92,16 +92,17 @@ export class CardCreator extends React.Component<Props, State> {
         onClick={this.state.minified ? this.maximize : undefined}
       >
         {
-          this.state.minified ? <div>+</div> :
-          <>
-            <form onSubmit={this.createCard}>
-              <input value={this.state.title} type="text" onChange={this.updateTitle}></input>
-              <input value={this.state.text} type="text" onChange={this.updateText}></input>
-              <input ref={this.fileInput} accept="image/*" type="file" onChange={this.updateImage}></input>
-              <button type="submit">Create card</button>
-            </form>
-            <button onClick={this.minify}>Minify</button>
-          </>
+          this.state.minified ?
+            <div>+</div> :
+            <>
+              <form onSubmit={this.createCard}>
+                <input value={this.state.title} type="text" onChange={this.updateTitle}></input>
+                <input value={this.state.text} type="text" onChange={this.updateText}></input>
+                <input ref={this.fileInput} accept="image/*" type="file" onChange={this.updateImage}></input>
+                <button type="submit">Create card</button>
+              </form>
+              <button onClick={this.minify}>Minify</button>
+            </>
         }
       </div>
     );

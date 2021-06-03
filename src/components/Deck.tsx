@@ -1,8 +1,8 @@
-import styles from './Deck.module.scss';
 import * as React from 'react';
+import {auth, db} from '../firebase';
 import {Card} from './Card';
 import {CardCreator} from './CardCreator';
-import {auth, db} from '../firebase';
+import styles from './Deck.module.scss';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
 export const Deck:React.FunctionComponent = () => {
@@ -19,4 +19,4 @@ export const Deck:React.FunctionComponent = () => {
       </>
     </div>
   );
-}
+};

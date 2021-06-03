@@ -1,7 +1,7 @@
-import styles from './Card.module.scss';
-import {db, storage} from '../firebase';
-import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as React from 'react';
+import {db, storage} from '../firebase';
+import styles from './Card.module.scss';
 
 interface Props {
   data: App.Card;
@@ -78,14 +78,14 @@ export class Card extends React.Component<Props, State> {
       this.setState(s => {
         return {
           face: s.face === 'front' ? 'back' : 'front',
-        }
+        };
       });
       
       await new Promise(r => setTimeout(r));
 
       root.classList.remove(styles.rotate_right);
       root.classList.remove(styles.no_transition);
-    }
+    };
     
     this.getTransformStyle = () => {
       if (!this.content.current || !this.root.current) return {};
@@ -98,7 +98,7 @@ export class Card extends React.Component<Props, State> {
       const scale = root.offsetWidth / content.offsetWidth;
       return {
         transform: `scale(${scale})`,
-      }
+      };
     };
     
     this.resizeCallback = () => this.forceUpdate();
@@ -146,4 +146,4 @@ Card.propTypes = {
     id: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired,
   }),
-}
+};

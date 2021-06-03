@@ -1,6 +1,6 @@
-import styles from './Login.module.scss';
 import * as React from 'react';
-import {firebase, auth, db} from '../firebase';
+import {auth, db, firebase} from '../firebase';
+import styles from './Login.module.scss';
 
 export const SignIn:React.FunctionComponent = () => {
   const users = db.collection('users');
@@ -21,7 +21,7 @@ export const SignIn:React.FunctionComponent = () => {
       <button onClick={signInWithGoogle}>Sign in with Google</button>
     </div>
   );
-}
+};
 
 export const SignOut:React.FunctionComponent = () => {
   return auth.currentUser && (
@@ -31,4 +31,4 @@ export const SignOut:React.FunctionComponent = () => {
       <span>({auth.currentUser.email})</span>
     </div>
   );
-}
+};

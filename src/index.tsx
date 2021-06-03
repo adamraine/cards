@@ -1,9 +1,9 @@
 import './index.scss';
+import 'regenerator-runtime/runtime';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import 'regenerator-runtime/runtime';
 import App from './components/App';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 ReactDOM.render(
   <BrowserRouter>

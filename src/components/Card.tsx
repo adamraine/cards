@@ -15,8 +15,8 @@ interface State {
 
 export class Card extends React.Component<Props, State> {
   mounted: boolean;
-  root: HTMLDivElement|null;
-  content: HTMLDivElement|null;
+  root: React.RefObject<HTMLDivElement>;
+  content: React.RefObject<HTMLDivElement>;
   title: string;
   text: string;
   id: string;
@@ -32,8 +32,8 @@ export class Card extends React.Component<Props, State> {
     super(props);
     
     this.mounted = false;
-    this.root = null;
-    this.content = null;
+    this.root = React.createRef();
+    this.content = React.createRef();
     
     this.title = props.data.title;
     this.text = props.data.text;
@@ -65,36 +65,39 @@ export class Card extends React.Component<Props, State> {
     };
     
     this.toggleFace = async () => {
-      if (this.root) {
-        const root = this.root;
-        root.classList.add(styles.rotate_left);
+      if (!this.root.current) return;
+      const root = this.root.current;
 
-        await new Promise(r => root.ontransitionend = r).then(() => root.ontransitionend = null);
+      root.classList.add(styles.rotate_left);
 
-        root.classList.remove(styles.rotate_left);
-        root.classList.add(styles.no_transition);
-        root.classList.add(styles.rotate_right);
-        this.setState(s => {
-          return {
-            face: s.face === 'front' ? 'back' : 'front',
-          }
-        });
-        
-        await new Promise(r => setTimeout(r));
+      await new Promise(r => root.ontransitionend = r).then(() => root.ontransitionend = null);
 
-        root.classList.remove(styles.rotate_right);
-        root.classList.remove(styles.no_transition);
-      }
+      root.classList.remove(styles.rotate_left);
+      root.classList.add(styles.no_transition);
+      root.classList.add(styles.rotate_right);
+      this.setState(s => {
+        return {
+          face: s.face === 'front' ? 'back' : 'front',
+        }
+      });
+      
+      await new Promise(r => setTimeout(r));
+
+      root.classList.remove(styles.rotate_right);
+      root.classList.remove(styles.no_transition);
     }
     
     this.getTransformStyle = () => {
-      const transforms = [];
-      if (this.content && this.root && this.content.offsetWidth > this.root.offsetWidth) {
-        const scale = this.root.offsetWidth / this.content.offsetWidth;
-        transforms.push(`scale(${scale})`);
-      }
+      if (!this.content.current || !this.root.current) return {};
+
+      const content = this.content.current;
+      const root = this.root.current;
+
+      if (content.offsetWidth < root.offsetWidth) return {};
+
+      const scale = root.offsetWidth / content.offsetWidth;
       return {
-        transform: transforms.join(' '),
+        transform: `scale(${scale})`,
       }
     };
     
@@ -113,12 +116,12 @@ export class Card extends React.Component<Props, State> {
   render():JSX.Element {
     return (
       <div
-        ref={ref => this.root = ref}
+        ref={this.root}
         onClick={this.toggleFace}
         className={[styles.Card, this.state.face === 'front' ? styles.show_front : styles.show_back].join(' ')}
       >
         <div
-          ref={ref => this.content = ref}
+          ref={this.content}
           className={styles.content}
           style={this.getTransformStyle()}
         >

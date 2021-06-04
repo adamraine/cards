@@ -14,7 +14,11 @@ export const Deck:React.FunctionComponent = () => {
   return (
     <div className={styles.Deck}>
       <>
-        {userCards && userCards.filter(card => card.uid).map(card => <div className={styles.CardHolder} key={card.id}><Card data={card}/></div>)}
+        {
+          userCards && userCards
+            .filter(card => card.uid)
+            .map(card => <Card key={card.id} width={500} data={card}/>)
+        }
         <CardCreator/>
       </>
     </div>

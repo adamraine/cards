@@ -5,6 +5,7 @@ import styles from './Card.module.scss';
 
 interface Props {
   data: App.Card;
+  width: React.CSSProperties['width'];
 }
 
 interface State {
@@ -20,6 +21,7 @@ export class Card extends React.Component<Props, State> {
   title: string;
   text: string;
   id: string;
+  width: React.CSSProperties['width'];
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
   toggleFace: React.MouseEventHandler<HTMLElement>;
   getTransformStyle: () => React.CSSProperties;
@@ -35,6 +37,7 @@ export class Card extends React.Component<Props, State> {
     this.root = React.createRef();
     this.content = React.createRef();
     
+    this.width = props.width;
     this.title = props.data.title;
     this.text = props.data.text;
     this.id = props.data.id;
@@ -119,6 +122,7 @@ export class Card extends React.Component<Props, State> {
         ref={this.root}
         onClick={this.toggleFace}
         className={[styles.Card, this.state.face === 'front' ? styles.show_front : styles.show_back].join(' ')}
+        style={{width: this.width}}
       >
         <div
           ref={this.content}

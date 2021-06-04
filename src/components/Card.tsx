@@ -10,6 +10,7 @@ interface Props {
 
 interface State {
   url: string;
+  user: App.User|null;
   face: 'front'|'back';
   transforms: Set<string>;
 }
@@ -45,14 +46,15 @@ export class Card extends React.Component<Props, State> {
     
     this.state = {
       url: '',
+      user: null,
       face: 'front',
       transforms: new Set(),
     };
 
     const uid = props.data.uid;
 
-
     const cards = db.collection('cards');
+    const users = db.collection('users');
 
     const {id} = this.props.data;
     const imageRef = storage.ref().child(`images/${uid}/${id}`);
@@ -61,6 +63,16 @@ export class Card extends React.Component<Props, State> {
         this.setState({url});
       } else {
         this.state.url = url;
+      }
+    });
+    
+    users.doc(uid).get().then(doc => {
+      if (!doc.exists) return;
+      const user = doc.data() as App.User;
+      if (this.mounted) {
+        this.setState({user});
+      } else {
+        this.state.user = user;
       }
     });
 
@@ -138,6 +150,7 @@ export class Card extends React.Component<Props, State> {
           </div>
           <div className={styles.back}>
             <div>This is the back of a card.</div>
+            <div>Owner: {this.state.user?.name}</div>
             <button onClick={this.deleteCard}>Delete</button>
           </div>
         </div>

@@ -5,7 +5,7 @@ import styles from './Card.module.scss';
 
 interface Props {
   data: App.Card;
-  width: React.CSSProperties['width'];
+  width?: number|string;
 }
 
 interface State {
@@ -18,17 +18,23 @@ export class Card extends React.Component<Props, State> {
   mounted: boolean;
   root: React.RefObject<HTMLDivElement>;
   content: React.RefObject<HTMLDivElement>;
-  title: string;
-  text: string;
-  id: string;
-  width: React.CSSProperties['width'];
   deleteCard: React.MouseEventHandler<HTMLButtonElement>;
   toggleFace: React.MouseEventHandler<HTMLElement>;
   getTransformStyle: () => React.CSSProperties;
   resizeCallback: () => void;
   state: State;
 
-  static propTypes: PropTypes.InferProps<Props>;
+  static propTypes:React.WeakValidationMap<Props> = {
+    data: PropTypes.shape<PropTypes.ValidationMap<App.Card>>({
+      text: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      uid: PropTypes.string.isRequired,
+    }).isRequired,
+    width: PropTypes.oneOfType([
+      PropTypes.number.isRequired,
+      PropTypes.string.isRequired,
+    ]),
+  };
 
   constructor(props: Props) {
     super(props);
@@ -37,10 +43,6 @@ export class Card extends React.Component<Props, State> {
     this.root = React.createRef();
     this.content = React.createRef();
     
-    this.width = props.width;
-    this.title = props.data.title;
-    this.text = props.data.text;
-    this.id = props.data.id;
     this.state = {
       url: '',
       face: 'front',
@@ -52,7 +54,7 @@ export class Card extends React.Component<Props, State> {
 
     const cards = db.collection('cards');
 
-    const {id} = this;
+    const {id} = this.props.data;
     const imageRef = storage.ref().child(`images/${uid}/${id}`);
     imageRef.getDownloadURL().then(url => {
       if (this.mounted) {
@@ -122,7 +124,7 @@ export class Card extends React.Component<Props, State> {
         ref={this.root}
         onClick={this.toggleFace}
         className={[styles.Card, this.state.face === 'front' ? styles.show_front : styles.show_back].join(' ')}
-        style={{width: this.width}}
+        style={{width: this.props.width}}
       >
         <div
           ref={this.content}
@@ -130,9 +132,9 @@ export class Card extends React.Component<Props, State> {
           style={this.getTransformStyle()}
         >
           <div className={styles.front}>
-            <h3>{this.title}</h3>
+            <h3>{this.props.data.title}</h3>
             <img src={this.state.url} alt=""></img>
-            <div>{this.text}</div>
+            <div>{this.props.data.text}</div>
           </div>
           <div className={styles.back}>
             <div>This is the back of a card.</div>
@@ -143,11 +145,3 @@ export class Card extends React.Component<Props, State> {
     );
   }
 }
-
-Card.propTypes = {
-  data: PropTypes.shape<PropTypes.ValidationMap<App.Card>>({
-    text: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    uid: PropTypes.string.isRequired,
-  }),
-};

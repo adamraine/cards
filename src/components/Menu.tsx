@@ -9,7 +9,7 @@ interface MenuItemProps {
 }
 
 export class MenuItem extends React.Component<MenuItemProps> {
-  static propTypes = {
+  static propTypes:React.WeakValidationMap<MenuItemProps> = {
     label: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
   };

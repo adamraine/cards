@@ -6,10 +6,12 @@ $default-perspective: perspective(3000px);
   transition-property: transform;
   transition-duration: 0.5s;
   transform: $default-perspective;
+  overflow: hidden;
 
   .content {
     position: relative;
     width: 500px;
+    box-sizing: border-box;
     aspect-ratio: 2.5 / 3.5;
     border-width: 10px;
     border-color: black;

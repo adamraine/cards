@@ -5,14 +5,9 @@ import {SignIn, SignOut} from './Login';
 import {auth} from '../firebase';
 import {Deck} from './Deck';
 import {Friends} from './Friends';
+import {Home} from './Home';
 import styles from './App.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
-
-const Home: React.FunctionComponent = () => {
-  return (
-    <h3>HOME</h3>
-  );
-};
 
 const Trade: React.FunctionComponent = () => {
   return (

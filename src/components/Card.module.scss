@@ -26,10 +26,11 @@ $default-perspective: perspective(3000px);
       flex-direction: column;
       align-items: center;
       width: 100%;
-      height: 100%;
     }
 
     .front {
+      height: 100%;
+
       * {
         width: 90%;
       }

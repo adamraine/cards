@@ -82,8 +82,8 @@ export const Card:React.FunctionComponent<Props> = (props) => {
           <div>{props.data.text}</div>
         </div>
         <div className={styles.back}>
-          <div>This is the back of a card.</div>
           <div>Owner: {user?.name}</div>
+          <div>Created on: {props.data.createdAt.toDate().toDateString()}</div>
           <button onClick={deleteCard}>Delete</button>
         </div>
       </div>

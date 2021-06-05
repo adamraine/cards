@@ -1,4 +1,12 @@
 .Login,.Logout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  column-gap: 10px;
+  margin-right: 10px;
+
   button {
     background-color: white;
     border: unset;

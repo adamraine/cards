@@ -26,9 +26,8 @@ export const SignIn:React.FunctionComponent = () => {
 export const SignOut:React.FunctionComponent = () => {
   return auth.currentUser && (
     <div className={styles.Logout}>
-      <button onClick={() => auth.signOut()}>Sign Out</button>
       <span>{auth.currentUser.displayName}</span>
-      <span>({auth.currentUser.email})</span>
+      <button onClick={() => auth.signOut()}>Sign Out</button>
     </div>
   );
 };

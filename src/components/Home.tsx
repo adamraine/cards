@@ -13,7 +13,7 @@ export const Grid:React.FunctionComponent = (props) => {
 };
 
 export const Home:React.FunctionComponent = () => {
-  const [cards] = useCollectionData<App.Card>(db.collection('cards'), {idField: 'id'});
+  const [cards] = useCollectionData<App.Card>(db.collection('cards').orderBy('createdAt', 'desc'), {idField: 'id'});
   return (
     <div className={styles.Home}>
       <Grid>

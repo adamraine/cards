@@ -11,7 +11,10 @@ export const Deck:React.FunctionComponent = () => {
   const [user] = useAuthState(auth);
   if (!user) throw new Error('User must be logged in.');
 
-  const query = cards.where('uid', '==', user.uid).orderBy('createdAt').limit(25);
+  const query = cards
+    .where('uid', '==', user.uid)
+    .orderBy('createdAt', 'desc')
+    .limit(25);
   const [userCards] = useCollectionData<App.Card>(query, {idField: 'id'});
 
   return (

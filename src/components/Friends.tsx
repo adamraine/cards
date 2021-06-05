@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {auth, db, firebase} from '../firebase';
 import styles from './Friends.module.scss';
@@ -38,13 +37,6 @@ export const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
     </div>
   );
 };
-UserCard.propTypes = {
-  user: PropTypes.shape<PropTypes.ValidationMap<App.User>>({
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    picture: PropTypes.string,
-  }).isRequired,
-};
 
 export const UserList:React.FunctionComponent<{userList: App.User[]}> = (props) => {
   const {userList} = props;
@@ -53,15 +45,6 @@ export const UserList:React.FunctionComponent<{userList: App.User[]}> = (props) 
       {userList.map(user => <UserCard key={user.id} user={user}></UserCard>)}
     </div>
   );
-};
-UserList.propTypes = {
-  userList: PropTypes.arrayOf(
-    PropTypes.shape<PropTypes.ValidationMap<App.User>>({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      picture: PropTypes.string,
-    }).isRequired
-  ).isRequired,
 };
 
 export const Friends:React.FunctionComponent = () => {

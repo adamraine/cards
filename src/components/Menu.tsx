@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import styles from './Menu.module.scss';
@@ -9,11 +8,6 @@ interface MenuItemProps {
 }
 
 export class MenuItem extends React.Component<MenuItemProps> {
-  static propTypes:React.WeakValidationMap<MenuItemProps> = {
-    label: PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired,
-  };
-  
   render():JSX.Element {
     return (
       <Link
@@ -26,11 +20,7 @@ export class MenuItem extends React.Component<MenuItemProps> {
   }
 }
 
-interface MenuProps {
-  children: React.ReactNode;
-}
-
-export const Menu:React.FunctionComponent<MenuProps> = (props) => {
+export const Menu:React.FunctionComponent<{children: React.ReactNode}> = (props) => {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     const listener = () => open && setOpen(false);
@@ -48,4 +38,3 @@ export const Menu:React.FunctionComponent<MenuProps> = (props) => {
     </div>
   );
 };
-Menu.propTypes = {children: PropTypes.node.isRequired};

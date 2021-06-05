@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import {db, storage} from '../firebase';
 import styles from './Card.module.scss';
@@ -90,16 +89,4 @@ export const Card:React.FunctionComponent<Props> = (props) => {
       </div>
     </div>
   );
-};
-Card.propTypes = {
-  data: PropTypes.shape<PropTypes.ValidationMap<App.Card>>({
-    text: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    uid: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-  width: PropTypes.oneOfType<PropTypes.Validator<number|string>>([
-    PropTypes.number.isRequired,
-    PropTypes.string.isRequired,
-  ]),
 };

@@ -30,6 +30,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
+    'react/prop-types': 0,
     '@typescript-eslint/ban-ts-comment': 0,
     'eqeqeq': 2,
     'indent': [2, 2],

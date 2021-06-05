@@ -1,110 +1,83 @@
 import * as React from 'react';
 import {auth, db, firebase, storage} from '../firebase';
 import styles from './CardCreator.module.scss';
+import {useAuthState} from 'react-firebase-hooks/auth';
 
-type Props = Record<string, never>;
+export const CardCreator:React.FunctionComponent = () => {
+  const cards = db.collection('cards');
 
-interface State {
-  minified: boolean,
-  title: string;
-  text: string;
-  image: File|null;
-}
+  const [user] = useAuthState(auth);
+  if (!user) {
+    throw new Error('ERROR: User must be logged in.');
+  }
 
-export class CardCreator extends React.Component<Props, State> {
-  fileInput: React.RefObject<HTMLInputElement>;
-  updateTitle: React.ChangeEventHandler<HTMLInputElement>;
-  updateText: React.ChangeEventHandler<HTMLInputElement>;
-  updateImage: React.ChangeEventHandler<HTMLInputElement>;
-  minify: React.MouseEventHandler<HTMLElement>
-  maximize: React.MouseEventHandler<HTMLElement>
-  createCard: React.FormEventHandler<HTMLFormElement>;
-  state: State;
+  const fileInput = React.useRef<HTMLInputElement>(null);
+  const [minified, setMinified] = React.useState(true);
+  const [title, setTitle] = React.useState('');
+  const [text, setText] = React.useState('');
+  const [image, setImage] = React.useState<File|null>(null);
 
-  constructor(props: Props) {
-    super(props);
-    const cards = db.collection('cards');
+  const updateTitle:React.ChangeEventHandler<HTMLInputElement> = event => {
+    const title = event.target.value;
+    setTitle(title);
+  };
 
-    this.fileInput = React.createRef();
+  const updateText:React.ChangeEventHandler<HTMLInputElement> = event => {
+    const text = event.target.value;
+    setText(text);
+  };
 
-    this.state = {
-      minified: true,
-      title: '',
-      text: '',
-      image: null,
-    };
-
-    this.updateTitle = (event) => {
-      const title = event.target.value;
-      this.setState(s => ({...s, title}));
-    };
-
-    this.updateText = (event) => {
-      const text = event.target.value;
-      this.setState(s => ({...s, text}));
-    };
-
-    this.updateImage = (event) => {
-      const files = event.target.files;
-      const image = files && files[0];
-      this.setState(s => ({...s, image}));
-    };
-    
-    this.minify = () => this.setState({minified: true});
-    this.maximize = () => this.setState({minified: false});
-
-    this.createCard = async e => {
-      e.preventDefault();
-      if (!this.state.title) {
-        alert('Please specify an image value.');
-        return;
-      }
-      if (!this.state.image) {
-        alert('Please specify an image value.');
-        return;
-      }
-      if (!auth.currentUser) {
-        throw new Error('ERROR: User must be logged in.');
-      }
-      const {uid} = auth.currentUser;
-      const doc = cards.doc();
-      await storage.ref().child(`images/${uid}/${doc.id}`).put(this.state.image);
-      await doc.set({
-        title: this.state.title,
-        text: this.state.text,
+  const updateImage:React.ChangeEventHandler<HTMLInputElement> = event => {
+    const files = event.target.files;
+    const image = files && files[0];
+    setImage(image);
+  };
+  
+  const createCard:React.FormEventHandler<HTMLFormElement> = event => {
+    event.preventDefault();
+    if (!title) {
+      alert('Please specify an title value.');
+      return;
+    }
+    if (!image) {
+      alert('Please specify an image value.');
+      return;
+    }
+    const {uid} = user;
+    const doc = cards.doc();
+    storage.ref().child(`images/${uid}/${doc.id}`).put(image).then(() => {
+      doc.set({
+        title,
+        text,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         uid,
       });
-      this.setState({
-        title: '',
-        text: '',
-        image: null,
-        minified: true,
-      });
-      if (this.fileInput.current) this.fileInput.current.value = '';
-    };
-  }
-  
-  render():React.ReactNode {
-    return (
-      <div 
-        className={[styles.CardCreator, this.state.minified ? styles.minified : styles.open].join(' ')}
-        onClick={this.state.minified ? this.maximize : undefined}
-      >
-        {
-          this.state.minified ?
-            <div>+</div> :
-            <>
-              <form onSubmit={this.createCard}>
-                <input value={this.state.title} type="text" onChange={this.updateTitle}></input>
-                <input value={this.state.text} type="text" onChange={this.updateText}></input>
-                <input ref={this.fileInput} accept="image/*" type="file" onChange={this.updateImage}></input>
-                <button type="submit">Create card</button>
-              </form>
-              <button onClick={this.minify}>Minify</button>
-            </>
-        }
-      </div>
-    );
-  }
-}
+    });
+    setTitle('');
+    setText('');
+    setImage(null);
+    setMinified(true);
+    if (fileInput.current) fileInput.current.value = '';
+  };
+
+  return (
+    <div 
+      className={[styles.CardCreator, minified ? styles.minified : styles.open].join(' ')}
+      onClick={minified ? () => setMinified(false) : undefined}
+    >
+      {
+        minified ?
+          <div>+</div> :
+          <>
+            <form onSubmit={createCard}>
+              <input value={title} type="text" onChange={updateTitle}></input>
+              <input value={text} type="text" onChange={updateText}></input>
+              <input ref={fileInput} accept="image/*" type="file" onChange={updateImage}></input>
+              <button type="submit">Create card</button>
+            </form>
+            <button onClick={() => setMinified(true)}>Minify</button>
+          </>
+      }
+    </div>
+  );
+};

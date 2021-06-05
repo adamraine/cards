@@ -2,23 +2,13 @@ import * as React from 'react';
 import {Link} from 'react-router-dom';
 import styles from './Menu.module.scss';
 
-interface MenuItemProps {
-  label: string,
-  href: string,
-}
-
-export class MenuItem extends React.Component<MenuItemProps> {
-  render():JSX.Element {
-    return (
-      <Link
-        className={styles.MenuItem}
-        to={this.props.href}
-      >
-        {this.props.label}
-      </Link>
-    );
-  }
-}
+export const MenuItem:React.FunctionComponent<{label: string, href: string}> = (props) => {
+  return (
+    <Link className={styles.MenuItem} to={props.href}>
+      {props.label}
+    </Link>
+  );
+};
 
 export const Menu:React.FunctionComponent<{children: React.ReactNode}> = (props) => {
   const [open, setOpen] = React.useState(false);

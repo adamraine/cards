@@ -61,15 +61,17 @@ export const Friends:React.FunctionComponent = () => {
   if (!search && friendIds.length) {
     query = users.where(firebase.firestore.FieldPath.documentId(), 'in', friendIds);
   }
-  const userList = useCollectionData<App.User>(query, {idField: 'id'})[0] || [];
+  const [userList, loading] = useCollectionData<App.User>(query, {idField: 'id'});
 
   return (
     <div className={styles.Friends}>
       <input type="text" value={search} onChange={updateResults}></input>
       {
-        userList.length ?
-          <UserList userList={userList}></UserList> :
-          <h4>No user found :(</h4>
+        loading ?
+          undefined :
+          userList && userList.length ?
+            <UserList userList={userList}></UserList> :
+            <h4>No users found :(</h4>
       }
     </div>
   );

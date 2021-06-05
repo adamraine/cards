@@ -16,7 +16,8 @@ const Trade: React.FunctionComponent = () => {
 };
 
 const ContentSelector:React.FunctionComponent = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
+  if (loading) return (<></>);
   if (!user) return (<h1>PLEASE SIGN IN</h1>);
   return (
     <Switch>
@@ -31,7 +32,7 @@ const ContentSelector:React.FunctionComponent = () => {
 
 
 const App:React.FunctionComponent = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   return (
     <div className={styles.App}>
       <header>
@@ -41,7 +42,11 @@ const App:React.FunctionComponent = () => {
           <MenuItem label="Deck" href="/deck"></MenuItem>
           <MenuItem label="Trade" href="/trade"></MenuItem>
         </Menu>        
-        {user ? <SignOut/> : <SignIn/>}
+        {
+          loading ?
+            undefined :
+            user ? <SignOut/> : <SignIn/>
+        }
       </header>
       <main>
         <ContentSelector/>

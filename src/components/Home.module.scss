@@ -4,12 +4,17 @@
   align-items: center;
 }
 
+$card-width: 300px;
 .Grid {
   display: grid;
   width: 100%;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(auto-fill, minmax($card-width, 1fr));
   justify-items: center;
   align-items: center;
   grid-row-gap: 20px;
   margin-top: 40px;
+  
+  > * {
+    width: $card-width;
+  }
 }

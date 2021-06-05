@@ -18,12 +18,10 @@ Grid.propTypes = {
 
 export const Home:React.FunctionComponent = () => {
   const [cards] = useCollectionData<App.Card>(db.collection('cards'), {idField: 'id'});
-  console.log(cards);
   return (
     <div className={styles.Home}>
-      <h1>All Cards</h1>
       <Grid>
-        {cards?.map(card => <Card key={card.id} data={card} width={300}></Card>)}
+        {cards?.map(card => <Card key={card.id} data={card}></Card>)}
       </Grid>
     </div>
   );

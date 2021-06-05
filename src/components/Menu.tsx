@@ -30,26 +30,22 @@ interface MenuProps {
   children: React.ReactNode;
 }
 
-interface State {
-  open: boolean;
-}
-
-export class Menu extends React.Component<MenuProps, State> {
-  state = {
-    open: false,
-  }
-  static propTypes = {children: PropTypes.node.isRequired};
-
-  render():React.ReactNode {
-    const classes = [styles.Menu];
-    if (this.state.open) classes.push(styles.open);
-    return (
-      <div className={classes.join(' ')}>
-        <div className={styles.icon} onClick={() => this.setState(s => ({open: !s.open}))}>=</div>
-        <div className={styles.items}>
-          {this.props.children}
-        </div>
+export const Menu:React.FunctionComponent<MenuProps> = (props) => {
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    const listener = () => open && setOpen(false);
+    document.addEventListener('click', listener);
+    return () => document.removeEventListener('click', listener);
+  });
+  const classes = [styles.Menu];
+  if (open) classes.push(styles.open);
+  return (
+    <div className={classes.join(' ')}>
+      <div className={styles.icon} onClick={() => setOpen(!open)}>=</div>
+      <div className={styles.items}>
+        {props.children}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+Menu.propTypes = {children: PropTypes.node.isRequired};

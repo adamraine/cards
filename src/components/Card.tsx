@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {db, storage} from '../firebase';
+import {auth, db, storage} from '../firebase';
 import styles from './Card.module.scss';
+import {useAuthState} from 'react-firebase-hooks/auth';
 import {useDocumentData} from 'react-firebase-hooks/firestore';
 import {useDownloadURL} from 'react-firebase-hooks/storage';
 import {useWindowSize} from '../hooks';
@@ -24,6 +25,10 @@ export const Card:React.FunctionComponent<Props> = (props) => {
   const imageRef = storage.ref().child(`images/${uid}/${id}`);
   const [imageUrl] = useDownloadURL(imageRef);
   const [user] = useDocumentData<App.User>(users.doc(uid));
+  const [currentUser] = useAuthState(auth);
+  if (!currentUser) {
+    throw new Error('ERROR: User must be logged in.');
+  }
   
   function deleteCard() {
     imageRef.delete();
@@ -84,7 +89,11 @@ export const Card:React.FunctionComponent<Props> = (props) => {
         <div className={styles.back}>
           <div>Owner: {user?.name}</div>
           <div>Created on: {props.data.createdAt.toDate().toDateString()}</div>
-          <button onClick={deleteCard}>Delete</button>
+          {
+            uid === currentUser.uid ? 
+              <button onClick={deleteCard}>Delete</button> :
+              undefined
+          }
         </div>
       </div>
     </div>

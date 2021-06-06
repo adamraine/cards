@@ -23,7 +23,7 @@ export const Deck:React.FunctionComponent = () => {
         {
           userCards && userCards
             .filter(card => card.uid)
-            .map(card => <Card key={card.id} width={500} data={card}/>)
+            .map(card => <Card key={card.id} card={card}/>)
         }
         <CardCreator/>
       </>

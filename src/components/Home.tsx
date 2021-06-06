@@ -17,7 +17,7 @@ export const Home:React.FunctionComponent = () => {
   return (
     <div className={styles.Home}>
       <Grid>
-        {cards?.map(card => <Card key={card.id} data={card}></Card>)}
+        {cards?.map(card => <Card key={card.id} card={card}></Card>)}
       </Grid>
     </div>
   );

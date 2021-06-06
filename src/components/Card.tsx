@@ -6,12 +6,7 @@ import {useDocumentData} from 'react-firebase-hooks/firestore';
 import {useDownloadURL} from 'react-firebase-hooks/storage';
 import {useWindowSize} from '../hooks';
 
-interface Props {
-  data: App.Card;
-  width?: number|string;
-}
-
-export const Card:React.FunctionComponent<Props> = (props) => {
+export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
   useWindowSize();
   const root = React.useRef<HTMLDivElement>(null);
   const content = React.useRef<HTMLDivElement>(null);
@@ -21,7 +16,7 @@ export const Card:React.FunctionComponent<Props> = (props) => {
   const cards = db.collection('cards');
   const users = db.collection('users');
 
-  const {id, uid} = props.data;
+  const {id, uid} = props.card;
   const imageRef = storage.ref().child(`images/${uid}/${id}`);
   const [imageUrl] = useDownloadURL(imageRef);
   const [user] = useDocumentData<App.User>(users.doc(uid));
@@ -41,8 +36,7 @@ export const Card:React.FunctionComponent<Props> = (props) => {
 
     current.classList.add(styles.rotate_left);
 
-    await new Promise(r => current.ontransitionend = r)
-      .then(() => current.ontransitionend = null);
+    await new Promise(r => current.addEventListener('transitionend', r, {once: true}));
 
     current.classList.remove(styles.rotate_left);
     current.classList.add(styles.no_transition);
@@ -69,14 +63,13 @@ export const Card:React.FunctionComponent<Props> = (props) => {
     };
   }
   
-  console.log(props.data);
+  console.log(props.card);
   
   return (
     <div
       ref={root}
       onClick={toggleFace}
       className={[styles.Card, face === 'front' ? styles.show_front : styles.show_back].join(' ')}
-      style={{width: props.width}}
     >
       <div
         ref={content}
@@ -84,13 +77,13 @@ export const Card:React.FunctionComponent<Props> = (props) => {
         style={getTransformStyle()}
       >
         <div className={styles.front}>
-          <h3>{props.data.title}</h3>
+          <h3>{props.card.title}</h3>
           <img src={imageUrl} alt=""></img>
-          <div>{props.data.text}</div>
+          <div>{props.card.text}</div>
         </div>
         <div className={styles.back}>
           <div>Owner: {user?.name}</div>
-          <div>Created on: {props.data.createdAt?.toDate().toDateString()}</div>
+          <div>Created on: {props.card.createdAt?.toDate().toDateString()}</div>
           {
             uid === currentUser.uid ? 
               <button onClick={deleteCard}>Delete</button> :

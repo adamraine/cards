@@ -4,7 +4,7 @@ declare namespace App {
     title: string;
     uid: string;
     text: string;
-    createdAt: firebase.default.firestore.Timestamp;
+    createdAt: firebase.default.firestore.Timestamp|null;
   }
   
   export type User = {

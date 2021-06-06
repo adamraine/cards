@@ -69,6 +69,8 @@ export const Card:React.FunctionComponent<Props> = (props) => {
     };
   }
   
+  console.log(props.data);
+  
   return (
     <div
       ref={root}
@@ -88,7 +90,7 @@ export const Card:React.FunctionComponent<Props> = (props) => {
         </div>
         <div className={styles.back}>
           <div>Owner: {user?.name}</div>
-          <div>Created on: {props.data.createdAt.toDate().toDateString()}</div>
+          <div>Created on: {props.data.createdAt?.toDate().toDateString()}</div>
           {
             uid === currentUser.uid ? 
               <button onClick={deleteCard}>Delete</button> :

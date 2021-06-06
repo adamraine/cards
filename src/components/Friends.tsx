@@ -38,11 +38,10 @@ export const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
   );
 };
 
-export const UserList:React.FunctionComponent<{userList: App.User[]}> = (props) => {
-  const {userList} = props;
+export const UserList:React.FunctionComponent<{children: React.ReactNode}> = (props) => {
   return (
     <div className={styles.UserList}>
-      {userList.map(user => <UserCard key={user.id} user={user}></UserCard>)}
+      {props.children}
     </div>
   );
 };
@@ -70,7 +69,9 @@ export const Friends:React.FunctionComponent = () => {
         loading ?
           undefined :
           userList && userList.length ?
-            <UserList userList={userList}></UserList> :
+            <UserList>
+              {userList.map(user => <UserCard key={user.id} user={user}></UserCard>)}
+            </UserList> :
             <h4>No users found :(</h4>
       }
     </div>

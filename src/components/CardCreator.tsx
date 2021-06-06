@@ -40,6 +40,7 @@ export const CardCreator:React.FunctionComponent = () => {
     const [res] = await compress.compress([file], {
       maxWidth: 500,
       maxHeight: 500,
+      resize: true,
     });
     const resized = Compress.convertBase64ToFile(res.data, 'image/webp');
 

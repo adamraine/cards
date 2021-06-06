@@ -30,6 +30,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
+    'no-console': 2,
     'react/prop-types': 0,
     '@typescript-eslint/ban-ts-comment': 0,
     'eqeqeq': 2,

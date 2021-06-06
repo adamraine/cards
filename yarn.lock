@@ -2041,6 +2041,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/compress.js@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/compress.js/-/compress.js-1.1.0.tgz#3bec20752e73025bd0e519ce0b7ae509f1faf2ec"
+  integrity sha512-AC+wF4QmMuwJ07aL+CUY8M9H7TJLQcrIH6MMvXENRlRyw9k4nxmh+Jpq2895/YugynP7Yps55Yf+IhOi/VBADg==
+
 "@types/duplexify@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@types/duplexify/-/duplexify-3.6.0.tgz#dfc82b64bd3a2168f5bd26444af165bf0237dcd8"
@@ -3899,6 +3904,11 @@ compress-commons@^4.1.0:
     crc32-stream "^4.0.2"
     normalize-path "^3.0.0"
     readable-stream "^3.6.0"
+
+compress.js@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/compress.js/-/compress.js-1.1.2.tgz#2c19528a017b7d500673f2df69e66b04074d1464"
+  integrity sha512-92bBngXANtmZpyBqO7E5nQMt6TOJtso8FO5fEx85WeF2t/CDAxs8K+KSu8EuLGMZWWMOdxvFf/bsXG7rOPmAyw==
 
 compressible@~2.0.16:
   version "2.0.18"

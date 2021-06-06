@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {auth, db, firebase, storage} from '../firebase';
+import Compress from 'compress.js';
 import styles from './CardCreator.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
+
+const compress = new Compress();
 
 export const CardCreator:React.FunctionComponent = () => {
   const cards = db.collection('cards');
@@ -33,6 +36,23 @@ export const CardCreator:React.FunctionComponent = () => {
     setImage(image);
   };
   
+  async function uploadImage(file:File, uid:string) {
+    const [res] = await compress.compress([file], {
+      maxWidth: 500,
+      maxHeight: 500,
+    });
+    const resized = Compress.convertBase64ToFile(res.data, 'image/webp');
+
+    const doc = cards.doc();
+    await storage.ref().child(`images/${uid}/${doc.id}`).put(resized);
+    doc.set({
+      title,
+      text,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+    });
+  }
+  
   const createCard:React.FormEventHandler<HTMLFormElement> = event => {
     event.preventDefault();
     if (!title) {
@@ -43,16 +63,9 @@ export const CardCreator:React.FunctionComponent = () => {
       alert('Please specify an image value.');
       return;
     }
-    const {uid} = user;
-    const doc = cards.doc();
-    storage.ref().child(`images/${uid}/${doc.id}`).put(image).then(() => {
-      doc.set({
-        title,
-        text,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid,
-      });
-    });
+    
+    uploadImage(image, user.uid);
+    
     setTitle('');
     setText('');
     setImage(null);

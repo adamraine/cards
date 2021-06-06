@@ -63,8 +63,6 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
     };
   }
   
-  console.log(props.card);
-  
   return (
     <div
       ref={root}

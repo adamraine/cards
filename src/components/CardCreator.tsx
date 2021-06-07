@@ -54,10 +54,11 @@ export const CardCreator:React.FunctionComponent = () => {
     });
   }
   
-  function clear() {
+  function cancel() {
     setTitle('');
     setText('');
     setImage(null);
+    setMinified(true);
     if (fileInput.current) fileInput.current.value = '';
   }
   
@@ -74,7 +75,9 @@ export const CardCreator:React.FunctionComponent = () => {
     
     uploadImage(image, user.uid);
     
-    clear();
+    setTitle('');
+    setText('');
+    setImage(null);
     setMinified(true);
   };
 
@@ -99,9 +102,8 @@ export const CardCreator:React.FunctionComponent = () => {
               </div>
               <textarea placeholder="Text" value={text} onChange={updateText}></textarea>
               <button type="submit">Create card</button>
-              <button type="button" onClick={clear}>Clear</button>
+              <button className={styles.cancel} type="button" onClick={cancel}>Cancel</button>
             </form>
-            <button onClick={() => setMinified(true)}>Minify</button>
           </>
       }
     </div>

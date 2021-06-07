@@ -21,7 +21,7 @@ export const Menu:React.FunctionComponent<{children: React.ReactNode}> = (props)
   if (open) classes.push(styles.open);
   return (
     <div className={classes.join(' ')}>
-      <div className={styles.icon} onClick={() => setOpen(!open)}>=</div>
+      <div className={styles.icon} onClick={() => setOpen(!open)}>☰</div>
       <div className={styles.items}>
         {props.children}
       </div>

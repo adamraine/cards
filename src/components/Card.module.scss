@@ -67,33 +67,34 @@ $default-perspective: perspective(3000px);
       }
     }
   }
-}
 
-.Card.show_front {
-  .content {
-    .back {
-      display: none;
+  &.show_front {
+    .content {
+      .back {
+        display: none;
+      }
     }
+  }
+
+  &.show_back {
+    .content {
+      .front {
+        display: none;
+      }
+    }
+  }
+
+  &.rotate_left {
+    transform: $default-perspective rotateY(90deg);
+  }
+
+  &.rotate_right {
+    transform: $default-perspective rotateY(-90deg);
+  }
+
+  &.no_transition {
+    transition: none;
   }
 }
 
-.Card.show_back {
-  .content {
-    .front {
-      display: none;
-    }
-  }
-}
-
-.Card.rotate_left {
-  transform: $default-perspective rotateY(90deg);
-}
-
-.Card.rotate_right {
-  transform: $default-perspective rotateY(-90deg);
-}
-
-.Card.no_transition {
-  transition: none;
-}
 

@@ -7,7 +7,42 @@
   transition-duration: 0.3s;
   
   form {
+    width: 500px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
     padding: 10px;
+    justify-content: center;
+    
+    .image {
+      position: relative;
+      aspect-ratio: 1;
+      
+      * {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+      
+      input {
+        opacity: 0;
+      }
+      
+      img,div {
+        background-color: black;
+        pointer-events: none;
+      }
+    }
+    
+    textarea {
+      height: 5em;
+    }
+    
+    button {
+      height: 3em;
+    }
   }
 }
 

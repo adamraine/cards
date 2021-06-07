@@ -25,7 +25,7 @@ export const CardCreator:React.FunctionComponent = () => {
     setTitle(title);
   };
 
-  const updateText:React.ChangeEventHandler<HTMLInputElement> = event => {
+  const updateText:React.ChangeEventHandler<HTMLTextAreaElement> = event => {
     const text = event.target.value;
     setText(text);
   };
@@ -54,6 +54,13 @@ export const CardCreator:React.FunctionComponent = () => {
     });
   }
   
+  function clear() {
+    setTitle('');
+    setText('');
+    setImage(null);
+    if (fileInput.current) fileInput.current.value = '';
+  }
+  
   const createCard:React.FormEventHandler<HTMLFormElement> = event => {
     event.preventDefault();
     if (!title) {
@@ -67,11 +74,8 @@ export const CardCreator:React.FunctionComponent = () => {
     
     uploadImage(image, user.uid);
     
-    setTitle('');
-    setText('');
-    setImage(null);
+    clear();
     setMinified(true);
-    if (fileInput.current) fileInput.current.value = '';
   };
 
   return (
@@ -84,10 +88,18 @@ export const CardCreator:React.FunctionComponent = () => {
           <div>+</div> :
           <>
             <form onSubmit={createCard}>
-              <input value={title} type="text" onChange={updateTitle}></input>
-              <input value={text} type="text" onChange={updateText}></input>
-              <input ref={fileInput} accept="image/*" type="file" onChange={updateImage}></input>
+              <input placeholder="Title" value={title} type="text" onChange={updateTitle}></input>
+              <div className={styles.image}>
+                <input ref={fileInput} accept="image/*" type="file" onChange={updateImage}></input>
+                {
+                  image ?
+                    <img src={URL.createObjectURL(image)}></img> :
+                    <div></div>
+                }
+              </div>
+              <textarea placeholder="Text" value={text} onChange={updateText}></textarea>
               <button type="submit">Create card</button>
+              <button type="button" onClick={clear}>Clear</button>
             </form>
             <button onClick={() => setMinified(true)}>Minify</button>
           </>

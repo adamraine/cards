@@ -3,8 +3,8 @@
   background-color: #2F2F2F;
   color: white;
   overflow: hidden;
-  transition-property: all;
-  transition-duration: 0.3s;
+  max-width: 90%;
+  max-height: 90%;
   
   form {
     width: 500px;
@@ -45,6 +45,7 @@
     }
     
     textarea {
+      resize: none;
       height: 5em;
     }
     
@@ -56,30 +57,26 @@
       background-color: red;
     }
   }
-}
-
-.CardCreator.open {
-  display: flex;
-  justify-content: center;
-  width: 90%;
-  height: 90%;
-  bottom: 5%;
-  right: 5%;
-  border-radius: 10px;
-  box-shadow: 0 0 10px black;
-}
-
-.CardCreator.minified {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  margin: 10px;
-  bottom: 0;
-  right: 0;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 50%;
+  
+  &.open {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+  }
+  
+  &.minified {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin: 10px;
+    bottom: 0;
+    right: 0;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+  }
 }

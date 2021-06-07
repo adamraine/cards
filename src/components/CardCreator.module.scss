@@ -34,6 +34,14 @@
         background-color: black;
         pointer-events: none;
       }
+      
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 30px;
+      }
     }
     
     textarea {

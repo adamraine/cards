@@ -94,7 +94,7 @@ export const CardCreator:React.FunctionComponent = () => {
                 {
                   image ?
                     <img src={URL.createObjectURL(image)}></img> :
-                    <div></div>
+                    <div>+</div>
                 }
               </div>
               <textarea placeholder="Text" value={text} onChange={updateText}></textarea>

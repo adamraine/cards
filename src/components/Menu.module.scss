@@ -1,10 +1,6 @@
 .Menu {
   cursor: pointer;
-  height: 100%;
   overflow: hidden;
-  :hover {
-    background-color: grey;
-  }
   
   .icon {
     display: flex;

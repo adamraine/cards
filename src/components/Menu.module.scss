@@ -20,11 +20,11 @@
     padding: 10px;
     z-index: 1;
   }
-}
-
-.Menu.open {
-  .items {
-    display: flex;
+  
+  &.open {
+    .items {
+      display: flex;
+    }
   }
 }
 

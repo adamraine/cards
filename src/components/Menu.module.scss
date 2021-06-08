@@ -1,6 +1,12 @@
 .Menu {
   cursor: pointer;
   
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: grey;
+    }
+  }
+  
   .icon {
     display: flex;
     align-items: center;

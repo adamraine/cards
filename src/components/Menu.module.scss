@@ -11,7 +11,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
+    height: 3em;
+    font-weight: bold;
     aspect-ratio: 1 / 1;
   }
 
@@ -37,4 +38,5 @@
   color: white;
   text-decoration: unset;
   cursor: pointer;
+  font-size: 20px;
 }

@@ -11,7 +11,7 @@ service firebase.storage {
     }
     
     function isSignedIn() {
-    	return request.auth.uid != null;
+    	return request.auth != null && request.auth.uid != null;
     }
   }
 }

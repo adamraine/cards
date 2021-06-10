@@ -15,7 +15,7 @@ $default-perspective: perspective(3000px);
     aspect-ratio: 2.5 / 3.5;
     border-width: 10px;
     border-color: black;
-    border-radius: 10px;
+    border-radius: 20px;
     border-style: solid;
     padding: 10px;
     transform-origin: top left;
@@ -62,8 +62,9 @@ $default-perspective: perspective(3000px);
       button {
         position: absolute;
         width: unset;
-        right: 0;
-        top: 0;
+        right: 10px;
+        top: 10px;
+        background-color: red;
       }
     }
   }

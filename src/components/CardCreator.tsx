@@ -1,6 +1,6 @@
-import * as React from 'react';
 import {auth, db, firebase, storage} from '../firebase';
 import Compress from 'compress.js';
+import React from 'react';
 import styles from './CardCreator.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 

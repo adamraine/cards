@@ -1,5 +1,5 @@
-import * as React from 'react';
 import {auth, db, firebase} from '../firebase';
+import React from 'react';
 import styles from './Login.module.scss';
 
 export const SignIn:React.FunctionComponent = () => {

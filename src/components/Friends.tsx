@@ -1,11 +1,11 @@
-import * as React from 'react';
 import {auth, db, firebase} from '../firebase';
+import React from 'react';
 import styles from './Friends.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {useFriendsList} from '../hooks';
 
-export const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
+const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
   const {user} = props;
 
   const [currentUser] = useAuthState(auth);
@@ -77,3 +77,5 @@ export const Friends:React.FunctionComponent = () => {
     </div>
   );
 };
+
+export default Friends;

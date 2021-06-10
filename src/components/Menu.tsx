@@ -1,5 +1,5 @@
-import * as React from 'react';
 import {Link} from 'react-router-dom';
+import React from 'react';
 import styles from './Menu.module.scss';
 
 export const MenuItem:React.FunctionComponent<{label: string, href: string}> = (props) => {

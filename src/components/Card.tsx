@@ -1,5 +1,5 @@
-import * as React from 'react';
 import {auth, db, storage} from '../firebase';
+import React from 'react';
 import styles from './Card.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useDocumentData} from 'react-firebase-hooks/firestore';

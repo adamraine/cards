@@ -1,13 +1,14 @@
-import * as React from 'react';
 import {Menu, MenuItem} from './Menu';
+import React, {Suspense} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {SignIn, SignOut} from './Login';
 import {auth} from '../firebase';
-import {Deck} from './Deck';
-import {Friends} from './Friends';
-import {Home} from './Home';
 import styles from './App.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
+
+const Deck = React.lazy(() => import('./Deck'));
+const Home = React.lazy(() => import('./Home'));
+const Friends = React.lazy(() => import('./Friends'));
 
 const Trade: React.FunctionComponent = () => {
   return (
@@ -20,13 +21,15 @@ const ContentSelector:React.FunctionComponent = () => {
   if (loading) return (<></>);
   if (!user) return (<h1>PLEASE SIGN IN</h1>);
   return (
-    <Switch>
-      <Route exact path='/' component={Home} />
-      <Route path='/friends' component={Friends} />
-      <Route path='/deck' component={Deck} />
-      <Route path='/trade' component={Trade} />
-      <Redirect to='/' />
-    </Switch>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/friends' component={Friends} />
+        <Route path='/deck' component={Deck} />
+        <Route path='/trade' component={Trade} />
+        <Redirect to='/' />
+      </Switch>
+    </Suspense>
   );
 };
 

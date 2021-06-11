@@ -54,6 +54,7 @@ const App:React.FunctionComponent = () => {
       <main>
         <ContentSelector/>
       </main>
+      <footer>Copyright © 2021 Adam Raine</footer>
     </div>
   );
 };

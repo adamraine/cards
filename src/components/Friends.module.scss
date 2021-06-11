@@ -1,3 +1,5 @@
+@import '../index.scss';
+
 .Friends {
   display: flex;
   flex-direction: column;
@@ -24,14 +26,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 50px;
   width: 100%;
   overflow: hidden;
-  background-color: gray;
+  background-color: $grey;
   border-radius: 10px;
   column-gap: 10px;
   padding: 10px;
   box-sizing: border-box;
+  color: black;
   
   img {
     width: 30px;

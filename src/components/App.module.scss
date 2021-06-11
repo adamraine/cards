@@ -1,3 +1,5 @@
+@import '../index.scss';
+
 .App {
   width: 100%;
   margin: auto;
@@ -6,7 +8,7 @@
     display: flex;
     justify-content: flex-start;
     column-gap: 5px;
-    background-color: #2F2F2F;
+    background-color: $dark-grey;
     color: white;
     box-shadow: 0 0 10px black;
   }

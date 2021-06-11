@@ -1,3 +1,5 @@
+@import '../index.scss';
+
 $default-perspective: perspective(3000px);
 
 .Card {
@@ -7,6 +9,7 @@ $default-perspective: perspective(3000px);
   transition-duration: 0.5s;
   transform: $default-perspective;
   overflow: hidden;
+  color: black;
 
   .content {
     position: relative;
@@ -14,12 +17,12 @@ $default-perspective: perspective(3000px);
     box-sizing: border-box;
     aspect-ratio: 2.5 / 3.5;
     border-width: 10px;
-    border-color: black;
+    border-color: #722d8e;
     border-radius: 20px;
     border-style: solid;
     padding: 10px;
     transform-origin: top left;
-    background-color: wheat;
+    background-color: $silver;
     
     .front,.back {
       display: flex;
@@ -33,6 +36,8 @@ $default-perspective: perspective(3000px);
 
       * {
         width: 90%;
+        border-radius: 5px;
+        overflow: hidden;
       }
       
       h3 {
@@ -44,16 +49,20 @@ $default-perspective: perspective(3000px);
       }
 
       div {
+        height: 5em;
         flex-grow: 1;
         padding: 10px;
         margin-top: 10px;
         margin-bottom: 10px;
-        background-color: #EEE;
+        background-color: $light-grey;
         box-sizing: border-box;
+        word-wrap: break-word;
       }
     }
     
     .back {
+      margin-top: 10px;
+
       div {
         width: 90%;
         height: 90%;
@@ -64,7 +73,7 @@ $default-perspective: perspective(3000px);
         width: unset;
         right: 10px;
         top: 10px;
-        background-color: red;
+        background-color: $red;
       }
     }
   }

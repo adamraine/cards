@@ -5,6 +5,8 @@ import {BrowserRouter} from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>

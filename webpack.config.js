@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const {GenerateSW} = require('workbox-webpack-plugin');
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -38,20 +40,35 @@ module.exports = {
       filename: 'index.html',
       inject: 'head',
     }),
+    new WebpackPwaManifest({
+      name: 'Card Trader',
+      short_name: 'Card Trader',
+      description: 'Interactive card trading app built with React.',
+      background_color: '#1b1b1b',
+      theme_color: '#2f2f2f',
+      icons: [
+        {
+          src: __dirname + '/public/logo.svg',
+          sizes: [96, 128, 192, 256, 384, 512],
+        }
+      ]
+    }),
     new FaviconsWebpackPlugin({
       logo: __dirname + '/public/logo.svg',
-      mode: 'webapp',
-      prefix: '',
       inject: true,
-      manifest: __dirname + '/public/manifest.json',
       favicons: {
         icons: {
           android: false,
-          appleIcon: false,
+          appleIcon: [
+            'apple-touch-icon.png',
+          ],
           appleStartup: false,
           coast: false,
           favicons: [
-            'favicon.ico',
+            'favicon-16x16.png',
+            'favicon-32x32.png',
+            'favicon-48x48.png',
+            'favicon.ico'
           ],
           firefox: false,
           windows: false,
@@ -59,6 +76,7 @@ module.exports = {
         }
       }
     }),
+    new GenerateSW(),
   ],
   devServer: {
     historyApiFallback: true,

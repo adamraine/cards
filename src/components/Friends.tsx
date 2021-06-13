@@ -64,7 +64,7 @@ export const Friends:React.FunctionComponent = () => {
 
   return (
     <div className={styles.Friends}>
-      <input type="text" value={search} onChange={updateResults}></input>
+      <input type="text" placeholder="User search" value={search} onChange={updateResults}></input>
       {
         loading ?
           undefined :

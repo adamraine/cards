@@ -5,7 +5,6 @@ const {GenerateSW} = require('workbox-webpack-plugin');
 
 /** @typedef {import('webpack').Compiler} Compiler */
 class AddMaskableIcons {
-
   /**
    * @param {Compiler} compiler 
    */

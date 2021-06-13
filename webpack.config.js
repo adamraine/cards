@@ -2,6 +2,7 @@ const {Compilation, sources} = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const {GenerateSW} = require('workbox-webpack-plugin');
+const RobotsTxtPlugin = require('robotstxt-webpack-plugin');
 
 /** @typedef {import('webpack').Compiler} Compiler */
 class AddMaskableIcons {
@@ -65,6 +66,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new RobotsTxtPlugin(),
     new HtmlWebpackPlugin({
       template: __dirname + '/public/index.html',
       filename: 'index.html',

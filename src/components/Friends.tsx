@@ -36,8 +36,12 @@ const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
   
   return (
     <div key={user.id} className={styles.UserCard}>
-      <img src={user.picture || ''}></img>
-      <span>{user.name}</span>
+      {
+        user.picture ?
+          <img className={styles.profile} src={user.picture}></img> :
+          <span className={styles.profile}></span>
+      }
+      <span className={styles.name}>{user.name}</span>
       <button hidden={friendsLoading} disabled={isFriend} onClick={addFriend}>
         {isFriend ? 'Friends' : 'Add Friend'}
       </button>

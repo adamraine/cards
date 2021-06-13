@@ -8,15 +8,22 @@ import {useFriendsList} from '../hooks';
 const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
   const {user} = props;
 
-  const [currentUser] = useAuthState(auth);
-  const friendIds = useFriendsList(auth, db);
+  const [currentUser, authLoading] = useAuthState(auth);
+  if (authLoading) {
+    return (
+      <div key={user.id} className={styles.UserCard}>
+        <span>Loading...</span>
+      </div>
+    );
+  }
 
   const friends = db.collection('friends');
-  const isFriend = friendIds.includes(user.id);
+  const [friendsList, friendsLoading] = useFriendsList(auth, db);
+  const isFriend = friendsList.includes(user.id);
 
-  function addFriend(uid:string) {
+  function addFriend() {
     if (!currentUser) throw new Error();
-    let uid1 = uid;
+    let uid1 = user.id;
     let uid2 = currentUser.uid;
     if (uid1 > uid2) {
       const temp = uid1;
@@ -31,7 +38,7 @@ const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
     <div key={user.id} className={styles.UserCard}>
       <img src={user.picture || ''}></img>
       <span>{user.name}</span>
-      <button disabled={isFriend} onClick={() => addFriend(user.id)}>
+      <button hidden={friendsLoading} disabled={isFriend} onClick={addFriend}>
         {isFriend ? 'Friends' : 'Add Friend'}
       </button>
     </div>
@@ -47,7 +54,7 @@ export const UserList:React.FunctionComponent<{children: React.ReactNode}> = (pr
 };
 
 export const Friends:React.FunctionComponent = () => {
-  const friendIds = useFriendsList(auth, db);
+  const [friendIds, friendsLoading] = useFriendsList(auth, db);
   const users = db.collection('users');
   
   const [search, setSearch] = React.useState('');
@@ -60,14 +67,14 @@ export const Friends:React.FunctionComponent = () => {
   if (!search && friendIds.length) {
     query = users.where(firebase.firestore.FieldPath.documentId(), 'in', friendIds);
   }
-  const [userList, loading] = useCollectionData<App.User>(query, {idField: 'id'});
+  const [userList, usersLoading] = useCollectionData<App.User>(query, {idField: 'id'});
 
   return (
     <div className={styles.Friends}>
       <input type="text" placeholder="User search" value={search} onChange={updateResults}></input>
       {
-        loading ?
-          undefined :
+        friendsLoading || usersLoading ?
+          <h4>Loading...</h4> :
           userList && userList.length ?
             <UserList>
               {userList.map(user => <UserCard key={user.id} user={user}></UserCard>)}

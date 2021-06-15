@@ -33,12 +33,25 @@ const ContentSelector:React.FunctionComponent = () => {
   );
 };
 
+const Icon:React.FunctionComponent = () => {
+  return (
+    <img
+      src={"..\\..\\public\\logo_transparent.svg"}
+      style={{
+        width: 80,
+        height: 80,
+        marginRight: -25 
+      }}
+    />
+  );
+}
 
 const App:React.FunctionComponent = () => {
   const [user, loading] = useAuthState(auth);
   return (
     <div className={styles.App}>
       <header>
+        <Icon />
         <Menu>
           <MenuItem label="Home" href="/"></MenuItem>
           <MenuItem label="Friends" href="/friends"></MenuItem>

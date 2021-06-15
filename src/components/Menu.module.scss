@@ -1,36 +1,14 @@
 .Menu {
   cursor: pointer;
-  
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      background-color: grey;
-    }
-  }
-  
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 3em;
-    font-weight: bold;
-    aspect-ratio: 1 / 1;
-  }
 
   .items {
-    display: none;
-    flex-direction: column;
-    row-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
     color: red;
-    position: absolute;
     background-color: #2F2F2F;
     padding: 10px;
     z-index: 1;
-  }
-  
-  &.open {
-    .items {
-      display: flex;
-    }
   }
 }
 

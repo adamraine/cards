@@ -1,5 +1,6 @@
 .Menu {
   cursor: pointer;
+  margin: 10px;
 
   .items {
     display: flex;
@@ -7,7 +8,6 @@
     column-gap: 10px;
     color: red;
     background-color: #2F2F2F;
-    padding: 25px;
     z-index: 1;
   }
 }

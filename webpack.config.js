@@ -84,8 +84,12 @@ module.exports = {
         start_url: '/',
         manifestRelativePaths: true,
         icons: {
-          android: true,
-          appleIcon: true,
+          android: {
+            background: '#1f1f1f',
+          },
+          appleIcon: {
+            background: '#1f1f1f',
+          },
           appleStartup: false,
           coast: false,
           favicons: true,

@@ -4,9 +4,11 @@ import styles from './Menu.module.scss';
 
 export const MenuItem:React.FunctionComponent<{label: string, href: string}> = (props) => {
   return (
-    <Link className={styles.MenuItem} to={props.href}>
-      {props.label}
-    </Link>
+    <div className={styles.MenuItem}>
+      <Link to={props.href}>
+        {props.label}
+      </Link>
+    </div>
   );
 };
 

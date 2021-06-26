@@ -2,26 +2,44 @@ import {Link} from 'react-router-dom';
 import React from 'react';
 import styles from './Menu.module.scss';
 
-export const MenuItem:React.FunctionComponent<{label: string, href: string}> = (props) => {
+export const MenuItem:React.FC<{label: string, href: string}> = (props) => {
   return (
-    <Link className={styles.MenuItem} to={props.href}>
-      {props.label}
-    </Link>
+    <div className={styles.MenuItem}>
+      <Link to={props.href}>
+        {props.label}
+      </Link>
+    </div>
   );
 };
 
-export const Menu:React.FunctionComponent<{children: React.ReactNode}> = (props) => {
-  const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {
-    const listener = () => open && setOpen(false);
-    document.addEventListener('click', listener);
-    return () => document.removeEventListener('click', listener);
-  });
-  const classes = [styles.Menu];
-  if (open) classes.push(styles.open);
+export const NavigationMenu:React.FC<{children: React.ReactNode}> = (props) => {
   return (
-    <div className={classes.join(' ')}>
-      <div className={styles.icon} onClick={() => setOpen(!open)}>☰</div>
+    <div className={styles.NavigationMenu}>
+      <div className={styles.items}>
+        {props.children}
+      </div>
+    </div>
+  );
+};
+
+export const HamburgerMenu:React.FC<{children: React.ReactNode}> = (props) => {
+  const icon = React.useRef<HTMLDivElement>(null);
+  const [open, setOpen] = React.useState(false);
+  const classList = [styles.HamburgerMenu];
+  if (open) classList.push(styles.open);
+  
+  React.useEffect(() => {
+    function closeMenu(e:MouseEvent) {
+      if (e.target === icon.current) return;
+      setOpen(false);
+    }
+    document.addEventListener('click', closeMenu);
+    return () => document.removeEventListener('click', closeMenu);
+  }, []);
+  
+  return (
+    <div className={classList.join(' ')}>
+      <div ref={icon} className={styles.icon} onClick={() => setOpen(s => !s)}>☰</div>
       <div className={styles.items}>
         {props.children}
       </div>

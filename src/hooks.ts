@@ -22,9 +22,9 @@ export function useFriendsList(auth:firebase.default.auth.Auth, db: firebase.def
   ];
 }
 
-type WindowSize = {width?: number, height?: number};
+type WindowSize = {width: number, height: number}|null;
 export function useWindowSize():WindowSize {
-  const [windowSize, setWindowSize] = useState<WindowSize>({});
+  const [windowSize, setWindowSize] = useState<WindowSize>(null);
   useEffect(() => {
     function handleResize() {
       setWindowSize({
@@ -37,4 +37,9 @@ export function useWindowSize():WindowSize {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   return windowSize;
+}
+
+export function useFormFactor():'mobile'|'desktop' {
+  const size = useWindowSize();
+  return size && size.width < 600 ? 'mobile' : 'desktop';
 }

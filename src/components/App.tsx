@@ -1,10 +1,11 @@
-import {Menu, MenuItem} from './Menu';
+import {HamburgerMenu, MenuItem, NavigationMenu} from './Menu';
 import React, {Suspense} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {SignIn, SignOut} from './Login';
 import {auth} from '../firebase';
 import styles from './App.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
+import {useFormFactor} from '../hooks';
 
 const Deck = React.lazy(() => import('./Deck'));
 const Home = React.lazy(() => import('./Home'));
@@ -35,6 +36,8 @@ const ContentSelector:React.FunctionComponent = () => {
 
 const App:React.FunctionComponent = () => {
   const [user, loading] = useAuthState(auth);
+  const formFactor = useFormFactor();
+  const Menu = formFactor === 'mobile' ? HamburgerMenu : NavigationMenu;
   return (
     <div className={styles.App}>
       <header>

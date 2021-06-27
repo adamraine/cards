@@ -2,83 +2,70 @@
 
 .CardCreator {
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: $dark-grey;
-  color: white;
-  overflow: hidden;
-  max-width: 90%;
-  max-height: 90%;
   box-shadow: 0 0 10px black;
+  width: 56px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  margin: 16px;
+  bottom: 0;
+  right: 0;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 50%;
+  user-select: none;
+}
+
+.CardForm {
+  width: 500px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: center;
   
-  form {
-    width: 500px;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    padding: 10px;
-    justify-content: center;
-    
-    .image {
-      position: relative;
-      aspect-ratio: 1;
-      
-      * {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-      }
-      
-      input {
-        opacity: 0;
-      }
-      
-      img,div {
-        background-color: black;
-        pointer-events: none;
-      }
-      
-      div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 30px;
-      }
-    }
-    
-    textarea {
-      resize: none;
-      height: 5em;
-    }
-    
-    button {
-      height: 3em;
-    }
-    
-    .cancel {
-      background-color: $red;
-    }
-  }
-  
-  &.open {
-    display: flex;
-    justify-content: center;
-    border-radius: 10px;
-  }
-  
-  &.minified {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
+  .image {
+    position: relative;
     aspect-ratio: 1;
-    cursor: pointer;
-    margin: 16px;
-    bottom: 0;
-    right: 0;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 50%;
+    
+    * {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    
+    input {
+      opacity: 0;
+    }
+    
+    img,div {
+      background-color: black;
+      pointer-events: none;
+    }
+    
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
+  
+  textarea {
+    resize: none;
+    height: 5em;
+  }
+  
+  button {
+    height: 3em;
+  }
+  
+  .cancel {
+    background-color: $red;
   }
 }

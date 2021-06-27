@@ -1,12 +1,16 @@
 import {auth, db, firebase, storage} from '../firebase';
 import Compress from 'compress.js';
+import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './CardCreator.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 
 const compress = new Compress();
 
-export const CardCreator:React.FunctionComponent = () => {
+export const CardForm:React.FC<{
+  onSubmit:React.EventHandler<React.SyntheticEvent>,
+  onCancel:React.EventHandler<React.SyntheticEvent>
+}> = props => {
   const cards = db.collection('cards');
 
   const [user] = useAuthState(auth);
@@ -15,7 +19,6 @@ export const CardCreator:React.FunctionComponent = () => {
   }
 
   const fileInput = React.useRef<HTMLInputElement>(null);
-  const [minified, setMinified] = React.useState(true);
   const [title, setTitle] = React.useState('');
   const [text, setText] = React.useState('');
   const [image, setImage] = React.useState<File|null>(null);
@@ -58,7 +61,6 @@ export const CardCreator:React.FunctionComponent = () => {
     setTitle('');
     setText('');
     setImage(null);
-    setMinified(true);
     if (fileInput.current) fileInput.current.value = '';
   }
   
@@ -78,34 +80,40 @@ export const CardCreator:React.FunctionComponent = () => {
     setTitle('');
     setText('');
     setImage(null);
-    setMinified(true);
   };
 
   return (
-    <div 
-      className={[styles.CardCreator, minified ? styles.minified : styles.open].join(' ')}
-      onClick={minified ? () => setMinified(false) : undefined}
-    >
-      {
-        minified ?
-          <div>+</div> :
-          <>
-            <form onSubmit={createCard}>
-              <input placeholder="Title" value={title} type="text" onChange={updateTitle}></input>
-              <div className={styles.image}>
-                <input ref={fileInput} accept="image/*" type="file" onChange={updateImage}></input>
-                {
-                  image ?
-                    <img src={URL.createObjectURL(image)}></img> :
-                    <div>+</div>
-                }
-              </div>
-              <textarea placeholder="Text" value={text} onChange={updateText}></textarea>
-              <button type="submit">Create card</button>
-              <button className={styles.cancel} type="button" onClick={cancel}>Cancel</button>
-            </form>
-          </>
-      }
-    </div>
+    <form className={styles.CardForm} onSubmit={e => {
+      createCard(e);
+      props.onSubmit(e);
+    }}>
+      <input placeholder="Title" value={title} type="text" onChange={updateTitle}></input>
+      <div className={styles.image}>
+        <input ref={fileInput} accept="image/*" type="file" onChange={updateImage}></input>
+        {
+          image ?
+            <img src={URL.createObjectURL(image)}></img> :
+            <div>+</div>
+        }
+      </div>
+      <textarea placeholder="Text" value={text} onChange={updateText}></textarea>
+      <button type="submit">Create card</button>
+      <button className={styles.cancel} type="button" onClick={e => {
+        cancel();
+        props.onCancel(e);
+      }}>Cancel</button>
+    </form>
+  );
+};
+
+export const CardCreator:React.FC = () => {
+  return (
+    <PopupContext.Consumer>
+      {popup => (
+        <div className={styles.CardCreator} onClick={() => popup.show(
+          <CardForm onSubmit={popup.dismiss} onCancel={popup.dismiss}></CardForm>
+        )}>+</div>  
+      )}
+    </PopupContext.Consumer>
   );
 };

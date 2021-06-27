@@ -14,13 +14,7 @@ const Friends = React.lazy(() => import('./Friends'));
 
 const Trade: React.FunctionComponent = () => {
   return (
-    <PopupContext.Consumer>
-      {value => {
-        return <button onClick={() => {
-          value.show(<h1>HELLO</h1>);
-        }}>CLIK</button>;
-      }}
-    </PopupContext.Consumer>
+    <h1>TRADE</h1>
   );
 };
 

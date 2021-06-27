@@ -11,6 +11,7 @@
     "test": "jest",
     "lint": "eslint .",
     "deploy": "yarn build && firebase deploy",
+    "deploy:nobuild": "firebase deploy",
     "emulators": "firebase emulators:start"
   },
   "babel": {

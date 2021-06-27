@@ -38,7 +38,7 @@ export const HamburgerMenu:React.FC<{children: React.ReactNode}> = (props) => {
     }
     document.addEventListener('click', closeMenu);
     return () => document.removeEventListener('click', closeMenu);
-  }, []);
+  }, [icon]);
   
   return (
     <div className={classList.join(' ')}>

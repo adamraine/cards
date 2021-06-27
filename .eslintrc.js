@@ -13,6 +13,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -38,7 +39,7 @@ module.exports = {
     'no-empty': 1,
     'no-implicit-coercion': 2,
     'no-unused-expressions': 1,
-    'no-unused-vars': 2,
+    'no-unused-vars': 0,
     'space-infix-ops': 1,
     'prefer-const': 2,
     'curly': [1, 'multi-line'],

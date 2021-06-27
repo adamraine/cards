@@ -1,0 +1,45 @@
+@import '../index.scss';
+
+.Popup {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  transition: opacity 0.5s;
+  
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+    
+    .content {
+      transform: translateY(-100px);
+      padding: 0;
+    }
+  }
+  
+  .background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: black;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .content {
+    position: relative;
+    background-color: $dark-grey;
+    color: white;
+    overflow: hidden;
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 0 10px black;
+    border-radius: 10px;
+    padding: 10px;
+    transition: transform 0.5s;
+  }
+}

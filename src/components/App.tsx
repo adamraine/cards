@@ -12,13 +12,13 @@ const Deck = React.lazy(() => import('./Deck'));
 const Home = React.lazy(() => import('./Home'));
 const Friends = React.lazy(() => import('./Friends'));
 
-const Trade: React.FunctionComponent = () => {
+const Trade: React.FC = () => {
   return (
     <h1>TRADE</h1>
   );
 };
 
-const ContentSelector:React.FunctionComponent = () => {
+const ContentSelector:React.FC = () => {
   const [user, loading] = useAuthState(auth);
   if (loading) return (<></>);
   if (!user) return (<h1>PLEASE SIGN IN</h1>);
@@ -35,7 +35,7 @@ const ContentSelector:React.FunctionComponent = () => {
   );
 };
 
-const App:React.FunctionComponent = () => {
+const App:React.FC = () => {
   const [popupContent, setPopupContent] = React.useState<React.ReactNode>(null);
   const [user, loading] = useAuthState(auth);
   const formFactor = useFormFactor();
@@ -48,10 +48,10 @@ const App:React.FunctionComponent = () => {
       <div className={styles.App}>
         <header>
           <Menu>
-            <MenuItem label="Home" href="/"></MenuItem>
-            <MenuItem label="Friends" href="/friends"></MenuItem>
-            <MenuItem label="Deck" href="/deck"></MenuItem>
-            <MenuItem label="Trade" href="/trade"></MenuItem>
+            <MenuItem label="Home" pathname="/"></MenuItem>
+            <MenuItem label="Friends" pathname="/friends"></MenuItem>
+            <MenuItem label="Deck" pathname="/deck"></MenuItem>
+            <MenuItem label="Trade" pathname="/trade"></MenuItem>
           </Menu>        
           {
             loading ?

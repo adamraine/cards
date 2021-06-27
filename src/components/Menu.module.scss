@@ -68,7 +68,7 @@
     transform: scaleY(0.05);
   }
 
-  &:hover::before {
+  &.selected::before {
     transform: none;
     opacity: 0.2;
   }

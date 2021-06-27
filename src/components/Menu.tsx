@@ -1,11 +1,14 @@
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import React from 'react';
 import styles from './Menu.module.scss';
 
-export const MenuItem:React.FC<{label: string, href: string}> = (props) => {
+export const MenuItem:React.FC<{label: string, pathname: string}> = (props) => {
+  const location = useLocation();
+  const classList = [styles.MenuItem];
+  if (location.pathname === props.pathname) classList.push(styles.selected);
   return (
-    <div className={styles.MenuItem}>
-      <Link to={props.href}>
+    <div className={classList.join(' ')}>
+      <Link to={props.pathname}>
         {props.label}
       </Link>
     </div>

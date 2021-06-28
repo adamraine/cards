@@ -5,13 +5,14 @@
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  color: white;
+  background-color: $very-dark-grey;
   
   header {
     display: flex;
     justify-content: flex-start;
     column-gap: 5px;
     background-color: $dark-grey;
-    color: white;
     box-shadow: 0 0 10px black;
   }
   

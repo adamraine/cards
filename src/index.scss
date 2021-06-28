@@ -3,8 +3,6 @@ body {
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #1b1b1b;
-  color: white;
   
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -22,5 +20,6 @@ button {
 $red: hsl(0, 100%, 60%);
 $silver: #c0c0c0;
 $dark-grey: #2F2F2F;
+$very-dark-grey: #131313;
 $grey: #5a5a5a;
 $light-grey: #eeeeee;

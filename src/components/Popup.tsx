@@ -9,16 +9,13 @@ interface PopupHandlers {
 export const PopupContext = React.createContext<PopupHandlers>({dismiss: () => undefined, show: () => undefined});
 
 export const Popup:React.FC = (props) => {
+  const popup = React.useContext(PopupContext);
   const classList = [styles.Popup];
   if (!props.children) classList.push(styles.hidden);
   return (
-    <PopupContext.Consumer>
-      {value => (
-        <div className={classList.join(' ')}>
-          <div className={styles.background} onClick={value.dismiss}></div>
-          <div className={styles.content}>{props.children}</div>
-        </div>
-      )}
-    </PopupContext.Consumer>
+    <div className={classList.join(' ')}>
+      <div className={styles.background} onClick={popup.dismiss}></div>
+      <div className={styles.content}>{props.children}</div>
+    </div>
   );
 };

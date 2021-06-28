@@ -107,13 +107,10 @@ export const CardForm:React.FC<{
 };
 
 export const CardCreator:React.FC = () => {
+  const popup = React.useContext(PopupContext);
   return (
-    <PopupContext.Consumer>
-      {popup => (
-        <div className={styles.CardCreator} onClick={() => popup.show(
-          <CardForm onSubmit={popup.dismiss} onCancel={popup.dismiss}></CardForm>
-        )}>+</div>  
-      )}
-    </PopupContext.Consumer>
+    <div className={styles.CardCreator} onClick={() => popup.show(
+      <CardForm onSubmit={popup.dismiss} onCancel={popup.dismiss}></CardForm>
+    )}>+</div>  
   );
 };

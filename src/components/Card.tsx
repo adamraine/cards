@@ -10,6 +10,7 @@ import {useWindowSize} from '../hooks';
 
 export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
   useWindowSize();
+  const popup = React.useContext(PopupContext);
   const root = React.useRef<HTMLDivElement>(null);
   const content = React.useRef<HTMLDivElement>(null);
   
@@ -65,18 +66,6 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
     };
   }
   
-  const deleteButton = (
-    <PopupContext.Consumer>
-      {popup => (
-        <button onClick={() => popup.show(
-          <Confirmation onConfirm={deleteCard} dismiss={popup.dismiss}>
-            Are you sure you want to delete this card?
-          </Confirmation>
-        )}>Delete</button>    
-      )}
-    </PopupContext.Consumer>
-  );
-  
   return (
     <div
       ref={root}
@@ -98,7 +87,11 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
           <div>Created on: {props.card.createdAt?.toDate().toDateString()}</div>
           {
             uid === currentUser.uid ? 
-              deleteButton :
+              <button onClick={() => popup.show(
+                <Confirmation onConfirm={deleteCard}>
+                  Are you sure you want to delete this card?
+                </Confirmation>
+              )}>Delete</button> :
               undefined
           }
         </div>

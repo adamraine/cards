@@ -1,0 +1,23 @@
+.Confirmation {
+  display: grid;
+  gap: 10px;
+  grid-template-areas:
+  "text text"
+  "confirm cancel";
+
+  .text {
+    grid-area: text;
+  }
+  
+  .confirm, .cancel {
+    height: 3em;
+  }
+
+  .confirm {
+    grid-area: confirm;
+  }
+
+  .cancel {
+    grid-area: cancel;
+  }
+}

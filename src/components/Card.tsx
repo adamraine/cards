@@ -1,4 +1,6 @@
 import {auth, db, storage} from '../firebase';
+import {Confirmation} from './Confirmation';
+import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './Card.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
@@ -63,6 +65,18 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
     };
   }
   
+  const deleteButton = (
+    <PopupContext.Consumer>
+      {popup => (
+        <button onClick={() => popup.show(
+          <Confirmation onConfirm={deleteCard} dismiss={popup.dismiss}>
+            Are you sure you want to delete this card?
+          </Confirmation>
+        )}>Delete</button>    
+      )}
+    </PopupContext.Consumer>
+  );
+  
   return (
     <div
       ref={root}
@@ -84,7 +98,7 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
           <div>Created on: {props.card.createdAt?.toDate().toDateString()}</div>
           {
             uid === currentUser.uid ? 
-              <button onClick={deleteCard}>Delete</button> :
+              deleteButton :
               undefined
           }
         </div>

@@ -7,10 +7,7 @@ import {useAuthState} from 'react-firebase-hooks/auth';
 
 const compress = new Compress();
 
-export const CardForm:React.FC<{
-  onSubmit:React.EventHandler<React.SyntheticEvent>,
-  onCancel:React.EventHandler<React.SyntheticEvent>
-}> = props => {
+export const CardForm:React.FC = () => {
   const cards = db.collection('cards');
 
   const [user] = useAuthState(auth);
@@ -18,6 +15,7 @@ export const CardForm:React.FC<{
     throw new Error('ERROR: User must be logged in.');
   }
 
+  const popup = React.useContext(PopupContext);
   const fileInput = React.useRef<HTMLInputElement>(null);
   const [title, setTitle] = React.useState('');
   const [text, setText] = React.useState('');
@@ -62,6 +60,7 @@ export const CardForm:React.FC<{
     setText('');
     setImage(null);
     if (fileInput.current) fileInput.current.value = '';
+    popup.dismiss();
   }
   
   const createCard:React.FormEventHandler<HTMLFormElement> = event => {
@@ -80,13 +79,12 @@ export const CardForm:React.FC<{
     setTitle('');
     setText('');
     setImage(null);
+    
+    popup.dismiss();
   };
 
   return (
-    <form className={styles.CardForm} onSubmit={e => {
-      createCard(e);
-      props.onSubmit(e);
-    }}>
+    <form className={styles.CardForm} onSubmit={createCard}>
       <input placeholder="Title" value={title} type="text" onChange={updateTitle}></input>
       <div className={styles.image}>
         <input ref={fileInput} accept="image/*" type="file" onChange={updateImage}></input>
@@ -98,10 +96,7 @@ export const CardForm:React.FC<{
       </div>
       <textarea placeholder="Text" value={text} onChange={updateText}></textarea>
       <button type="submit">Create card</button>
-      <button className={styles.cancel} type="button" onClick={e => {
-        cancel();
-        props.onCancel(e);
-      }}>Cancel</button>
+      <button className={styles.cancel} type="button" onClick={cancel}>Cancel</button>
     </form>
   );
 };
@@ -109,8 +104,6 @@ export const CardForm:React.FC<{
 export const CardCreator:React.FC = () => {
   const popup = React.useContext(PopupContext);
   return (
-    <div className={styles.CardCreator} onClick={() => popup.show(
-      <CardForm onSubmit={popup.dismiss} onCancel={popup.dismiss}></CardForm>
-    )}>+</div>  
+    <div className={styles.CardCreator} onClick={() => popup.show(<CardForm/>)}>+</div>  
   );
 };

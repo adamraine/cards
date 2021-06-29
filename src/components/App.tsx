@@ -18,12 +18,14 @@ const Trade: React.FC = () => {
   );
 };
 
+const Loading:React.FC = () => <h3>Loading...</h3>;
+
 const ContentSelector:React.FC = () => {
   const [user, loading] = useAuthState(auth);
-  if (loading) return (<></>);
+  if (loading) return (<Loading/>);
   if (!user) return (<h1>PLEASE SIGN IN</h1>);
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading/>}>
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/friends' component={Friends} />

@@ -1,9 +1,11 @@
 .SelectionItem {
-  width: min-content;
+  display: flex;
+  width: fit-content;
   border: 3px solid transparent;
 
   .container {
-    width: min-content;
+    display: flex;
+    width: fit-content;
     transition: transform 0.1s;
   }
   

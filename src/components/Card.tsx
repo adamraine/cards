@@ -8,7 +8,7 @@ import {useDocumentData} from 'react-firebase-hooks/firestore';
 import {useDownloadURL} from 'react-firebase-hooks/storage';
 import {useWindowSize} from '../hooks';
 
-export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
+export const Card:React.FunctionComponent<{card: App.Card, disableFlip?: boolean}> = (props) => {
   useWindowSize();
   const popup = React.useContext(PopupContext);
   const root = React.useRef<HTMLDivElement>(null);
@@ -69,7 +69,7 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
   return (
     <div
       ref={root}
-      onClick={toggleFace}
+      onClick={props.disableFlip ? undefined : toggleFace}
       className={[styles.Card, face === 'front' ? styles.show_front : styles.show_back].join(' ')}
     >
       <div

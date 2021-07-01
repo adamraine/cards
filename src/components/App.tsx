@@ -11,12 +11,7 @@ import {useFormFactor} from '../hooks';
 const Deck = React.lazy(() => import('./Deck'));
 const Home = React.lazy(() => import('./Home'));
 const Friends = React.lazy(() => import('./Friends'));
-
-const Trade: React.FC = () => {
-  return (
-    <h1>TRADE</h1>
-  );
-};
+const Trade = React.lazy(() => import('./Trade'));
 
 const Loading:React.FC = () => <h3>Loading...</h3>;
 

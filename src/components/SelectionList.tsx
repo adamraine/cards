@@ -40,11 +40,14 @@ export const SelectionList:React.FC<{onChange: (selected: Selection['selected'])
     });
   };
   
+  // Memoize so consumers are not always re-rendered.
+  const value = React.useMemo(() => ({
+    selected,
+    toggleSelected,
+  }), [selected, toggleSelected]);
+  
   return (
-    <SelectionContext.Provider value={{
-      selected,
-      toggleSelected,
-    }}>
+    <SelectionContext.Provider value={value}>
       {props.children}
     </SelectionContext.Provider>
   );

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styles from './Popup.module.scss';
 
-interface PopupHandlers {
+export interface PopupHandlers {
   dismiss: () => void;
   show: (node:React.ReactNode) => void;
 }

@@ -1,0 +1,17 @@
+.SelectionItem {
+  width: min-content;
+  border: 3px solid transparent;
+
+  .container {
+    width: min-content;
+    transition: transform 0.1s;
+  }
+  
+  &.selected {
+    border-color: green;
+
+    .container {
+      transform: scale(0.9);
+    }
+  }
+}

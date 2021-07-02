@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './RadioList.module.scss';
+import styles from './Radio.module.scss';
 
 interface RadioContext<V> {
   value: V|null,
@@ -22,9 +22,17 @@ export const RadioItem = <V,>(props: {
   
   const classList = [styles.RadioItem];
   if (isSelected) classList.push(styles.selected);
+  
+  function toggle() {
+    if (isSelected) {
+      setValue(null);
+    } else {
+      setValue(props.value);
+    }
+  }
 
   return (
-    <span className={classList.join(' ')} onClick={() => setValue(props.value)}>
+    <span className={classList.join(' ')} onClick={toggle}>
       <span className={styles.container}>
         {props.children}
       </span>
@@ -32,7 +40,7 @@ export const RadioItem = <V,>(props: {
   );
 };
 
-export const RadioList = <V,>(props:{
+export const Radio = <V,>(props:{
   children: React.ReactNode,
   onChange: (selected: V|null) => void,
   group: React.Context<RadioContext<V>>

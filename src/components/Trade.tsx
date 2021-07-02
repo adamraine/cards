@@ -1,5 +1,5 @@
 import {auth, db} from '../firebase';
-import {RadioItem, RadioList, useRadioGroup} from './RadioList';
+import {Radio, RadioItem, useRadioGroup} from './Radio';
 import {Card} from './Card';
 import React from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
@@ -19,7 +19,7 @@ const Trade:React.FC = () => {
   const radioGroup = useRadioGroup<App.Card>();
   
   return (
-    <RadioList onChange={() => undefined} group={radioGroup}>
+    <Radio onChange={() => undefined} group={radioGroup}>
       {
         userCards?.map(card => (
           <RadioItem key={card.id} group={radioGroup} value={card}>
@@ -27,7 +27,7 @@ const Trade:React.FC = () => {
           </RadioItem>
         ))
       }
-    </RadioList>
+    </Radio>
   );
 };
 

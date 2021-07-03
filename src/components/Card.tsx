@@ -19,10 +19,11 @@ export const Card:React.FunctionComponent<{card: App.Card, disableFlip?: boolean
   const cards = db.collection('cards');
   const users = db.collection('users');
 
-  const {id, uid} = props.card;
+  const {id, uid, creatorId} = props.card;
   const imageRef = storage.ref().child(`images/${uid}/${id}`);
   const [imageUrl] = useDownloadURL(imageRef);
   const [user] = useDocumentData<App.User>(users.doc(uid));
+  const [creator] = useDocumentData<App.User>(users.doc(creatorId));
   const [currentUser] = useAuthState(auth);
   if (!currentUser) {
     throw new Error('ERROR: User must be logged in.');
@@ -84,6 +85,7 @@ export const Card:React.FunctionComponent<{card: App.Card, disableFlip?: boolean
         </div>
         <div className={styles.back}>
           <div>Owner: {user?.name}</div>
+          <div>Creator: {creator?.name}</div>
           <div>Created on: {props.card.createdAt?.toDate().toDateString()}</div>
           {
             uid === currentUser.uid ? 

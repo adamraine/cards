@@ -52,6 +52,7 @@ export const CardForm:React.FC = () => {
       text,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
+      creatorId: uid,
     });
   }
   

@@ -3,9 +3,9 @@ import React from 'react';
 import styles from './Friends.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
-import {useFriendsList} from '../hooks';
+import {useFriendIds} from '../hooks';
 
-const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
+export const UserCard:React.FunctionComponent<{user: App.User, hideFriendStatus?:boolean}> = (props) => {
   const {user} = props;
 
   const [currentUser, authLoading] = useAuthState(auth);
@@ -18,7 +18,7 @@ const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
   }
 
   const friends = db.collection('friends');
-  const [friendsList, friendsLoading] = useFriendsList(auth, db);
+  const [friendsList, friendsLoading] = useFriendIds();
   const isFriend = friendsList.includes(user.id);
 
   function addFriend() {
@@ -42,9 +42,13 @@ const UserCard:React.FunctionComponent<{user: App.User}> = (props) => {
           <span className={styles.profile}></span>
       }
       <span className={styles.name}>{user.name}</span>
-      <button hidden={friendsLoading} disabled={isFriend} onClick={addFriend}>
-        {isFriend ? 'Friends' : 'Add Friend'}
-      </button>
+      {
+        props.hideFriendStatus ?
+          undefined : 
+          <button hidden={friendsLoading} disabled={isFriend} onClick={addFriend}>
+            {isFriend ? 'Friends' : 'Add Friend'}
+          </button>
+      }
     </div>
   );
 };
@@ -58,7 +62,7 @@ export const UserList:React.FunctionComponent<{children: React.ReactNode}> = (pr
 };
 
 export const Friends:React.FunctionComponent = () => {
-  const [friendIds, friendsLoading] = useFriendsList(auth, db);
+  const [friendIds, friendsLoading] = useFriendIds();
   const users = db.collection('users');
   
   const [search, setSearch] = React.useState('');

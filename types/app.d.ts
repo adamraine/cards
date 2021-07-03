@@ -3,6 +3,7 @@ declare namespace App {
     id: string;
     title: string;
     uid: string;
+    creatorId: string;
     text: string;
     createdAt: firebase.default.firestore.Timestamp|null;
   }

@@ -2,7 +2,7 @@ import {auth, db, firebase, storage} from '../firebase';
 import Compress from 'compress.js';
 import {PopupContext} from './Popup';
 import React from 'react';
-import styles from './CardCreator.module.scss';
+import styles from './CardForm.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 
 const compress = new Compress();
@@ -52,6 +52,7 @@ export const CardForm:React.FC = () => {
       text,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
+      creatorId: uid,
     });
   }
   
@@ -98,12 +99,5 @@ export const CardForm:React.FC = () => {
       <button type="submit">Create card</button>
       <button className={styles.cancel} type="button" onClick={cancel}>Cancel</button>
     </form>
-  );
-};
-
-export const CardCreator:React.FC = () => {
-  const popup = React.useContext(PopupContext);
-  return (
-    <div className={styles.CardCreator} onClick={() => popup.show(<CardForm/>)}>+</div>  
   );
 };

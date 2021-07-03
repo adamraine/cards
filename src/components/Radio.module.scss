@@ -1,0 +1,22 @@
+.RadioItem {
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  margin: 5px;
+
+  .container {
+    display: flex;
+    width: 100%;
+    transform: scale(0.9);
+    transition: transform 0.1s;
+    filter: brightness(50%);
+  }
+  
+  &.selected {
+
+    .container {
+      transform: none;
+      filter: none;
+    }
+  }
+}

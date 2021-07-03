@@ -6,8 +6,8 @@ service firebase.storage {
     }
     
     match /images/{uid}/{img} {
-    	allow read: if isSignedIn();
-      allow write, delete: if isSignedIn() && request.auth.uid == uid;
+    	allow read, write: if isSignedIn();
+      allow update, delete: if isSignedIn() && request.auth.uid == uid;
     }
     
     function isSignedIn() {

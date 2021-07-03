@@ -8,7 +8,7 @@ import {useDocumentData} from 'react-firebase-hooks/firestore';
 import {useDownloadURL} from 'react-firebase-hooks/storage';
 import {useWindowSize} from '../hooks';
 
-export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
+export const Card:React.FunctionComponent<{card: App.Card, disableFlip?: boolean}> = (props) => {
   useWindowSize();
   const popup = React.useContext(PopupContext);
   const root = React.useRef<HTMLDivElement>(null);
@@ -19,10 +19,11 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
   const cards = db.collection('cards');
   const users = db.collection('users');
 
-  const {id, uid} = props.card;
+  const {id, uid, creatorId} = props.card;
   const imageRef = storage.ref().child(`images/${uid}/${id}`);
   const [imageUrl] = useDownloadURL(imageRef);
   const [user] = useDocumentData<App.User>(users.doc(uid));
+  const [creator] = useDocumentData<App.User>(users.doc(creatorId));
   const [currentUser] = useAuthState(auth);
   if (!currentUser) {
     throw new Error('ERROR: User must be logged in.');
@@ -69,7 +70,7 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
   return (
     <div
       ref={root}
-      onClick={toggleFace}
+      onClick={props.disableFlip ? undefined : toggleFace}
       className={[styles.Card, face === 'front' ? styles.show_front : styles.show_back].join(' ')}
     >
       <div
@@ -84,6 +85,7 @@ export const Card:React.FunctionComponent<{card: App.Card}> = (props) => {
         </div>
         <div className={styles.back}>
           <div>Owner: {user?.name}</div>
+          <div>Creator: {creator?.name}</div>
           <div>Created on: {props.card.createdAt?.toDate().toDateString()}</div>
           {
             uid === currentUser.uid ? 

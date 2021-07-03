@@ -1,5 +1,5 @@
 import {HamburgerMenu, MenuItem, NavigationMenu} from './Menu';
-import {Popup, PopupContext} from './Popup';
+import {Popup, PopupContext, PopupHandlers} from './Popup';
 import React, {Suspense} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {SignIn, SignOut} from './Login';
@@ -11,12 +11,7 @@ import {useFormFactor} from '../hooks';
 const Deck = React.lazy(() => import('./Deck'));
 const Home = React.lazy(() => import('./Home'));
 const Friends = React.lazy(() => import('./Friends'));
-
-const Trade: React.FC = () => {
-  return (
-    <h1>TRADE</h1>
-  );
-};
+const Trade = React.lazy(() => import('./Trade'));
 
 const Loading:React.FC = () => <h3>Loading...</h3>;
 
@@ -42,11 +37,15 @@ const App:React.FC = () => {
   const [user, loading] = useAuthState(auth);
   const formFactor = useFormFactor();
   const Menu = formFactor === 'mobile' ? HamburgerMenu : NavigationMenu;
+  
+  // Memoize so consumers are not always re-rendered.
+  const popupContextValue = React.useMemo<PopupHandlers>(() => ({
+    dismiss: () => setPopupContent(null),
+    show: (node) => setPopupContent(node),
+  }), [setPopupContent]);
+
   return (
-    <PopupContext.Provider value={{
-      dismiss: () => setPopupContent(null),
-      show: (node) => setPopupContent(node),
-    }}>
+    <PopupContext.Provider value={popupContextValue}>
       <div className={styles.App}>
         <header>
           <Menu>

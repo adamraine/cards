@@ -1,0 +1,35 @@
+@import '../index.scss';
+
+.Trade {
+  width: 100%;
+  flex-grow: 1;
+
+  .card_list {
+    @include hide_scrollbar;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    
+    >* {
+      height: 100%;
+    }
+  }
+}
+
+.SendForm {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: 100%;
+  align-items: center;
+  row-gap: 20px;
+  
+  >* {
+    width: 100%;
+  }
+  
+  >button {
+    height: 3em;
+  }
+}

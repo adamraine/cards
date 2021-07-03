@@ -79,7 +79,7 @@ module.exports = {
         name: 'Card Trader',
         short_name: 'Card Trader',
         description: 'Interactive card trading app built with React.',
-        background_color: '#1b1b1b',
+        background_color: '#2f2f2f',
         theme_color: '#2f2f2f',
         start_url: '/',
         manifestRelativePaths: true,

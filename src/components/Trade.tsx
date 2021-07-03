@@ -12,12 +12,10 @@ import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {useFriends} from '../hooks';
 
-const SendForm:React.FC<{cards: App.Card[]}> = props => {
+const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
   const popup = React.useContext(PopupContext);
   const [toFriend, setToFriend] = React.useState<App.User|null>(null);
   const radioGroup = useRadioGroup<App.User>();
-  const [friends, loading] = useFriends();
-  if (loading) return <h1>Loading...</h1>;
   
   async function tradeCards() {
     if (!toFriend) return;
@@ -46,7 +44,7 @@ const SendForm:React.FC<{cards: App.Card[]}> = props => {
       <UserList>
         <Radio onChange={user => setToFriend(user)} group={radioGroup}>
           {
-            friends.map(user => <RadioItem group={radioGroup} key={user.id} value={user}>
+            props.friends.map(user => <RadioItem group={radioGroup} key={user.id} value={user}>
               <UserCard user={user} hideFriendStatus={true}></UserCard>
             </RadioItem>)
           }
@@ -71,6 +69,7 @@ const Trade:React.FC = () => {
   const [cardList] = useCollectionData<App.Card>(query, {idField: 'id'});
   
   const radioGroup = useSelectionGroup<App.Card>();
+  const [friends, loading] = useFriends();
   
   return (
     <div className={styles.Trade}>
@@ -86,8 +85,10 @@ const Trade:React.FC = () => {
         </Grid>
       </Selection>
       {
-        selected.size ?
-          <FloatingActionButton onClick={() => popup.show(<SendForm cards={Array.from(selected)}></SendForm>)}>✉</FloatingActionButton> :
+        selected.size && friends.length && !loading ?
+          <FloatingActionButton onClick={() => popup.show(
+            <SendForm cards={Array.from(selected)} friends={friends}></SendForm>
+          )}>➤</FloatingActionButton> :
           undefined
       }
     </div>

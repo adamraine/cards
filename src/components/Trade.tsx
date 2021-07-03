@@ -31,6 +31,7 @@ const SendForm:React.FC<{cards: App.Card[]}> = props => {
       if (!imageURL) return;
       const file = await fetch(imageURL).then(r => r.arrayBuffer());
       await newRef.put(file);
+      await ref.delete();
       
       // Move doc
       card.uid = toFriend.id;

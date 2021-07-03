@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Utils.module.scss';
+import styles from './FloatingActionButton.module.scss';
 
 export const FloatingActionButton:React.FC<{onClick:React.MouseEventHandler}> = props => {
   return (

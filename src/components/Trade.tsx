@@ -2,7 +2,7 @@ import {auth, db, storage} from '../firebase';
 import {Radio, RadioItem, useRadioGroup} from './Radio';
 import {Selection, SelectionItem, useSelectionGroup} from './Selection';
 import {Card} from './Card';
-import {FloatingActionButton} from './Utils';
+import {FloatingActionButton} from './FloatingActionButton';
 import {Grid} from './Grid';
 import {PopupContext} from './Popup';
 import React from 'react';

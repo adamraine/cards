@@ -2,13 +2,17 @@ import {auth, db} from '../firebase';
 import {Radio, RadioItem, useRadioGroup} from './Radio';
 import {Selection, SelectionItem, useSelectionGroup} from './Selection';
 import {Card} from './Card';
+import {FloatingActionButton} from './Utils';
 import {Grid} from './Grid';
+import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './Trade.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
 const Trade:React.FC = () => {
+  const popup = React.useContext(PopupContext);
+  const [selected, setSelected] = React.useState<Set<App.Card>>(new Set());
   const cards = db.collection('cards');
   const [user] = useAuthState(auth);
   if (!user) throw new Error('User must be logged in.');
@@ -23,7 +27,7 @@ const Trade:React.FC = () => {
   
   return (
     <div className={styles.Trade}>
-      <Selection onChange={() => undefined} group={radioGroup}>
+      <Selection onChange={s => setSelected(s)} group={radioGroup}>
         <Grid>
           {
             cardList?.map(card => (
@@ -34,6 +38,7 @@ const Trade:React.FC = () => {
           }
         </Grid>
       </Selection>
+      <FloatingActionButton onClick={() => popup.show(<h1>HI</h1>)}>✉</FloatingActionButton>
     </div>
   );
 };

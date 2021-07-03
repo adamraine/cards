@@ -8,15 +8,15 @@
     display: flex;
     width: 100%;
     transform: scale(0.9);
-    opacity: 0.5;
     transition: transform 0.1s;
+    filter: brightness(50%);
   }
   
   &.selected {
 
     .container {
       transform: none;
-      opacity: 100%;
+      filter: none;
     }
   }
 }

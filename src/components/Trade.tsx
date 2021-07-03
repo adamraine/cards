@@ -1,6 +1,7 @@
 import {auth, db, storage} from '../firebase';
 import {Radio, RadioItem, useRadioGroup} from './Radio';
 import {Selection, SelectionItem, useSelectionGroup} from './Selection';
+import {UserCard, UserList} from './Friends';
 import {Card} from './Card';
 import {FloatingActionButton} from './FloatingActionButton';
 import {Grid} from './Grid';
@@ -10,7 +11,6 @@ import styles from './Trade.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {useFriends} from '../hooks';
-import {UserCard} from './Friends';
 
 const SendForm:React.FC<{cards: App.Card[]}> = props => {
   const popup = React.useContext(PopupContext);
@@ -42,13 +42,15 @@ const SendForm:React.FC<{cards: App.Card[]}> = props => {
   
   return (
     <div className={styles.SendForm}>
-      <Radio onChange={user => setToFriend(user)} group={radioGroup}>
-        {
-          friends.map(user => <RadioItem group={radioGroup} key={user.id} value={user}>
-            <UserCard user={user} hideFriendStatus={true}></UserCard>
-          </RadioItem>)
-        }
-      </Radio>
+      <UserList>
+        <Radio onChange={user => setToFriend(user)} group={radioGroup}>
+          {
+            friends.map(user => <RadioItem group={radioGroup} key={user.id} value={user}>
+              <UserCard user={user} hideFriendStatus={true}></UserCard>
+            </RadioItem>)
+          }
+        </Radio>
+      </UserList>
       <button onClick={tradeCards} disabled={!toFriend}>Send</button>
     </div>
   );

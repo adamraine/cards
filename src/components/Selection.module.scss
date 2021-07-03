@@ -6,7 +6,7 @@
     display: flex;
     transition: transform 0.1s;
     transform: scale(0.9);
-    opacity: 50%;
+    filter: brightness(50%);
   }
   
   &.selected {
@@ -14,7 +14,7 @@
 
     .container {
       transform: none;
-      opacity: 100%;
+      filter: none;
     }
   }
 }

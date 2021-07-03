@@ -8,7 +8,7 @@ service cloud.firestore {
     match /cards/{doc} {
     	allow read: if isSignedIn();
       allow write: if isSignedIn() && request.auth.uid == request.resource.data.uid;
-      allow delete: if isSignedIn() && request.auth.uid == getCard(doc).data.uid;
+      allow delete, update: if isSignedIn() && request.auth.uid == getCard(doc).data.uid;
     }
 
     match /users/{doc} {

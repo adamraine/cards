@@ -41,6 +41,7 @@ export const Selection = <V,>(props:{
   group: React.Context<SelectionContext<V>>
 }):React.ReactElement => {
   const [selected, setSelected] = React.useState<Set<V>>(new Set());
+  React.useEffect(() => props.onChange(selected), [selected]);
 
   // Memoize so consumers are not always re-rendered.
   const providerValue = React.useMemo<SelectionContext<V>>(() => ({
@@ -53,7 +54,6 @@ export const Selection = <V,>(props:{
         } else {
           set.add(value);
         }
-        props.onChange(set);
         return set;
       });
     },

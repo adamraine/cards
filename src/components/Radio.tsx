@@ -46,12 +46,12 @@ export const Radio = <V,>(props:{
   group: React.Context<RadioContext<V>>
 }):React.ReactElement => {
   const [value, setValue] = React.useState<V|null>(null);
+  React.useEffect(() => props.onChange(value), [value]);
 
   // Memoize so consumers are not always re-rendered.
   const providerValue = React.useMemo<RadioContext<V>>(() => ({
     value,
     setValue: v => {
-      props.onChange(v);
       setValue(v);
     },
   }), [value, setValue]);

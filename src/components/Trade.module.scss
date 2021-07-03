@@ -6,10 +6,9 @@
 
   .card_list {
     @include hide_scrollbar;
-    width: 50%;
-    max-width: 100%;
+    height: 50%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     overflow: scroll;
     
     >* {

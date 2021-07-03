@@ -2,6 +2,7 @@ import {auth, db} from '../firebase';
 import {Radio, RadioItem, useRadioGroup} from './Radio';
 import {Selection, SelectionItem, useSelectionGroup} from './Selection';
 import {Card} from './Card';
+import {Grid} from './Grid';
 import React from 'react';
 import styles from './Trade.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
@@ -22,8 +23,8 @@ const Trade:React.FC = () => {
   
   return (
     <div className={styles.Trade}>
-      <div className={styles.card_list}>
-        <Selection onChange={() => undefined} group={radioGroup}>
+      <Selection onChange={() => undefined} group={radioGroup}>
+        <Grid>
           {
             cardList?.map(card => (
               <SelectionItem key={card.id} group={radioGroup} value={card}>
@@ -31,8 +32,8 @@ const Trade:React.FC = () => {
               </SelectionItem>
             ))
           }
-        </Selection>
-      </div>
+        </Grid>
+      </Selection>
     </div>
   );
 };

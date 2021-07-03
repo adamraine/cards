@@ -23,3 +23,11 @@ $dark-grey: #2F2F2F;
 $very-dark-grey: #131313;
 $grey: #5a5a5a;
 $light-grey: #eeeeee;
+
+@mixin hide_scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,20 +1,21 @@
 .SelectionItem {
   display: flex;
-  width: fit-content;
-  border: 3px solid transparent;
   border-radius: 10px;
+  margin: 5px;
 
   .container {
     display: flex;
-    width: fit-content;
     transition: transform 0.1s;
+    transform: scale(0.9);
+    opacity: 50%;
   }
   
   &.selected {
-    border-color: green;
+    border-color: transparent;
 
     .container {
-      transform: scale(0.9);
+      transform: none;
+      opacity: 100%;
     }
   }
 }

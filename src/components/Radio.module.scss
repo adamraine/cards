@@ -1,20 +1,22 @@
 .RadioItem {
   display: flex;
-  width: fit-content;
-  border: 3px solid transparent;
+  width: 100%;
   border-radius: 10px;
+  margin: 5px;
 
   .container {
     display: flex;
-    width: fit-content;
+    width: 100%;
+    transform: scale(0.9);
+    opacity: 0.5;
     transition: transform 0.1s;
   }
   
   &.selected {
-    border-color: green;
 
     .container {
-      transform: scale(0.9);
+      transform: none;
+      opacity: 100%;
     }
   }
 }

@@ -9,12 +9,14 @@ import React from 'react';
 import styles from './Trade.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
-import {useFriendsList} from '../hooks';
+import {useFriends} from '../hooks';
+import {UserCard} from './Friends';
 
 const SendForm:React.FC<{cards: App.Card[]}> = props => {
-  const [toFriend, setToFriend] = React.useState<App.User['id']|null>(null);
-  const [friendIds, loading] = useFriendsList(auth, db);
-  const radioGroup = useRadioGroup<App.User['id']>();
+  const popup = React.useContext(PopupContext);
+  const [toFriend, setToFriend] = React.useState<App.User|null>(null);
+  const radioGroup = useRadioGroup<App.User>();
+  const [friends, loading] = useFriends();
   if (loading) return <h1>Loading...</h1>;
   
   async function tradeCards() {
@@ -24,25 +26,26 @@ const SendForm:React.FC<{cards: App.Card[]}> = props => {
       
       // Move storage
       const ref = storage.ref().child(`images/${card.uid}/${doc.id}`);
-      const newRef = storage.ref().child(`images/${toFriend}/${doc.id}`);
+      const newRef = storage.ref().child(`images/${toFriend.id}/${doc.id}`);
       const imageURL = await ref.getDownloadURL();
       if (!imageURL) return;
       const file = await fetch(imageURL).then(r => r.arrayBuffer());
-      newRef.put(file);
+      await newRef.put(file);
       
       // Move doc
-      card.uid = toFriend;
-      doc.set(card);
+      card.uid = toFriend.id;
+      await doc.set(card);
     });
     await Promise.all(tradePromises);
+    popup.dismiss();
   }
   
   return (
-    <div>
-      <Radio onChange={u => setToFriend(u)} group={radioGroup}>
+    <div className={styles.SendForm}>
+      <Radio onChange={user => setToFriend(user)} group={radioGroup}>
         {
-          friendIds.map(f => <RadioItem group={radioGroup} key={f} value={f}>
-            {f}
+          friends.map(user => <RadioItem group={radioGroup} key={user.id} value={user}>
+            <UserCard user={user} hideFriendStatus={true}></UserCard>
           </RadioItem>)
         }
       </Radio>

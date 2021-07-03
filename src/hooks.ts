@@ -1,8 +1,9 @@
+import {auth, db, firebase} from './firebase';
 import {useEffect, useState} from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
-export function useFriendsList(auth:firebase.default.auth.Auth, db: firebase.default.firestore.Firestore)
+export function useFriendIds()
 :[string[], boolean] {
   const [user, authLoading] = useAuthState(auth);
   if (authLoading) return [[], true];
@@ -20,6 +21,18 @@ export function useFriendsList(auth:firebase.default.auth.Auth, db: firebase.def
     ],
     false,
   ];
+}
+
+export function useFriends():[App.User[], boolean] {
+  const [friendIds, friendIdsLoading] = useFriendIds();
+
+  let query:firebase.firestore.Query|null = null;
+  if (friendIds.length) {
+    query = db.collection('users').where(firebase.firestore.FieldPath.documentId(), 'in', friendIds);
+  }
+
+  const [userList, usersLoading] = useCollectionData<App.User>(query, {idField: 'id'});
+  return [userList || [], friendIdsLoading || usersLoading];
 }
 
 type WindowSize = {width: number, height: number}|null;

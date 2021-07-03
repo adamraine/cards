@@ -16,3 +16,20 @@
     }
   }
 }
+
+.SendForm {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: 100%;
+  align-items: center;
+  row-gap: 10px;
+  
+  >* {
+    width: 100%;
+  }
+  
+  >button {
+    height: 3em;
+  }
+}

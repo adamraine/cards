@@ -1,5 +1,5 @@
 import {auth, db, storage} from '../firebase';
-import {Confirmation} from './Confirmation';
+import {Confirmation} from './util/Confirmation';
 import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './Card.module.scss';

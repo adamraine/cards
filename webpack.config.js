@@ -69,12 +69,12 @@ module.exports = {
   plugins: [
     new RobotsTxtPlugin(),
     new HtmlWebpackPlugin({
-      template: __dirname + '/public/index.html',
+      template: __dirname + '/src/index.html',
       filename: 'index.html',
       inject: 'head',
     }),
     new FaviconsWebpackPlugin({
-      logo: __dirname + '/public/logo.svg',
+      logo: __dirname + '/src/logo.svg',
       inject: true,
       favicons:{
         name: 'Card Trader',

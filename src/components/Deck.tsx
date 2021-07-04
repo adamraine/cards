@@ -1,7 +1,7 @@
 import {auth, db} from '../firebase';
 import {Card} from './Card';
 import {CardForm} from './CardForm';
-import {FloatingActionButton} from './FloatingActionButton';
+import {FloatingActionButton} from './util/FloatingActionButton';
 import {Grid} from './Grid';
 import {PopupContext} from './Popup';
 import React from 'react';

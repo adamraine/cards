@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {PopupContext} from './Popup';
+import {PopupContext} from '../Popup';
 import styles from './Confirmation.module.scss';
 
 export const Confirmation:React.FC<{

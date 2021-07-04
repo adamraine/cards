@@ -1,5 +1,3 @@
-@import '../index.scss';
-
 .Friends {
   display: flex;
   flex-direction: column;
@@ -12,42 +10,5 @@
   
   input {
     width: 100%;
-  }
-}
-
-.UserList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 10px;
-  width: 100%;
-}
-
-.UserCard {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-  background-color: $dark-grey;
-  border-radius: 10px;
-  column-gap: 10px;
-  padding: 10px;
-  box-sizing: border-box;
-  box-shadow: 0 0 10px black;
-  user-select: none;
-  
-  .profile {
-    width: 30px;
-    border-radius: 50%;
-    aspect-ratio: 1 / 1;
-  }
-  
-  .name {
-    flex: 1;
-  }
-  
-  button {
-    white-space: nowrap;
   }
 }

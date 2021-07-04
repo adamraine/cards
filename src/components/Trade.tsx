@@ -1,7 +1,7 @@
 import {auth, db, storage} from '../firebase';
 import {Radio, RadioItem, useRadioGroup} from './util/Radio';
 import {Selection, SelectionItem, useSelectionGroup} from './util/Selection';
-import {UserCard, UserList} from './Friends';
+import {UserCard, UserList} from './UserCard';
 import {Card} from './Card';
 import {FloatingActionButton} from './util/FloatingActionButton';
 import {Grid} from './Grid';

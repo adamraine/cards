@@ -19,11 +19,11 @@ const ContentSelector:React.FC = () => {
   return (
     <Suspense fallback={<Loading/>}>
       <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/friends' component={Friends} />
-        <Route path='/deck' component={Deck} />
-        <Route path='/trade' component={Trade} />
-        <Redirect to='/' />
+        <Route exact path='/'><Home/></Route>
+        <Route path='/friends'><Friends/></Route>
+        <Route path='/deck'><Deck/></Route>
+        <Route path='/trade'><Trade/></Route>
+        <Redirect to='/'/>
       </Switch>
     </Suspense>
   );
@@ -49,10 +49,10 @@ const App:React.FC = () => {
       <div className={styles.App}>
         <header>
           <Menu>
-            <MenuItem label="Home" pathname="/"></MenuItem>
-            <MenuItem label="Friends" pathname="/friends"></MenuItem>
-            <MenuItem label="Deck" pathname="/deck"></MenuItem>
-            <MenuItem label="Trade" pathname="/trade"></MenuItem>
+            <MenuItem label="Home" pathname="/"/>
+            <MenuItem label="Friends" pathname="/friends"/>
+            <MenuItem label="Deck" pathname="/deck"/>
+            <MenuItem label="Trade" pathname="/trade"/>
           </Menu>        
           <Login/>
         </header>

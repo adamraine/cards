@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './Selection.module.scss';
 
 interface SelectionGroup<V> {
   isSelected: (node: V) => boolean,
@@ -49,50 +48,19 @@ export function useRadioGroup<V>() : [V|null, SelectionGroup<V>] {
   return [selected, group];
 }
 
-export const SelectionItem = <V,>(props: {
+export function SelectionItem<V>(props: {
+  className?: string,
+  selectedClassName?: string,
   children: React.ReactNode,
   value: V,
   group: SelectionGroup<V>
-}):React.ReactElement => {
-  const classList = [styles.SelectionItem];
-  if (props.group.isSelected(props.value)) classList.push(styles.selected);
+}):React.ReactElement {
+  const classList = [props.className || ''];
+  if (props.group.isSelected(props.value)) classList.push(props.selectedClassName || '');
   
   return (
     <span className={classList.join(' ')} onClick={() => props.group.toggleSelected(props.value)}>
-      <span className={styles.container}>
-        {props.children}
-      </span>
+      {props.children}
     </span>
   );
-};
-
-/* export const Selection = <V,>(props:{
-  children: React.ReactNode,
-  onChange: (selected: Set<V>) => void,
-  group: React.Context<SelectionGroup<V>>
-}):React.ReactElement => {
-  const [selected, setSelected] = React.useState<Set<V>>(new Set());
-  React.useEffect(() => props.onChange(selected), [selected]);
-
-  // Memoize so consumers are not always re-rendered.
-  const providerValue = React.useMemo<SelectionGroup<V>>(() => ({
-    selected,
-    toggleSelected: value => {
-      setSelected(s => {
-        const set = new Set(s);
-        if (set.has(value)) {
-          set.delete(value);
-        } else {
-          set.add(value);
-        }
-        return set;
-      });
-    },
-  }), [selected]);
-  
-  return (
-    <props.group.Provider value={providerValue}>
-      {props.children}
-    </props.group.Provider>
-  );
-}; */
+}

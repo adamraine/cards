@@ -42,8 +42,16 @@ const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
       <UserList>
         {
           props.friends.map(user =>
-            <SelectionItem group={group} key={user.id} value={user}>
-              <UserCard user={user} hideFriendStatus={true}></UserCard>
+            <SelectionItem
+              className={styles.SelectionItem}
+              selectedClassName={styles.selected}
+              group={group}
+              key={user.id}
+              value={user}
+            >
+              <div className={styles.container}>
+                <UserCard user={user} hideFriendStatus={true}></UserCard>
+              </div>
             </SelectionItem>
           )
         }
@@ -72,8 +80,16 @@ const Trade:React.FC = () => {
       <Grid>
         {
           cardList?.map(card => (
-            <SelectionItem key={card.id} group={group} value={card}>
-              <Card card={card} disableFlip={true}></Card>
+            <SelectionItem
+              className={styles.SelectionItem}
+              selectedClassName={styles.selected}
+              key={card.id}
+              group={group}
+              value={card}
+            >
+              <div className={styles.container}>
+                <Card card={card} disableFlip={true}></Card>
+              </div>
             </SelectionItem>
           ))
         }

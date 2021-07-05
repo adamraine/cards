@@ -1,9 +1,9 @@
+import {auth, UserContext} from '../firebase';
 import {HamburgerMenu, MenuItem, NavigationMenu} from './Menu';
 import {Popup, PopupContext, PopupHandlers} from './Popup';
 import React, {Suspense} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {SignIn, SignOut} from './Login';
-import {auth} from '../firebase';
 import styles from './App.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useFormFactor} from '../hooks';
@@ -16,9 +16,6 @@ const Trade = React.lazy(() => import('./Trade'));
 const Loading:React.FC = () => <h3>Loading...</h3>;
 
 const ContentSelector:React.FC = () => {
-  const [user, loading] = useAuthState(auth);
-  if (loading) return (<Loading/>);
-  if (!user) return (<h1>PLEASE SIGN IN</h1>);
   return (
     <Suspense fallback={<Loading/>}>
       <Switch>
@@ -34,7 +31,10 @@ const ContentSelector:React.FC = () => {
 
 const App:React.FC = () => {
   const [popupContent, setPopupContent] = React.useState<React.ReactNode>(null);
+
   const [user, loading] = useAuthState(auth);
+  const userContextValue = React.useMemo(() => user ? ({user}) : undefined, [user]);
+
   const formFactor = useFormFactor();
   const Menu = formFactor === 'mobile' ? HamburgerMenu : NavigationMenu;
   
@@ -54,17 +54,21 @@ const App:React.FC = () => {
             <MenuItem label="Deck" pathname="/deck"></MenuItem>
             <MenuItem label="Trade" pathname="/trade"></MenuItem>
           </Menu>        
-          {
-            loading ?
-              undefined :
-              user ? <SignOut/> : <SignIn/>
+          {loading ?
+            undefined :
+            user ? <SignOut/> : <SignIn/>
           }
         </header>
-        <main>
-          <ContentSelector/>
-        </main>
-        <footer>Copyright © 2021 Adam Raine</footer>
-        <Popup>{popupContent}</Popup>
+        {userContextValue ? 
+          <UserContext.Provider value={userContextValue}>
+            <main>
+              <ContentSelector/>
+            </main>
+            <footer>Copyright © 2021 Adam Raine</footer>
+            <Popup>{popupContent}</Popup>
+          </UserContext.Provider> :
+          loading ? <Loading/> : <h1>PLEASE SIGN IN</h1>
+        }
       </div>
     </PopupContext.Provider>
   );

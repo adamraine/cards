@@ -1,4 +1,4 @@
-import {auth, db, storage} from '../firebase';
+import {db, storage, UserContext} from '../firebase';
 import {SelectionItem, useCheckboxGroup, useRadioGroup} from './util/Selection';
 import {UserCard, UserList} from './UserCard';
 import {Card} from './Card';
@@ -7,7 +7,6 @@ import {Grid} from './Grid';
 import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './Trade.module.scss';
-import {useAuthState} from 'react-firebase-hooks/auth';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {useFriends} from '../hooks';
 
@@ -65,8 +64,7 @@ const Trade:React.FC = () => {
   const popup = React.useContext(PopupContext);
   const [selected, group] = useCheckboxGroup<App.Card>();
   const cards = db.collection('cards');
-  const [user] = useAuthState(auth);
-  if (!user) throw new Error('User must be logged in.');
+  const {user} = React.useContext(UserContext);
 
   const query = cards
     .where('uid', '==', user.uid)

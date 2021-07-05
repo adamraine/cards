@@ -1,21 +1,11 @@
-import {auth, db} from '../firebase';
+import {db, UserContext} from '../firebase';
 import React from 'react';
 import styles from './UserCard.module.scss';
-import {useAuthState} from 'react-firebase-hooks/auth';
 import {useFriendIds} from '../hooks';
 
 export const UserCard:React.FunctionComponent<{user: App.User, hideFriendStatus?:boolean}> = (props) => {
   const {user} = props;
-
-  const [currentUser, authLoading] = useAuthState(auth);
-  if (authLoading) {
-    return (
-      <div key={user.id} className={styles.UserCard}>
-        <span>Loading...</span>
-      </div>
-    );
-  }
-
+  const {user: currentUser} = React.useContext(UserContext);
   const friends = db.collection('friends');
   const [friendsList, friendsLoading] = useFriendIds();
   const isFriend = friendsList.includes(user.id);

@@ -1,13 +1,9 @@
-import {auth, db, firebase} from './firebase';
-import {useEffect, useState} from 'react';
-import {useAuthState} from 'react-firebase-hooks/auth';
+import {db, firebase, UserContext} from './firebase';
+import {useContext, useEffect, useState} from 'react';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
-export function useFriendIds()
-:[string[], boolean] {
-  const [user, authLoading] = useAuthState(auth);
-  if (authLoading) return [[], true];
-  if (!user) throw ('User must be signed in');
+export function useFriendIds():[string[], boolean] {
+  const {user} = useContext(UserContext);
   const friends = db.collection('friends');
   const query1 = friends.where('uid1', '==', user.uid);
   const query2 = friends.where('uid2', '==', user.uid);

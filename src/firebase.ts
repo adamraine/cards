@@ -3,6 +3,7 @@ import 'firebase/firestore';
 import 'firebase/storage';
 import 'firebase/functions';
 import firebase from 'firebase/app';
+import React from 'react';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCZHOpVSdID1r-SQeTikbcRvLaX_TuF_UA',
@@ -24,5 +25,11 @@ if (location.hostname === 'localhost') {
   db.useEmulator('localhost', 9000);
   storage.useEmulator('localhost', 9199);
 }
+
+export const UserContext = React.createContext<{user: firebase.User}>({
+  get user():firebase.User {
+    throw new Error('UserContext.Consumer used outside a UserContext.Provider');
+  },
+});
 
 export {firebase, auth, db, storage};

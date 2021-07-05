@@ -1,9 +1,8 @@
-import {auth, db, storage} from '../firebase';
+import {db, storage, UserContext} from '../firebase';
 import {Confirmation} from './util/Confirmation';
 import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './Card.module.scss';
-import {useAuthState} from 'react-firebase-hooks/auth';
 import {useDocumentData} from 'react-firebase-hooks/firestore';
 import {useDownloadURL} from 'react-firebase-hooks/storage';
 import {useWindowSize} from '../hooks';
@@ -24,10 +23,7 @@ export const Card:React.FunctionComponent<{card: App.Card, disableFlip?: boolean
   const [imageUrl] = useDownloadURL(imageRef);
   const [user] = useDocumentData<App.User>(users.doc(uid));
   const [creator] = useDocumentData<App.User>(users.doc(creatorId));
-  const [currentUser] = useAuthState(auth);
-  if (!currentUser) {
-    throw new Error('ERROR: User must be logged in.');
-  }
+  const {user: currentUser} = React.useContext(UserContext);
   
   function deleteCard() {
     imageRef.delete();

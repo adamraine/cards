@@ -1,20 +1,15 @@
-import {auth, db, firebase, storage} from '../firebase';
+import {db, firebase, storage, UserContext} from '../firebase';
 import Compress from 'compress.js';
 import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './CardForm.module.scss';
-import {useAuthState} from 'react-firebase-hooks/auth';
 
 const compress = new Compress();
 
 export const CardForm:React.FC = () => {
   const cards = db.collection('cards');
 
-  const [user] = useAuthState(auth);
-  if (!user) {
-    throw new Error('ERROR: User must be logged in.');
-  }
-
+  const {user} = React.useContext(UserContext);
   const popup = React.useContext(PopupContext);
   const fileInput = React.useRef<HTMLInputElement>(null);
   const [title, setTitle] = React.useState('');

@@ -3,7 +3,7 @@ import {HamburgerMenu, MenuItem, NavigationMenu} from './Menu';
 import {Popup, PopupContext, PopupHandlers} from './Popup';
 import React, {Suspense} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import {SignIn, SignOut} from './Login';
+import {Login} from './Login';
 import styles from './App.module.scss';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {useFormFactor} from '../hooks';
@@ -54,10 +54,7 @@ const App:React.FC = () => {
             <MenuItem label="Deck" pathname="/deck"></MenuItem>
             <MenuItem label="Trade" pathname="/trade"></MenuItem>
           </Menu>        
-          {loading ?
-            undefined :
-            user ? <SignOut/> : <SignIn/>
-          }
+          <Login/>
         </header>
         {userContextValue ? 
           <UserContext.Provider value={userContextValue}>

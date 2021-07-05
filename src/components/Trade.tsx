@@ -1,6 +1,5 @@
 import {auth, db, storage} from '../firebase';
-import {Radio, RadioItem, useRadioGroup} from './util/Radio';
-import {Selection, SelectionItem, useSelectionGroup} from './util/Selection';
+import {SelectionItem, useCheckboxGroup, useRadioGroup} from './util/Selection';
 import {UserCard, UserList} from './UserCard';
 import {Card} from './Card';
 import {FloatingActionButton} from './util/FloatingActionButton';
@@ -14,8 +13,7 @@ import {useFriends} from '../hooks';
 
 const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
   const popup = React.useContext(PopupContext);
-  const [toFriend, setToFriend] = React.useState<App.User|null>(null);
-  const radioGroup = useRadioGroup<App.User>();
+  const [toFriend, group] = useRadioGroup<App.User>();
   
   async function tradeCards() {
     if (!toFriend) return;
@@ -42,13 +40,13 @@ const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
   return (
     <div className={styles.SendForm}>
       <UserList>
-        <Radio onChange={user => setToFriend(user)} group={radioGroup}>
-          {
-            props.friends.map(user => <RadioItem group={radioGroup} key={user.id} value={user}>
+        {
+          props.friends.map(user =>
+            <SelectionItem group={group} key={user.id} value={user}>
               <UserCard user={user} hideFriendStatus={true}></UserCard>
-            </RadioItem>)
-          }
-        </Radio>
+            </SelectionItem>
+          )
+        }
       </UserList>
       <button onClick={tradeCards} disabled={!toFriend}>Send</button>
     </div>
@@ -57,7 +55,7 @@ const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
 
 const Trade:React.FC = () => {
   const popup = React.useContext(PopupContext);
-  const [selected, setSelected] = React.useState<Set<App.Card>>(new Set());
+  const [selected, group] = useCheckboxGroup<App.Card>();
   const cards = db.collection('cards');
   const [user] = useAuthState(auth);
   if (!user) throw new Error('User must be logged in.');
@@ -67,27 +65,23 @@ const Trade:React.FC = () => {
     .orderBy('createdAt', 'desc')
     .limit(25);
   const [cardList] = useCollectionData<App.Card>(query, {idField: 'id'});
-  
-  const radioGroup = useSelectionGroup<App.Card>();
   const [friends, loading] = useFriends();
   
   return (
     <div className={styles.Trade}>
-      <Selection onChange={s => setSelected(s)} group={radioGroup}>
-        <Grid>
-          {
-            cardList?.map(card => (
-              <SelectionItem key={card.id} group={radioGroup} value={card}>
-                <Card card={card} disableFlip={true}></Card>
-              </SelectionItem>
-            ))
-          }
-        </Grid>
-      </Selection>
+      <Grid>
+        {
+          cardList?.map(card => (
+            <SelectionItem key={card.id} group={group} value={card}>
+              <Card card={card} disableFlip={true}></Card>
+            </SelectionItem>
+          ))
+        }
+      </Grid>
       {
-        selected.size && friends.length && !loading ?
+        selected.length && friends.length && !loading ?
           <FloatingActionButton onClick={() => popup.show(
-            <SendForm cards={Array.from(selected)} friends={friends}></SendForm>
+            <SendForm cards={selected} friends={friends}></SendForm>
           )}>➤</FloatingActionButton> :
           undefined
       }

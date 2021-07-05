@@ -11,7 +11,6 @@ export const UserCard:React.FunctionComponent<{user: App.User, hideFriendStatus?
   const isFriend = friendsList.includes(user.id);
 
   function addFriend() {
-    if (!currentUser) throw new Error();
     let uid1 = user.id;
     let uid2 = currentUser.uid;
     if (uid1 > uid2) {
@@ -24,7 +23,7 @@ export const UserCard:React.FunctionComponent<{user: App.User, hideFriendStatus?
   }
   
   return (
-    <div key={user.id} className={styles.UserCard}>
+    <div className={styles.UserCard}>
       {
         user.picture ?
           <img className={styles.profile} src={user.picture}></img> :
@@ -38,14 +37,6 @@ export const UserCard:React.FunctionComponent<{user: App.User, hideFriendStatus?
             {isFriend ? 'Friends' : 'Add Friend'}
           </button>
       }
-    </div>
-  );
-};
-
-export const UserList:React.FunctionComponent<{children: React.ReactNode}> = (props) => {
-  return (
-    <div className={styles.UserList}>
-      {props.children}
     </div>
   );
 };

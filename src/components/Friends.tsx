@@ -1,9 +1,9 @@
 import {db, firebase} from '../firebase';
-import {UserCard, UserList} from './UserCard';
 import React from 'react';
 import styles from './Friends.module.scss';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {useFriendIds} from '../hooks';
+import {UserCard} from './UserCard';
 
 
 export const Friends:React.FunctionComponent = () => {
@@ -29,9 +29,9 @@ export const Friends:React.FunctionComponent = () => {
         friendsLoading || usersLoading ?
           <h4>Loading...</h4> :
           userList && userList.length ?
-            <UserList>
+            <div className={styles.user_list}>
               {userList.map(user => <UserCard key={user.id} user={user}></UserCard>)}
-            </UserList> :
+            </div> :
             <h4>No users found :(</h4>
       }
     </div>

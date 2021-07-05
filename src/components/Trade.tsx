@@ -1,6 +1,5 @@
 import {db, storage, UserContext} from '../firebase';
 import {SelectionItem, useCheckboxGroup, useRadioGroup} from './util/Selection';
-import {UserCard, UserList} from './UserCard';
 import {Card} from './Card';
 import {FloatingActionButton} from './util/FloatingActionButton';
 import {Grid} from './Grid';
@@ -9,6 +8,7 @@ import React from 'react';
 import styles from './Trade.module.scss';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {useFriends} from '../hooks';
+import {UserCard} from './UserCard';
 
 const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
   const popup = React.useContext(PopupContext);
@@ -38,7 +38,7 @@ const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
   
   return (
     <div className={styles.SendForm}>
-      <UserList>
+      <div className={styles.user_list}>
         {
           props.friends.map(user =>
             <SelectionItem
@@ -54,7 +54,7 @@ const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
             </SelectionItem>
           )
         }
-      </UserList>
+      </div>
       <button onClick={tradeCards} disabled={!toFriend}>Send</button>
     </div>
   );

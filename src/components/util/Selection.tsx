@@ -31,7 +31,7 @@ export function useCheckboxGroup<V>() : [V[], SelectionGroup<V>] {
 export function useRadioGroup<V>() : [V|null, SelectionGroup<V>] {
   const [selected, setSelected] = React.useState<V|null>(null);
   const group = React.useMemo<SelectionGroup<V>>(() => ({
-    isSelected: () => false,
+    isSelected: value => value === selected,
     toggleSelected: value => {
       setSelected(s => {
         if (value === s) {
@@ -41,9 +41,6 @@ export function useRadioGroup<V>() : [V|null, SelectionGroup<V>] {
       });
     },
   }), []);
-
-  // Set this function out here so we don't trigger a re-render every time.
-  group.isSelected = value => value === selected;
 
   return [selected, group];
 }

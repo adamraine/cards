@@ -1,6 +1,5 @@
 import {db, storage, UserContext} from '../firebase';
 import {SelectionItem, useCheckboxGroup, useRadioGroup} from './util/Selection';
-import {Card} from './Card';
 import {FloatingActionButton} from './util/FloatingActionButton';
 import {Grid} from './util/Grid';
 import {PopupContext} from './Popup';
@@ -9,6 +8,8 @@ import styles from './Trade.module.scss';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 import {useFriends} from '../hooks';
 import {UserCard} from './UserCard';
+
+const Card = React.lazy(() => import('./Card'));
 
 const SendForm:React.FC<{cards: App.Card[], friends: App.User[]}> = props => {
   const popup = React.useContext(PopupContext);

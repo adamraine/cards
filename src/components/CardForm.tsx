@@ -6,7 +6,7 @@ import styles from './CardForm.module.scss';
 
 const compress = new Compress();
 
-export const CardForm:React.FC = () => {
+const CardForm:React.FC = () => {
   const cards = db.collection('cards');
 
   const {user} = React.useContext(UserContext);
@@ -96,3 +96,5 @@ export const CardForm:React.FC = () => {
     </form>
   );
 };
+
+export default CardForm;

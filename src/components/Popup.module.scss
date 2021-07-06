@@ -1,5 +1,23 @@
 @import '../index.scss';
 
+@keyframes fade_in {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes slide_down {
+  from {
+    transform: translateY(-100px);
+  }
+  to {
+    transform: none;
+  }
+}
+
 .Popup {
   position: fixed;
   display: flex;
@@ -8,17 +26,7 @@
   width: 100%;
   height: 100%;
   z-index: 5;
-  transition: opacity 0.5s;
-  
-  &.hidden {
-    opacity: 0;
-    pointer-events: none;
-    
-    .content {
-      transform: translateY(-100px);
-      padding: 0;
-    }
-  }
+  animation: fade_in 0.5s;
   
   .background {
     position: absolute;
@@ -40,6 +48,6 @@
     box-shadow: 0 0 10px black;
     border-radius: 10px;
     padding: 10px;
-    transition: transform 0.5s;
+    animation: slide_down 0.5s;
   }
 }

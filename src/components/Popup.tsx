@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import styles from './Popup.module.scss';
 
 export interface PopupHandlers {
@@ -10,12 +10,13 @@ export const PopupContext = React.createContext<PopupHandlers>({dismiss: () => u
 
 export const Popup:React.FC = (props) => {
   const popup = React.useContext(PopupContext);
-  const classList = [styles.Popup];
-  if (!props.children) classList.push(styles.hidden);
+  if (!props.children) return null;
   return (
-    <div className={classList.join(' ')}>
-      <div className={styles.background} onClick={popup.dismiss}></div>
-      <div className={styles.content}>{props.children}</div>
-    </div>
+    <Suspense fallback={null}>
+      <div className={styles.Popup}>
+        <div className={styles.background} onClick={popup.dismiss}></div>
+        <div className={styles.content}>{props.children}</div>
+      </div>
+    </Suspense>
   );
 };

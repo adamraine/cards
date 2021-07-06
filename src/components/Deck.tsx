@@ -7,6 +7,7 @@ import styles from './Deck.module.scss';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
 const Card = React.lazy(() => import('./Card'));
+const CardFrom = React.lazy(() => import('./CardForm'));
 
 const Deck:React.FC = () => {
   const popup = React.useContext(PopupContext);
@@ -19,11 +20,6 @@ const Deck:React.FC = () => {
     .limit(25);
   const [userCards] = useCollectionData<App.Card>(query, {idField: 'id'});
   
-  async function openCardForm() {
-    const CardForm = await import('./CardForm');
-    popup.show(<CardForm.default/>);
-  }
-
   return (
     <div className={styles.Deck}>
       <Grid>
@@ -31,7 +27,7 @@ const Deck:React.FC = () => {
           userCards && userCards.map(card => <Card key={card.id} card={card}/>)
         }
       </Grid>
-      <FloatingActionButton onClick={openCardForm}>+</FloatingActionButton>
+      <FloatingActionButton onClick={() => popup.show(<CardFrom/>)}>+</FloatingActionButton>
     </div>
   );
 };

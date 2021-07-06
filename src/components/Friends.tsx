@@ -6,7 +6,7 @@ import {useFriendIds} from '../hooks';
 import {UserCard} from './UserCard';
 
 
-export const Friends:React.FunctionComponent = () => {
+export const Friends:React.FC = () => {
   const [friendIds, friendsLoading] = useFriendIds();
   const users = db.collection('users');
   

@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './UserCard.module.scss';
 import {useFriendIds} from '../hooks';
 
-export const UserCard:React.FunctionComponent<{user: App.User, hideFriendStatus?:boolean}> = (props) => {
+export const UserCard:React.FC<{user: App.User, hideFriendStatus?:boolean}> = (props) => {
   const {user} = props;
   const {user: currentUser} = React.useContext(UserContext);
   const friends = db.collection('friends');

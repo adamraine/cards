@@ -7,7 +7,7 @@ import {useDocumentData} from 'react-firebase-hooks/firestore';
 import {useDownloadURL} from 'react-firebase-hooks/storage';
 import {useWindowSize} from '../hooks';
 
-export const Card:React.FunctionComponent<{card: App.Card, disableFlip?: boolean}> = (props) => {
+export const Card:React.FC<{card: App.Card, disableFlip?: boolean}> = (props) => {
   useWindowSize();
   const popup = React.useContext(PopupContext);
   const root = React.useRef<HTMLDivElement>(null);

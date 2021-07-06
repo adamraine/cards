@@ -8,7 +8,7 @@ import React from 'react';
 import styles from './Deck.module.scss';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
 
-const Deck:React.FunctionComponent = () => {
+const Deck:React.FC = () => {
   const popup = React.useContext(PopupContext);
   const cards = db.collection('cards');
   const {user} = React.useContext(UserContext);
@@ -30,4 +30,5 @@ const Deck:React.FunctionComponent = () => {
     </div>
   );
 };
+
 export default Deck;

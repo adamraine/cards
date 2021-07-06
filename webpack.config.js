@@ -34,76 +34,92 @@ class AddMaskableIcons {
   }
 }
 
-/** @type {import('webpack').Configuration} */
-module.exports = {
-  devtool: 'source-map',
-  entry: __dirname + '/src/index.tsx',
-  output: {
-    path: __dirname + '/dist',
-    filename: '[name].bundle.js',
-    publicPath: '',
-    clean: true,
-  },
-  resolve: {
-    extensions: ['.js', '.tsx', '.ts'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts[x]?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.s[ac]ss$/,
-        exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      }
-    ]
-  },
-  plugins: [
-    new RobotsTxtPlugin(),
-    new HtmlWebpackPlugin({
-      template: __dirname + '/src/index.html',
-      filename: 'index.html',
-      inject: 'head',
-    }),
-    new FaviconsWebpackPlugin({
-      logo: __dirname + '/src/logo.svg',
-      inject: true,
-      favicons:{
-        name: 'Card Trader',
-        short_name: 'Card Trader',
-        description: 'Interactive card trading app built with React.',
-        background_color: '#2f2f2f',
-        theme_color: '#2f2f2f',
-        start_url: '/',
-        manifestRelativePaths: true,
-        icons: {
-          android: {
-            background: '#1f1f1f',
-          },
-          appleIcon: {
-            background: '#1f1f1f',
-          },
-          appleStartup: false,
-          coast: false,
-          favicons: true,
-          firefox: false,
-          windows: false,
-          yandex: false,
+/** @return {import('webpack').Configuration} */
+module.exports = (env, argv) => {
+  const isDev = argv.mode === 'development';
+  return {
+    devtool: 'source-map',
+    entry: __dirname + '/src/index.tsx',
+    output: {
+      path: __dirname + '/dist',
+      filename: '[name].bundle.js',
+      publicPath: '',
+      clean: true,
+    },
+    resolve: {
+      extensions: ['.js', '.tsx', '.ts'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts[x]?$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/
+        },
+        {
+          test: /\.css$/,
+          exclude: /node_modules/,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.s[ac]ss$/,
+          exclude: /node_modules/,
+          use: [
+            'style-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: isDev ?
+                    '[local]__[hash:base64:5]' :
+                    '[hash:base64]',
+                }
+              }
+            },
+            'sass-loader'
+          ],
         }
-      }
-    }),
-    new GenerateSW(),
-    new AddMaskableIcons(),
-  ],
-  devServer: {
-    historyApiFallback: true,
+      ]
+    },
+    plugins: [
+      new RobotsTxtPlugin(),
+      new HtmlWebpackPlugin({
+        template: __dirname + '/src/index.html',
+        filename: 'index.html',
+        inject: 'head',
+      }),
+      new FaviconsWebpackPlugin({
+        logo: __dirname + '/src/logo.svg',
+        inject: true,
+        favicons:{
+          name: 'Card Trader',
+          short_name: 'Card Trader',
+          description: 'Interactive card trading app built with React.',
+          background_color: '#2f2f2f',
+          theme_color: '#2f2f2f',
+          start_url: '/',
+          manifestRelativePaths: true,
+          icons: {
+            android: {
+              background: '#1f1f1f',
+            },
+            appleIcon: {
+              background: '#1f1f1f',
+            },
+            appleStartup: false,
+            coast: false,
+            favicons: true,
+            firefox: false,
+            windows: false,
+            yandex: false,
+          }
+        }
+      }),
+      new GenerateSW(),
+      new AddMaskableIcons(),
+    ],
+    devServer: {
+      historyApiFallback: true,
+    }
   }
 }

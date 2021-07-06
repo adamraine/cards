@@ -1,6 +1,6 @@
 import {Card} from './Card';
 import {db} from '../firebase';
-import {Grid} from './Grid';
+import {Grid} from './util/Grid';
 import React from 'react';
 import styles from './Home.module.scss';
 import {useCollectionData} from 'react-firebase-hooks/firestore';

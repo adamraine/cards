@@ -2,7 +2,7 @@ import {db, UserContext} from '../firebase';
 import {Card} from './Card';
 import {CardForm} from './CardForm';
 import {FloatingActionButton} from './util/FloatingActionButton';
-import {Grid} from './Grid';
+import {Grid} from './util/Grid';
 import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './Deck.module.scss';

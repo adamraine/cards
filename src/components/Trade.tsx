@@ -2,7 +2,7 @@ import {db, storage, UserContext} from '../firebase';
 import {SelectionItem, useCheckboxGroup, useRadioGroup} from './util/Selection';
 import {Card} from './Card';
 import {FloatingActionButton} from './util/FloatingActionButton';
-import {Grid} from './Grid';
+import {Grid} from './util/Grid';
 import {PopupContext} from './Popup';
 import React from 'react';
 import styles from './Trade.module.scss';

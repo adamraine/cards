@@ -31,3 +31,17 @@ $light-grey: #eeeeee;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@mixin no_text_select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin no_tap_highlight {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+}

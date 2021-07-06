@@ -15,5 +15,6 @@
   right: 0;
   font-size: 24px;
   border-radius: 50%;
-  user-select: none;
+  @include no_text_select;
+  @include no_tap_highlight;
 }

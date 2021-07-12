@@ -91,13 +91,15 @@ module.exports = (env, argv) => {
       new FaviconsWebpackPlugin({
         logo: __dirname + '/src/logo.svg',
         inject: true,
-        favicons:{
+        manifest: {
           name: 'Card Trader',
           short_name: 'Card Trader',
           description: 'Interactive card trading app built with React.',
-          background_color: '#2f2f2f',
-          theme_color: '#2f2f2f',
           start_url: '/',
+          theme_color: '#2f2f2f',
+          background_color: '#1f1f1f',
+        },
+        favicons:{
           manifestRelativePaths: true,
           icons: {
             android: {

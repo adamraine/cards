@@ -73,4 +73,12 @@
   &.selected::after {
     transform: none;
   }
+  
+  &.hide_underline::after {
+    transform: scaleY(0);
+  }
+
+  &.hide_underline.selected::after {
+    transform: none;
+  }
 }

@@ -1,11 +1,14 @@
 import {Link, useLocation} from 'react-router-dom';
 import React from 'react';
 import styles from './Menu.module.scss';
+import {useFormFactor} from '../hooks';
 
 export const MenuItem:React.FC<{label: string, pathname: string}> = (props) => {
   const location = useLocation();
+  const formFactor = useFormFactor();
   const classList = [styles.MenuItem];
   if (location.pathname === props.pathname) classList.push(styles.selected);
+  if (formFactor === 'mobile') classList.push(styles.hide_underline);
   return (
     <div className={classList.join(' ')}>
       <Link to={props.pathname}>

@@ -32,7 +32,7 @@
       "./test/setup-tests.ts"
     ]
   },
-  "dependencies": {
+  "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/plugin-syntax-jsx": "^7.12.13",
     "@babel/preset-env": "^7.14.1",
@@ -75,9 +75,7 @@
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-pwa-manifest": "^4.3.0",
-    "workbox-webpack-plugin": "^6.1.5"
-  },
-  "devDependencies": {
+    "workbox-webpack-plugin": "^6.1.5",
     "@types/compress.js": "^1.1.0",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
